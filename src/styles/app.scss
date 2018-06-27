@@ -1,0 +1,446 @@
+// Uncomment to enable debugging wireframes
+//@import "debug";
+
+// Variables
+@import "variables";
+
+// Bootstrap
+//@import "../node_modules/bootstrap/scss/bootstrap";
+
+// Fullcalendar.io
+//@import "../node_modules/fullcalendar/dist/fullcalendar.min";
+
+/*
+ * Font & element defaults
+ */
+
+* {
+    font-family: 'museo-sans-rounded';
+}
+
+p,span {
+    font-family: 'museo';
+    font-weight: 300;
+    font-size: 14px;
+}
+
+h1 {
+    font-family: 'museo';
+    font-weight: 900;
+    font-size: 30px;
+    line-height: 24px;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .73), 0 2px 4px rgba(0, 0, 0, .19);
+}
+h2 {
+    font-weight: 600;
+}
+h3 {
+    font-family: 'museo';
+    font-size: 14px;
+}
+h5 {
+    font-size: 16px;
+}
+h6 {
+    font-size: 14px;
+}
+@media (min-width: 576px) {
+    p,span {
+        font-size: 16px;
+    }
+    h1 {
+        font-size: 40px;
+        line-height: 34px;
+    }
+    h3 {
+        font-size: 18px;
+    }
+    h5 {
+        font-size: 18px;
+    }
+    h6 {
+        font-size: 16px;
+    }
+}
+@media (min-width: 768px) {
+    p,span {
+        font-size: 16px;
+    }
+    h1 {
+        font-size: 68px;
+        line-height: 54px;
+    }
+    h3 {
+        font-size: 22px;
+    }
+    h5 {
+        font-size: 20px;
+    }
+    h6 {
+        font-size: 18px;
+    }
+}
+@media (min-width: 992px) {
+}
+@media (min-width: 1200px) {
+}
+
+
+/*
+ * Layout
+ */
+
+html, body, #app {
+    height: 100%;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+}
+
+#layout-nav {
+}
+
+#layout-content {
+    flex: 1 0 auto;
+    margin-top: 56px;
+}
+
+#layout-footer {
+    flex-shrink: 0;
+}
+
+.section {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 15px;
+}
+.section h2:first-child {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/*
+ * Header
+ */
+
+
+/*
+ * Mailing list signup
+ */
+
+.cta-text {
+    font-family: museo;
+    font-weight: 300;
+}
+
+/*
+ * Home Jumbotron
+ */
+
+.jumbotron {
+    background: url('/images/MakerFaire-LN_Demo.jpg');
+    background-position: center;
+    background-size: cover;
+    border-radius: 0;
+    min-height: 300px;
+}
+@media (min-width: 576px) {
+    .jumbotron { min-height: 400px; }
+}
+@media (min-width: 768px) {
+    .jumbotron { min-height: 480px; }
+}
+@media (min-width: 992px) {
+    .jumbotron { min-height: 560px; }
+}
+@media (min-width: 1200px) {
+    .jumbotron { min-height: 600px; }
+}
+
+.jumbotron .hero {
+    color: white;
+    padding-top: 100px;
+    text-align: center;
+}
+@media (min-width: 992px) {
+    .jumbotron .hero { padding-top: 150px; }
+}
+
+.jumbotron .header-cta {
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 300;
+    margin: 75px 5px 0;
+    padding: 10px;
+    width: 100%;
+}
+.header-ml-signup .cta-text {
+    margin-bottom: 5px;
+}
+.header-ml-signup input {
+    border: none;
+    font-size: 14px;
+}
+.header-ml-signup button {
+    background-color: #ff7911;
+    border: none;
+    box-shadow: 0 3px 0 0 #aa3400;
+    transition: background-color 250ms;
+}
+.header-ml-signup button:hover {
+    background-color: #cc4600;
+}
+@media (min-width: 576px) {
+    .jumbotron .header-cta { width: 400px; }
+    .header-ml-signup input { font-size: 16px; }
+}
+
+
+/*
+ *
+ */
+
+.section-image {
+    background-size: cover !important;
+    height: 300px;
+}
+@media (min-width: 576px) {
+    .section-image {
+        height: 400px;
+    }
+}
+@media (min-width: 768px) {
+    .section-image {
+        height: 500px;
+    }
+}
+
+.tinker-with-us-image {
+    background: url('/images/14063438_538866749636743_140527491_n.jpg');
+    background-position: 50% 40%;
+}
+
+.join-us-image {
+    background: url('/images/Making-Chocolate.jpg');
+    background-position: 100% 80%;
+}
+
+.whats-next-image {
+    background: #ccccc9 url('/images/Screen-Shot-2016-09-18-at-6.01.43-PM.png');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain, auto !important;
+}
+
+/*
+ *
+ */
+
+.feature-table {
+    margin-bottom: 20px;
+}
+.feature-table h4:first-child {
+    border-bottom: 1px solid lightgray;
+    font-family: museo;
+    font-size: 20px;
+    font-weight: 300;
+    text-align: center;
+}
+.feature-table li {
+    font-family: museo;
+    font-weight: 300;
+    padding: 5px;
+}
+.product-card-price {
+    border-top: 1px solid lightgray;
+    font-weight: 300;
+    text-align: center;
+}
+
+/*
+ *
+ */
+
+.makerspace-image {
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+/*
+ *
+ */
+
+.about-section {
+    background-color: #f2f2f2;
+    padding: 20px 0;
+}
+.mugshot-image {
+    display: block;
+    margin: 0 auto;
+    border-radius: 70px;
+}
+
+/*
+ * Footer
+ */
+
+.footer-section {
+    padding-top: 15px;
+}
+.footer-section .section {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.footer-ml-signup input,
+.footer-ml-signup button {
+    border: none;
+    height: 54px;
+    margin-top: 10px;
+}
+.footer-ml-signup button {
+    background-color: #ff7911;
+    box-shadow: 0 3px 0 0 #aa3400;
+    padding: 6px 36px;
+    transition: background-color 250ms;
+}
+.footer-ml-signup button:hover {
+    background-color: #cc4600;
+}
+.footer-social-links {
+    padding: 20px 0;
+    text-align: center;
+}
+.footer-social-links a {
+    padding-left: 10px;
+}
+.copyright {
+    color: hsla(0, 0%, 100%, .29);
+    font-weight: 300;
+    padding-top: 30px;
+    text-align: center;
+}
+
+/*
+ * Membership product page
+ */
+
+.feature-card {
+    position: relative;
+}
+.feature-icon {
+    position: absolute;
+    top: 0;
+    left: 15px;
+    height: 20px;
+    width: 20px;
+    
+}
+
+#register-form {
+    input {
+        display: inline;
+        width: unset;
+    }
+}
+
+/*
+ * Account Home page
+ */
+
+#account-home {
+    height: 100%;
+
+    $padding-base: 15px;
+    $color-body: #fff;
+    $color-border: #ddd;
+    $color-link: #0275d8;
+    $border-radius: .25rem;
+    $margin-sm: 1em;
+    $margin-md: 2em;
+    $margin-lg: 4em;
+
+    .nav-tabs {
+        &--vertical {
+	    border-bottom: none;
+	    border-right: 1px solid $color-border;
+	    display: flex;
+	    flex-flow: column nowrap;
+            margin-top: $margin-sm;
+        }
+        
+        &--left {
+	    margin: 0 $margin-sm;
+
+            @media (min-width: 576px) {
+                margin: 0 $margin-md 0 $margin-md;
+            }
+            @media (min-width: 992px) {
+                margin: 0 $margin-lg 0 $margin-lg;
+            }
+
+            .nav-item:first-child {
+                margin-top: $margin-sm;
+                @media (min-width: 576px) {
+                    margin-top: $margin-md;
+                }
+                @media (min-width: 992px) {
+                    margin-top: $margin-lg;
+                }
+            }
+            
+	    .nav-item + .nav-item {
+	        margin-top: .25rem;
+	    }
+	    
+	    .nav-link {
+	        transition: border-color .125s ease-in;
+	        white-space: nowrap;
+	        
+	        &:hover {
+		    background-color: lighten($color-border, 10%);
+		    border-color: transparent;
+	        }
+	    }
+	    
+	    .nav-link.active {
+	        border-bottom-color: $color-border;
+	        border-right-color: $color-body;
+	        border-bottom-left-radius: $border-radius;
+	        border-top-right-radius: 0;
+	        margin-right: -1px;
+	        
+	        &:hover {
+		    background-color: $color-body;
+		    border-color: $color-link $color-body $color-link $color-link;
+	        }
+	    }
+        }
+    }
+    .tab-content {
+        margin: $margin-sm $margin-sm $margin-sm 0;
+        width: 100%;
+        @media (min-width: 576px) {
+            margin: $margin-md $margin-md $margin-md 0;
+        }
+        @media (min-width: 992px) {
+            margin: $margin-lg $margin-lg $margin-lg 0;
+        }
+    }
+}
+
+#pay-confirm-modal table {
+    margin: 0 20px;
+    width: calc(100% - 40px);
+
+    tbody tr:first-child() th,
+    tbody tr:first-child() td {
+        border-top: none;
+    }
+
+    .modal-body-total {
+        font-weight: 500;
+    }
+}
