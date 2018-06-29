@@ -1,14 +1,13 @@
 <template>
     <div id="app">
         <Nav/>
+        <router-view/>
         <AuthModal/>
         <WelcomeModal/>
-        <b-button v-b-modal.welcome-modal>welcome modal</b-button>
         <div id="nav">
             <router-link to="/">Home</router-link> |
             <router-link to="/about">About</router-link>
         </div>
-        <router-view/>
     </div>
 </template>
 
