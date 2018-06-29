@@ -14,6 +14,7 @@
     "bootstrap": "^4.1.1",
     "bootstrap-vue": "^2.0.0-rc.11",
     "fullcalendar": "^3.9.0",
+    "graphql-tag": "^2.5.0",
     "vue": "^2.5.16",
     "vue-apollo": "^3.0.0-beta.10",
     "vue-cli-plugin-apollo": "^0.13.9",
@@ -24,7 +25,6 @@
     "@vue/cli-plugin-eslint": "^3.0.0-beta.15",
     "@vue/cli-service": "^3.0.0-beta.15",
     "@vue/eslint-config-airbnb": "^3.0.0-rc.3",
-    "graphql-tag": "^2.5.0",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",
     "vue-template-compiler": "^2.5.16"

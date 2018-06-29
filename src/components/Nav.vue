@@ -1,51 +1,54 @@
 <template>
-    <nav class="navbar fixed-top navbar-expand-lg justify-content-between navbar-dark bg-dark">
-        <a href="/" class="navbar-brand w-nav-brand"></a>
-        <button class="navbar-toggler" type="button"
-                data-toggle="collapse" data-target="#navbarNavDropdown"
-                aria-controls="navbarNavDropdown" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end"
-             id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a href="https://instagram.com/tinkerkitch/"
-                       class="nav-link social-icon"
-                    ><img src="/images/Instagram-White2x.png" width="24"></a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://twitter.com/tinkerkitch"
-                       class="nav-link social-icon"
-                    ><img src="/images/Twitter-White2x.png" width="24"></a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://www.facebook.com/tinkerkitchen"
-                       class="nav-link social-icon"
-                    ><img src="/images/Facebook-White2x.png" width="24"></a>
-                </li>
-            </ul>
-        </div>
-        <li v-if="user" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#"
-               id="navbarDropdownMenuLink" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">{{ user.name }}</a>
-            <div class="dropdown-menu dropdown-menu-right"
-                 aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="/account">Account</a>
-                <a class="dropdown-item" href="#"
-                   data-action="/signout"
-                   data-redirect="/">Sign out</a>
-            </div>
-        </li>
-        <li v-else class="nav-item">
-            <a class="nav-link" href="/signin">Sign in <i class="fas fa-sign-in-alt"></i></a>
-        </li>
-    </nav>
+    <b-navbar fixed type="dark" variant="dark" toggleable="md">
+        <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+        <b-navbar-brand href="#"/>
+
+        <b-collapse is-nav id="nav_collapse">
+            <b-navbar-nav class="ml-auto">
+
+                <b-nav-item href="https://instagram.com/tinkerkitch/">
+                    <img src="/images/Instagram-White2x.png" width="24"
+                            class="social-icon">
+                </b-nav-item>
+                <b-nav-item href="https://twitter.com/tinkerkitch">
+                    <img src="/images/Twitter-White2x.png" width="24"
+                         class="social-icon">
+                </b-nav-item>
+                <b-nav-item href="https://www.facebook.com/tinkerkitchen">
+                    <img src="/images/Facebook-White2x.png" width="24"
+                         class="social-icon">
+                </b-nav-item>
+
+                <b-nav-item-dropdown v-if="me" :text=me.name right>
+                    <b-dd-item-button to="profile">Profile</b-dd-item-button>
+                    <b-dd-item-button @click="signout()">Sign out</b-dd-item-button>
+                </b-nav-item-dropdown>
+                <b-nav-item v-else v-b-modal.auth-modal>Sign in
+                    <i class="fas fa-sign-in-alt"></i></b-nav-item>
+            </b-navbar-nav>
+        </b-collapse>
+    </b-navbar>
 </template>
 
 <script>
+import * as auth from '../graphql/auth';
+import { onLogout } from '../vue-apollo';
+
+export default {
+  data() {
+    return {
+      me: '',
+    };
+  },
+  apollo: {
+    me: auth.query.me,
+  },
+  methods: {
+    signout() {
+      onLogout(this.$apollo.provider.defaultClient);
+    },
+  },
+};
 </script>
 
 <style lang="scss">

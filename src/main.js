@@ -11,6 +11,6 @@ Vue.config.productionTip = false;
 
 new Vue({
   router,
-  provide: createProvider().provide(),
+  provide: createProvider({ wsEndpoint: null }).provide(),
   render: h => h(App),
 }).$mount('#app');
