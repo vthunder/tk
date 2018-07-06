@@ -242,3 +242,63 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.jumbotron {
+    background: url('/images/MakerFaire-LN_Demo.jpg');
+    background-position: center;
+    background-size: cover;
+    border-radius: 0;
+    min-height: 300px;
+}
+@media (min-width: 576px) {
+    .jumbotron { min-height: 400px; }
+}
+@media (min-width: 768px) {
+    .jumbotron { min-height: 480px; }
+}
+@media (min-width: 992px) {
+    .jumbotron { min-height: 560px; }
+}
+@media (min-width: 1200px) {
+    .jumbotron { min-height: 600px; }
+}
+
+.jumbotron .hero {
+    color: white;
+    padding-top: 100px;
+    text-align: center;
+}
+@media (min-width: 992px) {
+    .jumbotron .hero { padding-top: 150px; }
+}
+
+.jumbotron .header-cta {
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 300;
+    margin: 75px 5px 0;
+    padding: 10px;
+    width: 100%;
+}
+.header-ml-signup .cta-text {
+    margin-bottom: 5px;
+}
+.header-ml-signup input {
+    border: none;
+    font-size: 14px;
+}
+.header-ml-signup button {
+    background-color: #ff7911;
+    border: none;
+    box-shadow: 0 3px 0 0 #aa3400;
+    transition: background-color 250ms;
+}
+.header-ml-signup button:hover {
+    background-color: #cc4600;
+}
+@media (min-width: 576px) {
+    .jumbotron .header-cta { width: 400px; }
+    .header-ml-signup input { font-size: 16px; }
+}
+</style>
