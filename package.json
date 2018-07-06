@@ -13,11 +13,12 @@
     "apollo-link-http": "^1.5.4",
     "bootstrap": "^4.1.1",
     "bootstrap-vue": "^2.0.0-rc.11",
-    "fullcalendar": "^3.9.0",
     "graphql-tag": "^2.5.0",
+    "open-iconic": "^1.1.1",
     "vue": "^2.5.16",
     "vue-apollo": "^3.0.0-beta.10",
     "vue-cli-plugin-apollo": "^0.13.9",
+    "vue-full-calendar": "^4.0.0-1",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
