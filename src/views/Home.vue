@@ -233,7 +233,7 @@ export default {
       },
       maps: {
         src: '//www.google.com/maps/embed/v1/place?q=' +
-             'place_id:ChIJu3WgID9-j4ARp-tuXllo1y8&key=AIzaSyAhCVOgi30gUYCfIWYyFt3aiB-i2n7VOsA',
+             'place_id:ChIJu3WgID9-j4ARp-tuXllo1y8&key=AIzaSyBY6GbaztLA3fPKcxuK1JTOlzvGkJJ-DzI',
       },
     };
   },
