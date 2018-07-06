@@ -8,12 +8,7 @@
           </div>
           <div class="row justify-content-end">
               <div class="header-cta bg-dark text-white">
-                  <!--
-                       {{!--      <mailing-list-signup name="header-ml-signup"
-                       cta-text="Coming soon to the SF Mission District. Sign up to
-                       hear the latest and get on our membership waitlist."
-                       action="{{ route('post-mailing-list') }}"/> --}}
-                   -->
+                  <MailingListSignup :cta=header.cta />
               </div>
           </div>
       </div>
@@ -106,10 +101,7 @@
                   </div>
                   <div class="product-card-price">
                       <div><del>$150/month</del><br>Launch pricing: $125/month</div>
-                      <!--
-                      {{!--        <a href="{{ route('membership') }}" role="button"
-                      class="btn btn-primary mt-1">Learn more</a> --}}
-                       -->
+                      <b-button to="membership" variant="primary" class="mt-2">Learn more</b-button>
                   </div>
               </div>
               <div class="feature-table col-md-5 d-flex flex-column justify-content-between">
@@ -123,10 +115,7 @@
                   </div>
                   <div class="product-card-price">
                       <div><del>$35/day</del><br>Launch pricing: $30/day</div>
-                      <!--
-                      {{!--        <a href="{{ route('home') }}" role="button"
-                      class="btn btn-secondary mt-1">Learn more</a> --}}
-                       -->
+                      <b-button to="daypass" class="mt-2">Learn more</b-button>
                   </div>
               </div>
           </div>
@@ -134,13 +123,9 @@
 
       <div class="container section">
           <div class="row justify-content-center">
-              <div class="col-md-10">
+               <div class="col-md-10">
                   <h3>Interested?</h3>
-                  <!--
-                  {{!--      <mailing-list-signup name="product-ml-signup" cta-text="Sign up below
-                       to hear the latest and get on our membership waitlist." action=
-                       "{{ route('post-mailing-list') }}" button-style="btn-secondary" /> --}}
-                   -->
+                  <MailingListSignup variant="secondary" />
               </div>
           </div>
       </div>
@@ -223,10 +208,16 @@
 </template>
 
 <script>
-// elaborate workaround for eslint line-length errors
+import MailingListSignup from '@/components/MailingListSignup.vue';
+
 export default {
   data() {
+    // elaborate workaround for eslint line-length errors
     return {
+      header: {
+        cta: 'Coming soon to the SF Mission District. ' +
+             'Sign up to hear the latest and get on our membership waitlist.',
+      },
       whatIs: {
         srcset: '/images/Screen-Shot-2016-09-18-at-6.01.43-PM-p-500x378.png 500w, ' +
                 '/images/Screen-Shot-2016-09-18-at-6.01.43-PM-p-800x604.png 800w, ' +
@@ -245,6 +236,9 @@ export default {
              'place_id:ChIJu3WgID9-j4ARp-tuXllo1y8&key=AIzaSyAhCVOgi30gUYCfIWYyFt3aiB-i2n7VOsA',
       },
     };
+  },
+  components: {
+    MailingListSignup,
   },
 };
 </script>
