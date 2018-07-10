@@ -33,6 +33,7 @@ query CalendarEvent($id: Int!) {
     title
     allDay
     start
+    end
     duration
     description
     category
@@ -48,6 +49,7 @@ query CalendarEvents {
     title
     allDay
     start
+    end
     duration
     description
     category
