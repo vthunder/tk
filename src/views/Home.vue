@@ -115,8 +115,14 @@
                       </ul>
                   </div>
                   <div class="product-card-price">
-                      <div><del>$35/day</del><br>Launch pricing: $30/day</div>
-                      <b-button :to="'member-daypasses'" class="mt-2">Learn more</b-button>
+                      <div class="mb-2">
+                          <del>$35/day</del><br>Launch pricing: $30/day
+                      </div>
+                      <RequireSignIn post_text="to purchase"
+                                     :next_route="{ name: 'member-daypasses' }"
+                                     variant="secondary">
+                          <b-button :to="'member-membership'">Purchase</b-button>
+                      </RequireSignIn>
                   </div>
               </div>
           </div>
@@ -209,6 +215,7 @@
 </template>
 
 <script>
+import RequireSignIn from '@/components/RequireSignIn.vue';
 import MailingListSignup from '@/components/MailingListSignup.vue';
 
 export default {
@@ -240,6 +247,7 @@ export default {
   },
   components: {
     MailingListSignup,
+    RequireSignIn,
   },
 };
 </script>
@@ -301,5 +309,9 @@ export default {
 @media (min-width: 576px) {
     .jumbotron .header-cta { width: 400px; }
     .header-ml-signup input { font-size: 16px; }
+}
+
+.need-auth {
+    height: unset;
 }
 </style>
