@@ -102,6 +102,11 @@ export default {
         if (this.activeMode === 'register') {
           this.$root.$emit('bv::show::modal', 'welcome-modal');
         }
+        if (localStorage.nextRoute) {
+          this.$router.push(JSON.parse(localStorage.nextRoute));
+          delete localStorage.nextRoute;
+          window.location.reload(); // FIXME: otherwise user won't be signed in...
+        }
       }).catch((err) => {
         if (this.activeMode === 'signin') {
           console.log(`Login error: ${err}`);
