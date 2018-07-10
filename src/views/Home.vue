@@ -89,8 +89,8 @@
                           <li>Use our makerspace as often as you want</li>
                           <li>Access all our gadgets and equipment</li>
                           <li>Join our culinary clubs, make friends, learn something new</li>
-                          <li>Bring up to 2 guests per month and host a dinner party—we&#x27;ll
-                              even help you with the dishes!</li>
+                          <li>Bring a guest for free whenever you visit.</li>
+                          <li>Host a dinner party! We&#x27;ll even help you with the dishes.</li>
                           <li>We&#x27;ll receive your monthly CSA, Blue Apron, or other cooking box
                               for you, so you can just come and cook (subject to space
                               availability)</li>
@@ -101,7 +101,8 @@
                   </div>
                   <div class="product-card-price">
                       <div><del>$150/month</del><br>Launch pricing: $125/month</div>
-                      <b-button to="membership" variant="primary" class="mt-2">Learn more</b-button>
+                      <b-button :to="'learn-membership'"
+                                variant="primary" class="mt-2">Learn more</b-button>
                   </div>
               </div>
               <div class="feature-table col-md-5 d-flex flex-column justify-content-between">
@@ -115,7 +116,7 @@
                   </div>
                   <div class="product-card-price">
                       <div><del>$35/day</del><br>Launch pricing: $30/day</div>
-                      <b-button to="daypass" class="mt-2">Learn more</b-button>
+                      <b-button :to="'daypass'" class="mt-2">Learn more</b-button>
                   </div>
               </div>
           </div>
