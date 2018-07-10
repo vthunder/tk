@@ -116,7 +116,7 @@
                   </div>
                   <div class="product-card-price">
                       <div><del>$35/day</del><br>Launch pricing: $30/day</div>
-                      <b-button :to="'daypass'" class="mt-2">Learn more</b-button>
+                      <b-button :to="'member-daypasses'" class="mt-2">Learn more</b-button>
                   </div>
               </div>
           </div>
