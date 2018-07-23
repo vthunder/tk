@@ -55,7 +55,7 @@ export default {
       this.success = false;
       this.failure = false;
 
-      const mutation = misc.mutation.mailingListSignup;
+      const mutation = misc.mutation.mailing_list_signup;
       const variables = {
         email: this.form.email,
       };
