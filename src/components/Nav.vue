@@ -20,7 +20,8 @@
                 </b-nav-item>
 
                 <b-nav-item-dropdown v-if="me" :text=me.name right>
-                    <b-dd-item-button :to="'member-membership'">Membership</b-dd-item-button>
+                    <b-dd-item-button
+                      :to="{ name: 'member-membership' }">Membership</b-dd-item-button>
                     <b-dd-item-button @click="signout()">Sign out</b-dd-item-button>
                 </b-nav-item-dropdown>
                 <b-nav-item v-else v-b-modal.auth-modal>Sign in
