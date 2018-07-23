@@ -6,55 +6,84 @@ query Ping {
   ping
 }
 `,
+  saved_cards: gql`
+query SavedCards {
+  saved_cards {
+    id
+    brand
+    last_four
+    exp_month
+    exp_year
+  }
+}
+`,
+  subscriptions: gql`
+query Subscriptions {
+  subscriptions {
+    id
+    name
+    stripe_id
+    stripe_plan
+    qty
+    trial_ends_at
+    ends_at
+    created_at
+    updated_at
+  }
+}
+`,
   products: gql`
 query Products {
   products {
     id
     title
     description
-    billingDescription
+    billing_description
     price
-    memberPrice
-    bundledUnits
+    member_price
+    member_discount_available
+    list_unit_price
+    member_unit_price
+    bundled_units
     unit
-    isSubscription
-    subscriptionPeriod
-    subscriptionName
-    subscriptionPlan
-    createdAt
-    updatedAt
+    is_subscription
+    subscription_period
+    subscription_name
+    subscription_plan
+    created_at
+    updated_at
   }
 }
 `,
   calendarEvent: gql`
 query CalendarEvent($id: Int!) {
-  calendarEvent(id: $id) {
+  calendar_event(id: $id) {
     id
     title
-    allDay
+    all_day
     start
     end
     duration
     description
     category
     price
-    memberPrice
+    member_price
   }
 }
 `,
   calendarEvents: gql`
 query CalendarEvents {
-  calendarEvents {
+  calendar_events {
     id
     title
-    allDay
+    all_day
     start
     end
     duration
     description
     category
     price
-    memberPrice
+    member_price
   }
 }
 `,
@@ -63,7 +92,7 @@ query CalendarEvents {
 export const mutation = {
   mailingListSignup: gql`
 mutation MailingListSignup($name: String, $email: String!) {
-  mailingListSignup(name: $name, email: $email)
+  mailing_list_signup(name: $name, email: $email)
 }
 `,
 };

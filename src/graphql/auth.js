@@ -6,6 +6,17 @@ query Me {
   me {
     name
     email
+    is_member
+    membership_sub {
+      name
+      stripe_id
+      stripe_plan
+      qty
+      trial_ends_at
+      ends_at
+      created_at
+      updated_at
+    }
   }
 }
 `,
@@ -44,31 +55,31 @@ mutation Login($email: String!, $password: String!) {
 
   verifyEmail: gql`
 mutation VerifyEmail($token: String!) {
-  verifyEmail(token: $token)
+  verify_email(token: $token)
 }
 `,
 
   updateProfile: gql`
 mutation UpdateProfile ($profile: ProfileInput!) {
-  updateProfile(profile: $profile)
+  update_profile(profile: $profile)
 }
 `,
 
   updatePassword: gql`
 mutation UpdatePassword($old_password: String!, $password: String!) {
-  updatePassword(old_password: $old_password, password: $password)
+  update_password(old_password: $old_password, password: $password)
 }
 `,
 
   forgotPassword: gql`
 mutation ForgotPassword($email: String!) {
-  forgotPassword(email: $email)
+  forgot_password(email: $email)
 }
 `,
 
   updatePasswordByToken: gql`
 mutation UpdatePasswordByToken($token: String!, $password: String!) {
-  updatePasswordByToken(token: $token, password: $password)
+  update_password_by_token(token: $token, password: $password)
 }
 `,
 };
