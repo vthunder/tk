@@ -14,7 +14,7 @@ import * as misc from '../graphql/misc';
 export default {
   data() {
     return {
-      calendarEvents: [],
+      calendar_events: [],
       config: {
         defaultView: 'month',
         height: 'auto',
@@ -24,12 +24,12 @@ export default {
   computed: {
     events() {
       return this
-        .calendarEvents
+        .calendar_events
         .map(e => ({ ...e, url: `#/event/${e.id}` }));
     },
   },
   apollo: {
-    calendarEvents: misc.query.calendarEvents,
+    calendar_events: misc.query.calendar_events,
   },
   components: {
     FullCalendar,
