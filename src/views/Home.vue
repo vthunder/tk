@@ -101,7 +101,7 @@
                   </div>
                   <div class="product-card-price">
                       <div><del>$150/month</del><br>Launch pricing: $125/month</div>
-                      <b-button :to="'learn-membership'"
+                      <b-button :to="{ name: 'learn-membership' }"
                                 variant="primary" class="mt-2">Learn more</b-button>
                   </div>
               </div>
@@ -121,7 +121,7 @@
                       <RequireSignIn post_text="to purchase"
                                      :next_route="{ name: 'member-daypasses' }"
                                      variant="secondary">
-                          <b-button :to="'member-membership'">Purchase</b-button>
+                          <b-button :to="{ name: 'member-membership' }">Purchase</b-button>
                       </RequireSignIn>
                   </div>
               </div>
