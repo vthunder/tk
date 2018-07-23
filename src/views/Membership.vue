@@ -16,7 +16,7 @@
         <div class="row justify-content-center">
             <RequireSignIn post_text="to become a member."
                            :next_route="{ name: 'member-membership' }">
-                <b-button :to="'member-membership'"
+                <b-button :to="{ name: 'member-membership' }"
                           variant="primary">Click here</b-button> to
                 sign up.
             </RequireSignIn>
