@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import VueStripeCheckout from 'vue-stripe-checkout';
+import VueAnalytics from 'vue-analytics';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 import App from './App.vue';
@@ -16,6 +17,10 @@ Vue.use(VueStripeCheckout, {
   currency: 'USD',
   allowRememberMe: false,
   zipCode: true,
+});
+
+Vue.use(VueAnalytics, {
+  id: 'UA-54365170-1',
 });
 
 Vue.config.productionTip = false;
