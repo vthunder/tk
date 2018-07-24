@@ -3,7 +3,7 @@
         <slot></slot>
     </div>
     <div v-else class="need-auth">
-        <span>
+        <span v-if="enable_login">
             {{ prop.pre_text }}
             <b-button class="mx-1" :variant=prop.variant @click=showModal>
                 Sign in <i class="fas fa-sign-in-alt"></i>
@@ -21,6 +21,7 @@ export default {
   data() {
     return {
       me: '',
+      enable_login: process.env.VUE_APP_ENABLE_LOGIN === 'true',
       prop: {
         pre_text: (this.pre_text || ''),
         post_text: (this.post_text || 'to access this page.'),

@@ -24,8 +24,11 @@
                       :to="{ name: 'member-membership' }">Membership</b-dd-item-button>
                     <b-dd-item-button @click="signout()">Sign out</b-dd-item-button>
                 </b-nav-item-dropdown>
-                <b-nav-item v-else v-b-modal.auth-modal>Sign in
-                    <i class="fas fa-sign-in-alt"></i></b-nav-item>
+                <b-nav-item v-else v-b-modal.auth-modal>
+                    <span v-if="enable_login">Sign in
+                        <i class="fas fa-sign-in-alt"></i>
+                    </span>
+                </b-nav-item>
             </b-navbar-nav>
         </b-collapse>
     </b-navbar>
@@ -39,6 +42,7 @@ export default {
   data() {
     return {
       me: '',
+      enable_login: process.env.VUE_APP_ENABLE_LOGIN === 'true',
     };
   },
   apollo: {

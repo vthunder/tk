@@ -34,8 +34,6 @@ export default {
   data() {
     return {
       btnVariant: this.variant ? this.variant : 'primary',
-      ctaText: this.cta ? this.cta :
-        'Sign up below to hear the latest and get on our membership waitlist.',
       me: null,
       success: false,
       successMsg: 'Thanks! Check your email to confirm your subscription.',
@@ -46,6 +44,12 @@ export default {
       },
       showForm: true,
     };
+  },
+  computed: {
+    ctaText() {
+      return this.cta ? this.cta :
+        'Sign up below to hear the latest and get on our membership waitlist.';
+    },
   },
   apollo: {
     me: auth.query.me,

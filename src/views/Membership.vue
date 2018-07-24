@@ -7,19 +7,31 @@
                 <p>Ready to embark on your own cooking adventures? Get out of your
                     tiny apartment kitchen! Join us at our gorgeous 1700sqft space
                     for all your personal cooking projects.</p>
-                <p class="text-center">${{ membershipMonthly.formattedUnitPrice }}/month
-                    <br>${{ membershipYearly.formattedUnitPrice }}/month
+                <p class="text-center">{{ noDec(monthly.list_unit_price) }}/month
+                    <br>{{ noDec(yearly.list_unit_price) }}/month
                     (paid yearly)</p>
             </div>
         </div>
 
-        <div class="row justify-content-center">
+        <div v-if="enable_login" class="row justify-content-center">
             <RequireSignIn post_text="to become a member."
                            :next_route="{ name: 'member-membership' }">
                 <b-button :to="{ name: 'member-membership' }"
                           variant="primary">Click here</b-button> to
                 sign up.
             </RequireSignIn>
+        </div>
+        <div v-else-if="enable_ks">
+            <div class="row justify-content-center">
+                Become a member by backing our Kickstarter and take
+                advantage of our special launch pricing.
+            </div>
+            <div class="row justify-content-center">
+                <b-button variant="primary" href="#">Back our Kickstarter</b-button>
+            </div>
+        </div>
+        <div v-else class="row justify-content-center">
+            <MailingListSignup cta="Sign up below to get on our membership waitlist:" />
         </div>
 
         <h5 class="mt-4 mb-4">All memberships include:</h5>
@@ -94,48 +106,39 @@
 
 <script>
 import RequireSignIn from '@/components/RequireSignIn.vue';
+import MailingListSignup from '@/components/MailingListSignup.vue';
 import * as misc from '../graphql/misc';
 
 export default {
   data() {
-    // mock membership data
     return {
-      products: [],
+      monthly: {},
+      yearly: {},
+      enable_login: process.env.VUE_APP_ENABLE_LOGIN === 'true',
+      enable_ks: process.env.VUE_APP_ENABLE_KS === 'true',
     };
   },
-  computed: {
-    membershipMonthly() {
-      let ret = 0;
-      this.products.forEach((p) => {
-        if (p.isSubscription &&
-            p.subscriptionName === 'membership' &&
-            p.subscriptionPeriod === 'monthly') {
-          ret = Object.assign({}, p);
-          ret.unitPrice = (p.price / p.bundledUnits);
-          ret.formattedUnitPrice = (ret.unitPrice / 100).toFixed(2);
-        }
-      });
-      return ret;
-    },
-    membershipYearly() {
-      let ret = 0;
-      this.products.forEach((p) => {
-        if (p.isSubscription &&
-            p.subscriptionName === 'membership' &&
-            p.subscriptionPeriod === 'yearly') {
-          ret = Object.assign({}, p);
-          ret.unitPrice = (p.price / p.bundledUnits);
-          ret.formattedUnitPrice = (ret.unitPrice / 100).toFixed(2);
-        }
-      });
-      return ret;
-    },
-  },
   apollo: {
-    products: misc.query.products,
+    monthly: {
+      query: misc.query.membership_info,
+      variables: { type: 'monthly' },
+      update(data) { return data.membership_info; },
+    },
+    yearly: {
+      query: misc.query.membership_info,
+      variables: { type: 'yearly' },
+      update(data) { return data.membership_info; },
+    },
   },
   components: {
     RequireSignIn,
+    MailingListSignup,
+  },
+  methods: {
+    noDec(price) {
+      if (!price) return '';
+      return price.substring(0, price.length - 3);
+    },
   },
 };
 </script>

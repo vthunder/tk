@@ -55,6 +55,29 @@ query Products {
   }
 }
 `,
+  membership_info: gql`
+query MembershipInfo($type: String) {
+  membership_info(type: $type) {
+    id
+    title
+    description
+    billing_description
+    price
+    member_price
+    member_discount_available
+    list_unit_price
+    member_unit_price
+    bundled_units
+    unit
+    is_subscription
+    subscription_period
+    subscription_name
+    subscription_plan
+    created_at
+    updated_at
+  }
+}
+`,
   calendarEvent: gql`
 query CalendarEvent($id: Int!) {
   calendar_event(id: $id) {

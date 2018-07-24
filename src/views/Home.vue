@@ -7,7 +7,13 @@
                   for learning and experimenting with food.</h3>
           </div>
           <div class="row justify-content-end">
-              <div class="header-cta bg-dark text-white">
+              <div v-if="enable_ks" class="header-cta bg-dark text-white">
+                  Now on Kickstarter! Check out our page and watch our video.<br/>
+                  <div class="row justify-content-center">
+                      <b-button variant="primary" href="#">View on Kickstarter</b-button>
+                  </div>
+              </div>
+              <div v-else class="header-cta bg-dark text-white">
                   <MailingListSignup :cta=header.cta />
               </div>
           </div>
@@ -116,13 +122,14 @@
                   </div>
                   <div class="product-card-price">
                       <div class="mb-2">
-                          <del>$35/day</del><br>Launch pricing: $30/day
+                          <del>$40/day</del><br>Launch pricing: $30/day
                       </div>
-                      <RequireSignIn post_text="to purchase"
+                      <RequireSignIn v-if="enable_login" post_text="to purchase"
                                      :next_route="{ name: 'member-daypasses' }"
                                      variant="secondary">
                           <b-button :to="{ name: 'member-membership' }">Purchase</b-button>
                       </RequireSignIn>
+                      <div v-else style="height: 38px"></div>
                   </div>
               </div>
           </div>
@@ -130,9 +137,19 @@
 
       <div class="container section">
           <div class="row justify-content-center">
-               <div class="col-md-10">
+              <div class="col-md-10">
                   <h3>Interested?</h3>
-                  <MailingListSignup variant="secondary" />
+                  <div v-if="enable_ks">
+                      <div class="row justify-content-center">
+                          We're live on Kickstarter right now! Back
+                          our campaign and get discounted membership
+                          or daily passes:
+                      </div>
+                      <div class="row justify-content-center">
+                          <b-button variant="primary" href="#">Back our Kickstarter</b-button>
+                      </div>
+                  </div>
+                  <MailingListSignup v-else variant="secondary" />
               </div>
           </div>
       </div>
@@ -222,6 +239,8 @@ export default {
   data() {
     // elaborate workaround for eslint line-length errors
     return {
+      enable_login: process.env.VUE_APP_ENABLE_LOGIN === 'true',
+      enable_ks: process.env.VUE_APP_ENABLE_KS === 'true',
       header: {
         cta: 'Coming soon to the SF Mission District. ' +
              'Sign up to hear the latest and get on our membership waitlist.',
