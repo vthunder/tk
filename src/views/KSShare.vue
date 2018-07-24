@@ -7,7 +7,7 @@
 </template>
 
 <script>
-document.location = 'https://www.kickstarter.com/projects/20846993/1918053814?ref=428406&token=463f30f0';
+//document.location = 'https://www.kickstarter.com/projects/20846993/1918053814?ref=428406&token=463f30f0';
 </script>
 
 <style lang="scss">
