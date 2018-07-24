@@ -11,6 +11,7 @@ import MemberBilling from './views/member/Billing.vue';
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
