@@ -7,6 +7,7 @@ import Membership from './views/Membership.vue';
 import MemberMembership from './views/member/Membership.vue';
 import MemberDayPasses from './views/member/DayPasses.vue';
 import MemberBilling from './views/member/Billing.vue';
+import KSShare from './views/KSShare.vue';
 
 Vue.use(Router);
 
@@ -47,6 +48,11 @@ export default new Router({
       path: '/member/billing',
       name: 'member-billing',
       component: MemberBilling,
+    },
+    {
+      path: '/ksshare',
+      name: 'kickstarter-share',
+      component: KSShare,
     },
   ],
   scrollBehavior(to, from, savedPosition) {
