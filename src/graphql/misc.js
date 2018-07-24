@@ -113,7 +113,7 @@ query CalendarEvents {
 };
 
 export const mutation = {
-  mailingListSignup: gql`
+  mailing_list_signup: gql`
 mutation MailingListSignup($name: String, $email: String!) {
   mailing_list_signup(name: $name, email: $email)
 }
