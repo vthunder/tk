@@ -58,7 +58,7 @@ export default {
     onSubmit() {
       try {
         this.$ga.event('SubscribeButton', 'click');
-      } catch () {}
+      } catch (e) {}
 
       this.success = false;
       this.failure = false;
