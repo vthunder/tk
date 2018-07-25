@@ -21,6 +21,9 @@ Vue.use(VueStripeCheckout, {
 
 Vue.use(VueAnalytics, {
   id: 'UA-54365170-1',
+  debug: {
+    sendHitTask: process.env.VUE_APP_ENV === 'production',
+  },
 });
 
 Vue.config.productionTip = false;
