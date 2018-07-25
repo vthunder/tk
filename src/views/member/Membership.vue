@@ -99,7 +99,7 @@ export default {
   methods: {
     // eslint-disable-next-line
     checkout(product) {
-      if (this.saved_cards.length) {
+      if (this.saved_cards && this.saved_cards.length) {
         this.$root.$emit('tk::pay-modal::open', { product });
       } else {
         this.$apollo.mutate({

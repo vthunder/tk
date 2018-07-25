@@ -52,6 +52,7 @@ export default {
   },
   computed: {
     default_card() {
+      if (!this.saved_cards) return null;
       return this.saved_cards.find(() => true);
     },
   },
