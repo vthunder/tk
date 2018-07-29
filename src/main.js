@@ -22,7 +22,6 @@ Vue.use(VueStripeCheckout, {
 Vue.use(VueAnalytics, {
   id: 'UA-54365170-1',
   debug: {
-    enabled: true,
     sendHitTask: process.env.VUE_APP_ENV === 'production',
   },
   router
