@@ -25,6 +25,7 @@ Vue.use(VueAnalytics, {
     enabled: true,
     sendHitTask: process.env.VUE_APP_ENV === 'production',
   },
+  router
 });
 
 Vue.config.productionTip = false;
