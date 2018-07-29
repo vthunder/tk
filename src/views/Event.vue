@@ -86,7 +86,13 @@ export default {
         };
       },
     },
-    me: auth.query.me,
+    me: {
+      query: auth.query.me,
+      update(data) {
+        if (data.me) return data.me;
+        return null;
+      },
+    },
   },
   components: {
     VueMarkdown,
