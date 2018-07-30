@@ -271,7 +271,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .jumbotron {
     background: url('/images/MakerFaire-LN_Demo.jpg');
     background-position: center;
