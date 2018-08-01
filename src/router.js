@@ -7,7 +7,7 @@ import Membership from './views/Membership.vue';
 import MemberMembership from './views/member/Membership.vue';
 import MemberDayPasses from './views/member/DayPasses.vue';
 import MemberBilling from './views/member/Billing.vue';
-import KSShare from './views/KSShare.vue';
+import Kickstarter from './views/Kickstarter.vue';
 import Press from './views/Press.vue';
 
 Vue.use(Router);
@@ -51,9 +51,9 @@ export default new Router({
       component: MemberBilling,
     },
     {
-      path: '/ksshare',
-      name: 'kickstarter-share',
-      component: KSShare,
+      path: '/ks',
+      name: 'kickstarter',
+      component: Kickstarter,
     },
     {
       path: '/press',
