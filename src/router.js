@@ -56,6 +56,9 @@ export default new Router({
       component: Kickstarter,
     },
     {
+      path: '/ksshare',
+      redirect: { name: 'kickstarter' },
+    {
       path: '/press',
       name: 'press',
       component: Press,
