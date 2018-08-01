@@ -58,6 +58,7 @@ export default new Router({
     {
       path: '/ksshare',
       redirect: { name: 'kickstarter' },
+    },
     {
       path: '/press',
       name: 'press',
