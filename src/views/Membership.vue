@@ -27,7 +27,7 @@
                 advantage of our special launch pricing.
             </div>
             <div class="row justify-content-center">
-                <b-button variant="primary" href="#">Back our Kickstarter</b-button>
+                <b-button variant="primary" href="https://www.kickstarter.com/projects/20846993/tinker-kitchen">Back our Kickstarter</b-button>
             </div>
         </div>
         <div v-else class="row justify-content-center">

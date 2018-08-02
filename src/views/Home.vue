@@ -10,7 +10,7 @@
               <div v-if="enable_ks" class="header-cta bg-dark text-white">
                   Now on Kickstarter! Check out our page and watch our video.<br/>
                   <div class="row justify-content-center">
-                      <b-button variant="primary" href="#">View on Kickstarter</b-button>
+                      <b-button variant="primary" href="https://www.kickstarter.com/projects/20846993/tinker-kitchen">View on Kickstarter</b-button>
                   </div>
               </div>
               <div v-else class="header-cta bg-dark text-white">
@@ -146,7 +146,7 @@
                           or daily passes:
                       </div>
                       <div class="row justify-content-center">
-                          <b-button variant="primary" href="#">Back our Kickstarter</b-button>
+                          <b-button variant="primary" href="https://www.kickstarter.com/projects/20846993/tinker-kitchen">Back our Kickstarter</b-button>
                       </div>
                   </div>
                   <MailingListSignup v-else variant="secondary" />
