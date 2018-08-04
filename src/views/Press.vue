@@ -54,19 +54,21 @@
                 come anytime and practice cooking techniques, develop
                 personal projects, or just hang out and connect with
                 others.</p>
-                <div class="media-download">
-                    <a href="https://www.dropbox.com/s/it52110da6ef70b/Tinker%20Kitchen%20Overview.pdf?dl=0">
-                        <i class="fas fa-file-pdf fa-3x"></i>
-                        Download overview fact-sheet
-                    </a>
-                </div>
             </b-col>
             <b-col md="6" class="media-download">
-                <div>
-                    <a href="https://www.dropbox.com/sh/34y7qe1iw39xs88/AABxMpyxHXw8DVh3_MgWD9BYa?dl=0">
-                        <i class="fas fa-file-download fa-3x"></i>
-                        Download media assets (logos, photos)
-                    </a>
+                <div class="media-download-items">
+                    <div>
+                        <a href="https://www.dropbox.com/sh/34y7qe1iw39xs88/AABxMpyxHXw8DVh3_MgWD9BYa?dl=0">
+                            <i class="fas fa-file-download fa-3x"></i>
+                            Download media assets (logos, photos)
+                        </a>
+                    </div>
+                    <div>
+                        <a href="https://www.dropbox.com/s/it52110da6ef70b/Tinker%20Kitchen%20Overview.pdf?dl=0">
+                            <i class="fas fa-file-pdf fa-3x"></i>
+                            Download overview fact-sheet
+                        </a>
+                    </div>
                 </div>
             </b-col>
         </b-row>
@@ -115,6 +117,17 @@ h6 {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    .media-download-items {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: left;
+
+        div {
+            margin-top: 10px;
+        }
+    }
 }
 
 .contact-title {
