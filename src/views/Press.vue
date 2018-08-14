@@ -11,17 +11,27 @@
         </b-jumbotron>
         <h4>News Stories</h4>
         <b-card-group deck class="mb-4">
+            <div class="press-card">
+            </div>
             <b-card img-src="/images/Press Logos/SF_Chronicle.svg"
                     img-alt="San Francisco Chronicle"
-                    bg-variant="light">
+                    bg-variant="white">
                 <div slot="footer">
                     <a href="https://www.sfchronicle.com/recipes/article/Tinker-Kitchen-aims-to-bring-a-science-minded-12486026.php"
                        class="card-link">Read more</a>
                 </div>
             </b-card>
+            <b-card img-src="/images/Press Logos/The_Spoon.png"
+                    img-alt="The Spoon"
+                    bg-variant="white">
+                <div slot="footer">
+                    <a href="https://thespoon.tech/tinker-kitchen-is-a-maker-space-for-foodie-experimenters/"
+                       class="card-link">Read More</a>
+                </div>
+            </b-card>
             <b-card img-src="/images/Press Logos/Mission-Local-Logo.png"
                     img-alt="Mission Local"
-                    bg-variant="light">
+                    bg-variant="white">
                 <div slot="footer">
                     <a href="https://missionlocal.org/2018/01/sfs-mission-will-have-seven-cooking-schools/"
                        class="card-link">Read more</a>
@@ -29,7 +39,7 @@
             </b-card>
             <b-card img-src="/images/Press Logos/Make_logo.svg"
                     img-alt="Make:"
-                    bg-variant="light">
+                    bg-variant="white">
                 <div slot="footer">
                     <a href="https://makezine.com/2016/08/01/5-reasons-why-chefs-need-hackerspaces/"
                        class="card-link">Read more</a>
@@ -37,7 +47,7 @@
             </b-card>
             <b-card img-src="/images/Press Logos/Marc Guzman.jpg"
                     img-alt="Marc Guzman Podcast"
-                    bg-variant="light">
+                    bg-variant="white">
                 <div slot="footer">
                     <a href="https://www.facebook.com/MarcGuzmanHomes/posts/2125236250827318"
                        class="card-link">Listen</a>
@@ -100,7 +110,7 @@ h4 {
 .card {
     max-width: 400px;
     img {
-        height: 3em;
+//        max-height: 3em;
         padding: .5em;
     }
     a.card-link {
