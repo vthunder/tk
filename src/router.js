@@ -9,6 +9,7 @@ import MemberDayPasses from './views/member/DayPasses.vue';
 import MemberBilling from './views/member/Billing.vue';
 import Kickstarter from './views/Kickstarter.vue';
 import Press from './views/Press.vue';
+import Incubator from './views/Incubator.vue';
 
 Vue.use(Router);
 
@@ -60,6 +61,11 @@ export default new Router({
       path: '/press',
       name: 'press',
       component: Press,
+    },
+    {
+      path: '/incubator',
+      name: 'incubator',
+      component: Incubator,
     },
   ],
   scrollBehavior(to, from, savedPosition) {
