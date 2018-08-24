@@ -30,7 +30,7 @@ import * as auth from '../graphql/auth';
 import * as misc from '../graphql/misc';
 
 export default {
-  props: ['cta', 'variant'],
+  props: ['cta', 'variant', 'list'],
   data() {
     return {
       btnVariant: this.variant ? this.variant : 'primary',
@@ -49,6 +49,10 @@ export default {
     ctaText() {
       return this.cta ? this.cta :
         'Sign up below to hear the latest and get on our membership waitlist.';
+    },
+    listName() {
+      return this.list ? this.list :
+        'Tinker Kitchen Newsletter';
     },
   },
   apollo: {
@@ -72,6 +76,7 @@ export default {
       const mutation = misc.mutation.mailing_list_signup;
       const variables = {
         email: this.form.email,
+        list: this.listName,
       };
 
       this.$apollo.mutate({
