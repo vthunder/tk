@@ -63,26 +63,24 @@ export default {
 </script>
 
 <style lang="scss">
- .navbar .navbar-brand {
-     background: url('/images/TK Wordmark White (1x).png');
-     background-size: 220px 16px;
-     width: 220px;
-     height: 16px;
- }
- @media (min-width: 576px) {
-     .navbar .navbar-brand {
-         background-size: 300px 22px;
-         width: 300px;
-         height: 22px;
-     }
- }
+.navbar {
+    line-height: 1;
 
- /* Also used in footer */
- .social-icon {
-     opacity: 0.8;
-     transition: opacity 250ms;
- }
- .social-icon:hover {
-     opacity: 1;
- }
+    .navbar-brand {
+        background: url('/images/TK Wordmark White (1x).png');
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 1.2rem;
+        width: 80%;
+
+        @media (min-width: 576px) { height: 1.4rem; }
+    }
+}
+.social-icon {
+    opacity: 0.8;
+    transition: opacity 250ms;
+}
+.social-icon:hover {
+    opacity: 1;
+}
 </style>

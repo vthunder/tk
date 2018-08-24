@@ -65,7 +65,7 @@
                   </ul>
               </div>
               <div class="feature-table col-md-5">
-                  <h4>Commercial use</h4>
+                  <h4>Commercial use (coming soon)</h4>
                   <ul class="product-card-features with-button-actions tmp w-list-unstyled">
                       <li>Develop new recipes and create new food products</li>
                       <li>Produce small food batches (in the off-hours)</li>
@@ -303,11 +303,12 @@ export default {
 
 .jumbotron .header-cta {
     border-radius: 5px;
-    font-size: 14px;
+    font-family: museo;
     font-weight: 300;
     margin: 75px 5px 0;
     padding: 10px;
     width: 100%;
+    @media (min-width: 576px) { font-size: .875rem; }
 }
 .header-ml-signup .cta-text {
     margin-bottom: 5px;
