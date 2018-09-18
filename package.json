@@ -14,6 +14,7 @@
     "bootstrap": "^4.1.1",
     "bootstrap-vue": "^2.0.0-rc.11",
     "graphql-tag": "^2.5.0",
+    "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "open-iconic": "^1.1.1",
     "vue": "^2.5.16",
