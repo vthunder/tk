@@ -7,8 +7,8 @@
                 <p>Ready to embark on your own cooking adventures? Get out of your
                     tiny apartment kitchen! Join us at our gorgeous 1700sqft space
                     for all your personal cooking projects.</p>
-                <p class="text-center">{{ noDec(monthly.list_unit_price) }}/month
-                    <br>{{ noDec(yearly.list_unit_price) }}/month
+                <p class="text-center">{{ monthly.monthly_price }}/month
+                    <br>{{ yearly.monthly_price }}/month
                     (paid yearly)</p>
             </div>
         </div>
@@ -107,7 +107,7 @@
 <script>
 import RequireSignIn from '@/components/RequireSignIn.vue';
 import MailingListSignup from '@/components/MailingListSignup.vue';
-import * as misc from '../graphql/misc';
+import { monthlyQuery, yearlyQuery } from '@/lib/plans';
 
 export default {
   data() {
@@ -119,26 +119,17 @@ export default {
     };
   },
   apollo: {
-    monthly: {
-      query: misc.query.membership_info,
-      variables: { type: 'monthly' },
-      update(data) { return data.membership_info; },
-    },
-    yearly: {
-      query: misc.query.membership_info,
-      variables: { type: 'yearly' },
-      update(data) { return data.membership_info; },
+    monthly: monthlyQuery,
+    yearly: yearlyQuery,
+  },
+  computed: {
+    plans() {
+      return [this.monthly, this.yearly];
     },
   },
   components: {
     RequireSignIn,
     MailingListSignup,
-  },
-  methods: {
-    noDec(price) {
-      if (!price) return '';
-      return price.substring(0, price.length - 3);
-    },
   },
 };
 </script>
