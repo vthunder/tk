@@ -7,16 +7,7 @@ query Me {
     name
     email
     is_member
-    membership_sub {
-      name
-      stripe_id
-      stripe_plan
-      qty
-      trial_ends_at
-      ends_at
-      created_at
-      updated_at
-    }
+    has_stripe_customer
   }
 }
 `,
