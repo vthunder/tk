@@ -84,37 +84,26 @@ export default {
     StorePage,
   },
   methods: {
-    checkout(plan) {
-      this.$apollo
-        .mutate({ mutation: customerQueries.mutation.get_or_create_customer })
-        .then(({ data: { get_or_create_customer: customer } }) => {
-          if (customer.sources && customer.sources.length) {
-            this.$root.$emit('tk::pay-modal::open', { product: plan });
-            return;
-          }
-          this.$checkout.open({
-            description: plan.metadata.billing_description,
-            amount: plan.amount,
-            email: this.me.email,
-            token: (token) => {
-              this.$apollo.mutate({
-                mutation: customerQueries.mutation.update_customer,
-                variables: { source: token.id },
-              }).then(() => {
-                this.$apollo.mutate({
-                  mutation: customerQueries.mutation.create_subscription,
-                  variables: { plans: [plan.id] },
-                }).then(() => {
-                  ['me', 'customer_subscriptions'].forEach((q) => {
-                    this.$apollo.queries[q].refetch();
-                  });
-                }).catch((err) => {
-                  console.log(`Error: ${err}`);
-                });
-              });
-            },
+    async checkout(plan) {
+      await this.$apollo.mutate({ mutation: customerQueries.mutation.get_or_create_customer });
+      this.$checkout.open({
+        description: plan.metadata.billing_description,
+        amount: plan.amount,
+        email: this.me.email,
+        token: async (token) => {
+          await this.$apollo.mutate({
+            mutation: customerQueries.mutation.update_customer,
+            variables: { source: token.id },
           });
-        });
+          await this.$apollo.mutate({
+            mutation: customerQueries.mutation.create_subscription,
+            variables: { plans: [plan.id] },
+          });
+          ['me', 'customer_subscriptions'].forEach((q) => {
+            this.$apollo.queries[q].refetch();
+          });
+        },
+      });
     },
   },
 };
