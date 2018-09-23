@@ -80,6 +80,96 @@ export const query = {
       }
     }
   `,
+  customer_orders: gql`
+    query {
+      customer_orders {
+        id
+        amount
+        amount_returned
+        charge
+        currency
+        customer
+        created
+        email
+        items {
+          amount
+          currency
+          description
+          parent
+          quantity
+          type
+        }
+        livemode
+        metadata {
+          key
+          value
+        }
+        status
+      }
+    }
+  `,
+  customer_charges: gql`
+    query {
+      customer_charges {
+        id
+        object
+        amount
+        amount_refunded
+        application
+        application_fee
+        balance_transaction
+        captured
+        created
+        currency
+        customer
+        description
+        destination
+        dispute
+        failure_code
+        failure_message
+        invoice {
+          id
+#          lines {
+#            description
+#          }
+        }
+        livemode
+        metadata {
+          key
+          value
+        }
+        on_behalf_of
+        order {
+          id
+#          items {
+#            description
+#          }
+        }
+        outcome {
+          network_status
+          reason
+          risk_level
+          risk_score
+          rule
+          seller_message
+          type
+        }
+        paid
+        payment_intent
+        receipt_email
+        receipt_number
+        refunded
+        review
+        source {
+          id
+          brand
+          last4
+          exp_month
+          exp_year
+        }
+      }
+    }
+  `,
 };
 
 export const mutation = {
