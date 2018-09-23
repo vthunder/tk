@@ -83,6 +83,14 @@ export const query = {
       }
     }
   `,
+  user_passes: gql`
+    query {
+      user_passes {
+        token
+        type
+      }
+    }
+  `,
 };
 
 export const mutation = {
