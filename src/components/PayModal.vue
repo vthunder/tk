@@ -1,90 +1,145 @@
 <template>
     <b-modal id="pay-modal" ref="payModal"
              title="Confirm" ok-title="Pay Now" centered
-             @ok.prevent=onSubmit @hide=onReset>
+             @ok.prevent=checkout @hide=onReset>
+
+        <template v-if="working" slot="modal-header">&nbsp;</template>
+        <template v-if="working" slot="modal-footer">&nbsp;</template>
 
         <b-alert :show=showAlert variant="danger">{{ alertMessage }}</b-alert>
 
-        <p v-if=default_card>
-            Using saved card: {{ defaultCard.brand }} ending in {{ defaultCard.last4 }}
-        </p>
-
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th scope="col">Item</th>
-                    <td class="modal-body-item"></td>
-                </tr>
-                <tr>
-                    <th scope="col">Quantity</th>
-                    <td class="modal-body-quantity">
-                        <select>
-                            <option v-for="n in [1,2,3,4,5]"
-                                    :key=n :value=n>{{ n }}</option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th class="modal-body-total-header" scope="col">Total</th>
-                    <td class="modal-body-total"></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="modal-footer">
-            <!-- <b-button v-if=default_card data-dismiss="modal">Use Different Card</b-button> -->
-            <!-- <b-button data-dismiss="modal">Pay Now</b-button> -->
+        <div v-if="working" class="center">
+            <span class="fas fa-spinner fa-7x"></span>
         </div>
+        <div v-else>
+            <p v-if=default_card>
+                Using card: {{ default_card.brand }} ending in {{ default_card.last4 }}
+            </p>
+        </div>
+
+        <b-table striped hover foot-clone :items="tableItems">
+            <template slot="FOOT_item" slot-scope="data">Total</template>
+            <template slot="FOOT_quantity" slot-scope="data"></template>
+            <template slot="FOOT_price" slot-scope="data">{{ totalPrice }}</template>
+        </b-table>
     </b-modal>
 </template>
 
 <script>
-import * as misc from '../graphql/misc';
+import * as auth from '@/graphql/auth';
+import * as customerQueries from '@/graphql/customer';
+import * as format from '@/lib/format';
 
 export default {
+  apollo: {
+    me: auth.query.me,
+    customer_payment_sources: customerQueries.query.customer_payment_sources,
+  },
   data() {
     return {
       showAlert: false,
-      saved_cards: [],
       alertMessage: 'Error!',
-      data: { foo: 'boo' },
+      items: [],
+      saveCard: true,
+      working: false,
     };
   },
   computed: {
     default_card() {
-      if (!this.saved_cards) return null;
-      return this.saved_cards.find(() => true);
+      if (!this.customer_payment_sources) return null;
+      return this.customer_payment_sources.find(() => true);
+    },
+    tableItems() {
+      // FIXME: user configurable qty
+
+
+      return this.items.map(i => ({
+        item: i.attributes.title,
+        quantity: 1,
+        price: format.priceCents(i.price),
+      }));
+    },
+    totalPrice() {
+      let total = 0;
+      this.items.forEach((i) => { total += i.price; });
+      return format.priceCents(total);
     },
   },
   mounted() {
     this.$root.$on('tk::pay-modal::open', this.open);
-    this.$root.$on('tk::pay-modal::stripe', this.stripe);
   },
   destroyed() {
     this.$root.$off('tk::pay-modal::open', this.open);
   },
-  apollo: {
-    saved_cards: misc.query.saved_cards,
-  },
   methods: {
-    open(data) {
-      this.data = data;
+    open(items) {
+      this.items = items;
+      this.working = false;
       this.$refs.payModal.show();
     },
-    stripe(data) {
-      if (data) this.data = data;
+    async checkout() {
+      this.working = true;
+      const { items } = this;
 
-      this.$apollo.mutate({
-        mutation: misc.mutation.pay,
-        variables: {},
-      }).then(() => {
+      // Make sure a Stripe customer record exists for current user
+      const { data: { get_or_create_customer: customer } } = await this.$apollo.mutate({
+        mutation: customerQueries.mutation.get_or_create_customer,
+      });
+
+      // Create a Stripe order
+      const { data: { create_order: order } } = await this.$apollo.mutate({
+        mutation: customerQueries.mutation.create_order,
+        variables: { skus: items.map(i => (i.id)) },
+      });
+
+      // If customer has a saved card ready to go, pay the order
+      // FIXME: allow user to use a diff card
+      if (customer.sources && customer.sources.length) {
+        await this.$apollo.mutate({
+          mutation: customerQueries.mutation.pay_order,
+          variables: { order: order.id, customer: customer.id },
+        });
         this.$refs.payModal.hide();
-      }).catch((err) => {
-        console.log(`Pay error: ${err}`);
-        this.showAlert = true;
+        this.$root.$emit('tk::pay-modal::complete');
+        return;
+      }
+
+      // Otherwise, open the Stripe payment modal
+      let [{ attributes: { title: description } }] = items;
+      if (items.length === 2) description += ' and 1 more item';
+      if (items.length > 2) description += ` and ${items.length - 1} more items`;
+
+      await this.$checkout.open({
+        description,
+        amount: order.amount,
+        email: this.me.email,
+        token: async (token) => {
+          const payVars = { order: order.id };
+
+          if (this.saveCard) {
+            await this.$apollo.mutate({
+              mutation: customerQueries.mutation.update_customer,
+              variables: { source: token.id },
+            });
+          } else {
+            payVars.source = token.id;
+          }
+
+          await this.$apollo.mutate({
+            mutation: customerQueries.mutation.pay_order,
+            variables: payVars,
+          });
+
+          this.$refs.payModal.hide();
+          this.$root.$emit('tk::pay-modal::complete');
+
+          // eslint-disable-next-line
+          alert('Purchase successful. Thanks!');
+        },
       });
     },
     onReset() {
+      this.items = [];
       this.showAlert = false;
       this.alertMessage = 'Error!';
     },
@@ -93,4 +148,14 @@ export default {
 </script>
 
 <style lang="scss">
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+.fa-spinner {
+    animation: spin 2s linear infinite;
+    margin: 0 auto;
+}
+.total-footer {
+    font-weight: 500;
+}
 </style>
