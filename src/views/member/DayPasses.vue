@@ -2,6 +2,23 @@
     <div v-if="$apollo.loading" class="loading"><h3>Loading...</h3></div>
     <div v-else class="container section">
         <StorePage>
+            <p>You have {{ user_passes.length }}
+                {{ user_passes.length | pluralize('pass', 'passes') }}</p>
+            <p><b-link v-if="user_passes.length" @click="togglePasses()">
+                    <span v-if="show_pass_codes">Hide</span><span v-else>Show</span> pass codes
+                    <i v-if="show_pass_codes" class="fas fa-arrow-circle-down"></i>
+                    <i v-else class="fas fa-arrow-circle-right"></i>
+                </b-link>
+            </p>
+            <p v-if="show_pass_codes">
+                You can share these codes to let friends use your day
+                passes. But it's up to you to keep them safe! Once a
+                code is used at Tinker Kitchen, it will be removed
+                from this list.
+            </p>
+            <b-table v-if="show_pass_codes" striped hover :items="passesTableItems">
+            </b-table>
+
             <div class="card-deck">
                 <b-card-group deck class="mt-2">
                     <b-card v-for="sku in passes" :key=sku.id
@@ -23,7 +40,6 @@
 <script>
 import StorePage from '@/components/MemberPage.vue';
 import * as auth from '@/graphql/auth';
-import * as customerQueries from '@/graphql/customer';
 import * as products from '@/graphql/products';
 import * as kv from '@/lib/keyVal';
 import * as format from '@/lib/format';
@@ -44,6 +60,7 @@ export default {
         return ret;
       },
     },
+    user_passes: products.query.user_passes,
   },
   components: {
     StorePage,
@@ -59,6 +76,12 @@ export default {
       if (this.sub) return this.memberPasses;
       return this.nonMemberPasses;
     },
+    userNewPasses() {
+      return this.user_passes.filter(p => p.status === 'new');
+    },
+    passesTableItems() {
+      return this.user_passes.map(p => ({ pass: p.token }));
+    },
     sub() {
       return this.me.is_member;
     },
@@ -66,47 +89,23 @@ export default {
   data() {
     return {
       me: {},
+      user_passes: [],
+      show_pass_codes: false,
+      dayPasses: [],
     };
   },
   methods: {
+    togglePasses() {
+      this.show_pass_codes = !this.show_pass_codes;
+    },
     buy(sku) {
-      this.$apollo
-        .mutate({ mutation: customerQueries.mutation.get_or_create_customer })
-        .then(({ data: { get_or_create_customer: customer } }) => {
-          console.log(customer);
-          if (customer.sources && customer.sources.length) {
-            this.$root.$emit('tk::pay-modal::open', { product: sku });
-            return;
-          }
-          this.$checkout.open({
-            description: sku.attributes.title,
-            amount: sku.price,
-            email: this.me.email,
-            token: (token) => {
-              this.$apollo.mutate({
-                mutation: customerQueries.mutation.update_customer,
-                variables: { source: token.id },
-              }).then(() => {
-                this.$apollo.mutate({
-                  mutation: customerQueries.mutation.create_order,
-                  variables: { skus: [sku.id] },
-                }).then(({ data: { create_order: order } }) => {
-                  this.$apollo.mutate({
-                    mutation: customerQueries.mutation.pay_order,
-                    variables: { order: order.id },
-                  }).then(() => {
-                    alert('Purchase successful. Thanks!');
-                    ['me'].forEach((q) => {
-                      this.$apollo.queries[q].refetch();
-                    });
-                  });
-                }).catch((err) => {
-                  console.log(`Error: ${err}`);
-                });
-              });
-            },
-          });
-        });
+      this.$root.$emit('tk::pay-modal::open', [sku]);
+      this.$root.$on('tk::pay-modal::complete', this.payComplete);
+    },
+    payComplete() {
+      this.$root.$off('tk::pay-modal::complete', this.payComplete);
+      // this.$apollo.queries.user_passes.refetch();
+      window.location.reload();
     },
   },
 };
