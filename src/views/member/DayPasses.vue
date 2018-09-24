@@ -112,4 +112,5 @@ export default {
 </script>
 
 <style lang="scss">
+.loading { height: 100vh; }
 </style>

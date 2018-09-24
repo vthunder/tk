@@ -129,9 +129,9 @@ export const query = {
         failure_message
         invoice {
           id
-#          lines {
-#            description
-#          }
+          lines {
+            description
+          }
         }
         livemode
         metadata {
@@ -141,9 +141,15 @@ export const query = {
         on_behalf_of
         order {
           id
-#          items {
-#            description
-#          }
+          items {
+            description
+            type
+            parent
+            attributes {
+              key
+              value
+            }
+          }
         }
         outcome {
           network_status

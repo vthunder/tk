@@ -110,6 +110,8 @@ export default {
 </script>
 
 <style lang="scss">
+.loading { height: 100vh; }
+
 #membership.tab-pane {
     .product-monthly-price {
         font-size: .8rem;
