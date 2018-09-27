@@ -5,6 +5,11 @@
         <div class="row mt-2">
             <div class="col-md-8">
                 <h2 class="text-left">{{ calendar_event.title }}</h2>
+                <p class="event-description mt-4">
+                    <vue-markdown :source="calendar_event.description"></vue-markdown>
+                </p>
+            </div>
+            <div class="col-md-4 border p-4">
                 <h3>{{ date }}</h3>
                 <h3>{{ start_time }}</h3>
                 <h3 v-if="calendar_event.all_day">Duration: All day</h3>
@@ -12,11 +17,6 @@
                     Duration: {{ calendar_event.duration }}
                 </h3>
 
-                <p class="event-description mt-4">
-                    <vue-markdown :source="calendar_event.description"></vue-markdown>
-                </p>
-            </div>
-            <div class="col-md-4 border p-4">
                 <p v-if="calendar_event.category && calendar_event.category === 'private'">
                     Private event.
                 </p>
@@ -118,5 +118,8 @@ export default {
 }
 .price {
     font-weight: bold;
+}
+.event-description {
+    img { width: 100%; }
 }
 </style>

@@ -19,14 +19,11 @@
           </div>
       </div>
 
-      <div class="container section">
+      <div id="what-is-tk" class="container section">
           <h2 id="about">What is Tinker Kitchen?</h2>
           <div class="row justify-content-center">
               <div class="col-md-6">
-                  <img src="/images/Screen-Shot-2016-09-18-at-6.01.43-PM.png"
-                       :srcset=whatIs.srcset
-                       :sizes=whatIs.sizes
-                       class="float-left">
+                  <img src="/images/TK_space.jpg">
               </div>
               <div class="col-md-4">
                   <p>Tinker Kitchen is an awesome cooking makerspace with specialized,
@@ -60,16 +57,29 @@
               <div class="feature-table col-md-5">
                   <h4>Groups</h4>
                   <ul class="list-unstyled">
-                      <li>Hold small team off-sites with a cooking-themed activity</li>
-                      <li>Book a private event and have the whole space to yourself</li>
+                      <li>Hold small team off-sites with a
+                          cooking-themed activity</li>
+                      <li>Book the whole space all to yourself for
+                          your special private events: parties,
+                          product launches, or private dinners</li>
+                      <li>Have an idea for a special pop-up event?
+                          Partner with us for a class, demonstration,
+                          or talk</li>
                   </ul>
               </div>
               <div class="feature-table col-md-5">
-                  <h4>Commercial use (coming soon)</h4>
-                  <ul class="product-card-features with-button-actions tmp w-list-unstyled">
-                      <li>Develop new recipes and create new food products</li>
-                      <li>Produce small food batches (in the off-hours)</li>
-                      <li>Test your creations via special micro pop-up events</li>
+                  <h4>Commercial use</h4>
+                  <ul class="list-unstyled">
+                      <li>Practice your skills&#8212;We're a perfect
+                          complement to a culinary degree program</li>
+                      <li>Create new recipes and test product
+                          ideas. We're the perfect venue for all your
+                          R&D, and have a network of mentors and
+                          experts you can access</li>
+                      <li>Host micro-popup events and teach classes to
+                          get feedback and refine your products</li>
+                      <li class="small">Note: no food production for
+                          sale allowed at this time</li>
                   </ul>
               </div>
           </div>
@@ -106,7 +116,7 @@
                       </ul>
                   </div>
                   <div class="product-card-price">
-                      <div><del>$150/month</del><br>Launch pricing: $125/month</div>
+                      <div>$150/month</div>
                       <b-button :to="{ name: 'learn-membership' }"
                                 variant="primary" class="mt-2">Learn more</b-button>
                   </div>
@@ -121,9 +131,7 @@
                       </ul>
                   </div>
                   <div class="product-card-price">
-                      <div class="mb-2">
-                          <del>$40/day</del><br>Launch pricing: $30/day
-                      </div>
+                      <div class="mb-2">$35/day</div>
                       <RequireSignIn v-if="enable_login" post_text="to purchase"
                                      :next_route="{ name: 'member-daypasses' }"
                                      variant="secondary">
@@ -245,14 +253,6 @@ export default {
         cta: 'Coming soon to the SF Mission District. ' +
              'Sign up to hear the latest and get on our membership waitlist.',
       },
-      whatIs: {
-        srcset: '/images/Screen-Shot-2016-09-18-at-6.01.43-PM-p-500x378.png 500w, ' +
-                '/images/Screen-Shot-2016-09-18-at-6.01.43-PM-p-800x604.png 800w, ' +
-                '/images/Screen-Shot-2016-09-18-at-6.01.43-PM-p-1080x815.png 1080w, ' +
-                '/images/Screen-Shot-2016-09-18-at-6.01.43-PM-p-1600x1207.png 1600w, ' +
-                '/images/Screen-Shot-2016-09-18-at-6.01.43-PM.png 1856w',
-        sizes: '(max-width: 479px) 96vw, (max-width: 767px) 58vw, (max-width: 991px) 342px, 444px',
-      },
       theMakerspace: {
         srcset: '/images/TopPlan-p-500x178.png 500w, ' +
                 '/images/TopPlan-p-800x285.png 800w, ' +
@@ -329,6 +329,10 @@ export default {
 @media (min-width: 576px) {
     .jumbotron .header-cta { width: 400px; }
     .header-ml-signup input { font-size: 16px; }
+}
+
+#what-is-tk {
+    img { width: 100%; }
 }
 
 .need-auth {

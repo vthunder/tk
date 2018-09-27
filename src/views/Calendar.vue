@@ -12,6 +12,19 @@ import { FullCalendar } from 'vue-full-calendar';
 import * as misc from '../graphql/misc';
 
 export default {
+  apollo: {
+    calendar_events: misc.query.calendar_events,
+  },
+  components: {
+    FullCalendar,
+  },
+  computed: {
+    events() {
+      return this
+        .calendar_events
+        .map(e => ({ ...e, url: `/event/${e.id}` }));
+    },
+  },
   data() {
     return {
       calendar_events: [],
@@ -20,19 +33,6 @@ export default {
         height: 'auto',
       },
     };
-  },
-  computed: {
-    events() {
-      return this
-        .calendar_events
-        .map(e => ({ ...e, url: `#/event/${e.id}` }));
-    },
-  },
-  apollo: {
-    calendar_events: misc.query.calendar_events,
-  },
-  components: {
-    FullCalendar,
   },
 };
 </script>
