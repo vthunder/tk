@@ -2,7 +2,7 @@
   <div class="home">
       <div class="jumbotron">
           <div class="hero container justify-content-center">
-              <h1>Tinker Kitchen</h1>
+              <h1 class="home-page">Tinker Kitchen</h1>
               <h3>A cooking makerspace in San Francisco<br>
                   for learning and experimenting with food.</h3>
           </div>
