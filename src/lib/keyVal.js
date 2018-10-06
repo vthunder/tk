@@ -2,6 +2,7 @@ import * as _ from 'lodash';
 
 export function restoreField(array) {
   const ret = {};
+  if (!array) return ret;
   array.forEach((pair) => {
     ret[pair.key] = pair.value;
   });
@@ -11,7 +12,7 @@ export function restoreField(array) {
 export function restoreObject(obj, attributes) {
   const ret = JSON.parse(JSON.stringify(obj));
   attributes.forEach((attr) => {
-    _.set(ret, attr, restoreField(_.get(ret, attr)));
+    _.set(ret, attr, restoreField(_.get(ret, attr, [])));
   });
   return ret;
 }
