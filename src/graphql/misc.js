@@ -19,6 +19,48 @@ query CalendarEvent($id: Int!) {
     category
     price
     member_price
+    sku {
+      id
+      active
+      attributes {
+        key
+        value
+      }
+      currency
+      inventory {
+        quantity
+        type
+        value
+      }
+      livemode
+      metadata {
+        key
+        value
+      }
+      price
+      product
+    }
+    member_sku {
+      id
+      active
+      attributes {
+        key
+        value
+      }
+      currency
+      inventory {
+        quantity
+        type
+        value
+      }
+      livemode
+      metadata {
+        key
+        value
+      }
+      price
+      product
+    }
   }
 }
 `,
@@ -33,8 +75,6 @@ query CalendarEvents {
     duration
     description
     category
-    price
-    member_price
   }
 }
 `,
