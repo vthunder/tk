@@ -4,39 +4,32 @@
         <b-link :to="{ name: 'calendar' }">&lt; Back to calendar</b-link>
         <div class="row mt-2">
             <div class="col-md-8">
-                <h2 class="text-left">{{ calendar_event.title }}</h2>
+                <h1 class="text-left">{{ calendar_event.title }}</h1>
                 <p class="event-description mt-4">
                     <vue-markdown :source="calendar_event.description"></vue-markdown>
                 </p>
             </div>
             <div class="col-md-4 border p-4">
-                <h3>{{ date }}</h3>
-                <h3>{{ start_time }}</h3>
-                <h3 v-if="calendar_event.all_day">Duration: All day</h3>
-                <h3 v-else-if="calendar_event.duration">
-                    Duration: {{ calendar_event.duration }}
-                </h3>
-
-                <p v-if="calendar_event.category && calendar_event.category === 'private'">
-                    Private event.
-                </p>
+                <h4>{{ date }}</h4>
+                <h5><strong>{{ start_time }}</strong>,
+                    <strong v-if="calendar_event.all_day">all day</strong>
+                    <strong v-else-if="calendar_event.duration">
+                        for {{ calendar_event.duration }}
+                    </strong>
+                </h5>
+                <h5 v-if="calendar_event.category && calendar_event.category === 'private'">
+                    <strong>Private event.</strong>
+                </h5>
                 <div v-else>
-                    <div class="price">
-                        Price: {{ formatPrice(calendar_event.price) }}
-                    </div>
-                    <div v-if="calendar_event.member_price" class="price mb-2">
-                        Member price: {{ formatPrice(calendar_event.member_price) }}
-                    </div>
+                    <h5>
+                        <strong>Price: {{ formatPrice(calendar_event.sku.price) }}</strong>
+                        <strong v-if="calendar_event.member_sku" class="price mb-2">
+                            &nbsp;(members: {{ formatPrice(calendar_event.member_sku.price) }})
+                        </strong>
+                    </h5>
                     <div v-if="me">
-                        <button class="btn btn-primary">Book Event</button>
-                        <!--
-                        @if (Auth::user()->subscribed("membership"))
-                            <div>Member discount applied.</div>
-                        @else
-                            <div class="mt-2">Did you know? Members get discounts on all events.
-                                <b-link to="learn-membership">Learn more</b-link>.</div>
-                            @endif
-                             -->
+                        <button class="btn btn-primary"
+                                @click="book()">Book Event</button>
                     </div>
                     <div v-else><b-button v-b-modal.auth-modal>Sign in
                         <i class="fas fa-sign-in-alt"></i></b-button>
@@ -51,8 +44,10 @@
 <script>
 import moment from 'moment';
 import VueMarkdown from 'vue-markdown';
-import * as auth from '../graphql/auth';
-import * as misc from '../graphql/misc';
+import * as auth from '@/graphql/auth';
+import * as misc from '@/graphql/misc';
+import * as kv from '@/lib/keyVal';
+import * as format from '@/lib/format';
 
 export default {
   data() {
@@ -63,7 +58,6 @@ export default {
   },
   computed: {
     date() {
-      console.log(this.calendar_event);
       return moment(this.calendar_event.start)
         .format('dddd MMMM Do');
     },
@@ -85,6 +79,12 @@ export default {
           id: this.$route.params.id,
         };
       },
+      update(data) {
+        const ret = JSON.parse(JSON.stringify(data.calendar_event));
+        ret.sku = kv.restoreObject(ret.sku, ['attributes', 'metadata']);
+        ret.member_sku = kv.restoreObject(ret.member_sku, ['attributes', 'metadata']);
+        return ret;
+      },
     },
     me: {
       query: auth.query.me,
@@ -99,7 +99,15 @@ export default {
   },
   methods: {
     formatPrice(p) {
-      return `$${p / 100}`;
+      return format.priceWhole(p);
+    },
+    book() {
+      let sku = this.calendar_event.sku;
+      if (this.me.is_member && this.calendar_event.member_sku) {
+        sku = this.calendar_event.member_sku;
+      }
+      this.$root.$emit('tk::pay-modal::open', [sku]);
+      this.$root.$on('tk::pay-modal::complete', this.payComplete);
     },
   },
 };
