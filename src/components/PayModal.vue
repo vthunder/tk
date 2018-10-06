@@ -52,7 +52,6 @@ export default {
     tableItems() {
       // FIXME: user configurable qty
 
-
       return this.items.map(i => ({
         item: i.attributes.title,
         quantity: 1,
