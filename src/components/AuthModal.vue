@@ -6,7 +6,7 @@
         <template slot="modal-title">{{ mode[activeMode].title }}</template>
         <b-alert :show=showAlert variant="danger">{{ alertMessage }}</b-alert>
 
-        <b-form @submit="onSubmit" @reset="onReset" v-if="showForm">
+        <b-form @submit.prevent="onSubmit" @reset="onReset" v-if="showForm">
             <b-form-group v-if="activeMode == 'register'"
                           label="Name" label-sr-only label-for="name-field">
                 <b-form-input id="name-field"
@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import * as auth from '../graphql/auth';
-import { onLogin } from '../vue-apollo';
+import { onLogin } from '@/vue-apollo';
+import * as auth from '@/graphql/auth';
 
 export default {
   data() {
@@ -79,7 +79,7 @@ export default {
       this.activeMode = (this.activeMode === 'signin') ? 'register' : 'signin';
       this.onReset();
     },
-    onSubmit() {
+    async onSubmit() {
       let mutation = auth.mutation.login;
       const variables = {
         email: this.form.email,
@@ -91,10 +91,8 @@ export default {
         variables.name = this.form.name;
       }
 
-      this.$apollo.mutate({
-        mutation,
-        variables,
-      }).then(({ data }) => {
+      try {
+        const { data } = await this.$apollo.mutate({ mutation, variables });
         const ret = data.login ? data.login : data.signup;
         this.token = ret.jwt.token;
         onLogin(this.$apollo.provider.defaultClient, ret.jwt.token);
@@ -107,16 +105,16 @@ export default {
           delete localStorage.nextRoute;
           window.location.reload(); // FIXME: otherwise user won't be signed in...
         }
-      }).catch((err) => {
+      } catch (e) {
         if (this.activeMode === 'signin') {
-          console.log(`Login error: ${err}`);
+          console.log(`Login error: ${e}`);
           this.showAlert = true;
         } else {
-          console.log(`Signup error: ${err}`);
+          console.log(`Signup error: ${e}`);
           this.alertMessage = 'Signup error!';
           this.showAlert = true;
         }
-      });
+      }
     },
     onReset() {
       this.form.name = '';
