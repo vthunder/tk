@@ -26,18 +26,19 @@ input, button {
 }
 h1 {
     font-family: 'museo';
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 900;
-    line-height: 3rem;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, .73), 0 2px 4px rgba(0, 0, 0, .19);
+    line-height: 2.5rem;
+    text-align: center;
     @media (min-width: 768px) {
-        font-size: 3rem;
-        line-height: 3.5rem;
+        font-size: 2.5rem;
+        line-height: 3rem;
     }
 }
 h1.home-page {
     font-size: 3rem;
     line-height: 2.5rem;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .73), 0 2px 4px rgba(0, 0, 0, .19);
     @media (min-width: 768px) {
         font-size: 4.25rem;
         line-height: 3.5rem;
