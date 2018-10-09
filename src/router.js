@@ -4,6 +4,8 @@ import Home from './views/Home.vue';
 import Calendar from './views/Calendar.vue';
 import Event from './views/Event.vue';
 import Membership from './views/Membership.vue';
+import Groups from './views/Groups.vue';
+import Commercial from './views/Commercial.vue';
 import MemberMembership from './views/member/Membership.vue';
 import MemberDayPasses from './views/member/DayPasses.vue';
 import MemberBilling from './views/member/Billing.vue';
@@ -35,6 +37,16 @@ export default new Router({
       path: '/membership',
       name: 'learn-membership',
       component: Membership,
+    },
+    {
+      path: '/groups',
+      name: 'groups',
+      component: Groups,
+    },
+    {
+      path: '/commercial',
+      name: 'commercial',
+      component: Commercial,
     },
     {
       path: '/member/membership',
