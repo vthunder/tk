@@ -1,40 +1,35 @@
 <template>
     <div class="membership section container">
-        <h2 id="pricing">Tinker Kitchen Membership</h2>
+        <h1>Membership & Day Passes</h1>
 
-        <div class="row justify-content-center">
-            <div class="col-md-10">
+        <b-row class="justify-content-center">
+            <b-col md="10">
                 <p>Ready to embark on your own cooking adventures? Get out of your
                     tiny apartment kitchen! Join us at our gorgeous 1700sqft space
                     for all your personal cooking projects.</p>
                 <p class="text-center">{{ monthly.monthly_price }}/month
                     <br>{{ yearly.monthly_price }}/month
                     (paid yearly)</p>
-            </div>
-        </div>
+            </b-col>
+            <b-col md="4">
+                <b-card>
+                    <p v-if="me && me.is_member" class="card-text">
+                        Membership <strong>active</strong>. Yay!
+                        <b-button :to="{ name: 'member-membership' }">Account & Billing</b-button>
+                    </p>
+                    <p v-else class="card-text">
+                        Membership <strong>inactive</strong>.
+                        <RequireSignIn post_text="to become a member."
+                                       :next_route="{ name: 'member-membership' }">
+                            <b-button :to="{ name: 'member-membership' }"
+                                      variant="primary">Sign up</b-button>
+                        </RequireSignIn>
+                    </p>
+                </b-card>
+            </b-col>
+        </b-row>
 
-        <div v-if="enable_login" class="row justify-content-center">
-            <RequireSignIn post_text="to become a member."
-                           :next_route="{ name: 'member-membership' }">
-                <b-button :to="{ name: 'member-membership' }"
-                          variant="primary">Click here</b-button> to
-                sign up.
-            </RequireSignIn>
-        </div>
-        <div v-else-if="enable_ks">
-            <div class="row justify-content-center">
-                Become a member by backing our Kickstarter and take
-                advantage of our special launch pricing.
-            </div>
-            <div class="row justify-content-center">
-                <b-button variant="primary" href="https://www.kickstarter.com/projects/20846993/tinker-kitchen">Back our Kickstarter</b-button>
-            </div>
-        </div>
-        <div v-else class="row justify-content-center">
-            <MailingListSignup cta="Sign up below to get on our membership waitlist:" />
-        </div>
-
-        <h5 class="mt-4 mb-4">All memberships include:</h5>
+        <h5 class="mt-4 mb-4">Memberships include:</h5>
 
         <div class="justify-content-center">
             <div class="row">
@@ -108,17 +103,18 @@
 import RequireSignIn from '@/components/RequireSignIn.vue';
 import MailingListSignup from '@/components/MailingListSignup.vue';
 import { monthlyQuery, yearlyQuery } from '@/lib/plans';
+import * as auth from '@/graphql/auth';
 
 export default {
   data() {
     return {
+      me: {},
       monthly: {},
       yearly: {},
-      enable_login: process.env.VUE_APP_ENABLE_LOGIN === 'true',
-      enable_ks: process.env.VUE_APP_ENABLE_KS === 'true',
     };
   },
   apollo: {
+    me: auth.query.me,
     monthly: monthlyQuery,
     yearly: yearlyQuery,
   },
