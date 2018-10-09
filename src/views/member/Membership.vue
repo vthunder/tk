@@ -45,11 +45,11 @@
 </template>
 
 <script>
-import * as moment from 'moment';
 import StorePage from '@/components/MemberPage.vue';
 import * as auth from '@/graphql/auth';
 import * as customerQueries from '@/graphql/customer';
 import { monthlyQuery, yearlyQuery } from '@/lib/plans';
+import * as format from '@/lib/format';
 
 export default {
   data() {
@@ -65,8 +65,7 @@ export default {
     subscribed_since() {
       if (this.customer_subscriptions &&
           this.customer_subscriptions.length) {
-        const m = moment.unix(this.customer_subscriptions[0].created);
-        return m.format('dddd, MMMM Do YYYY');
+        return format.date(this.customer_subscriptions[0].created);
       }
       return '';
     },
