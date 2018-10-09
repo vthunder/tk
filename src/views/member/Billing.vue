@@ -2,7 +2,15 @@
     <div v-if="$apollo.loading" class="loading"><h3>Loading...</h3></div>
     <div v-else class="container section">
         <StorePage>
-            <b-table striped hover :items="chargesTable"></b-table>
+            <p v-if="nextPayment">
+                Next payment: {{ nextPaymentAmount }} on {{ nextPaymentDate }},
+                for: {{ nextPaymentDescription }}
+            </p>
+            <b-table striped hover :items="chargesTable" v-if="chargesTable.length"></b-table>
+            <p v-else>No transactions to display.</p>
+            <p v-if="me.has_previous_stripe_ids">Note: You have
+                    previously deleted Stripe accounts.  Only
+                    displaying transactions for the most current one.</p>
         </StorePage>
     </div>
 </template>
@@ -12,6 +20,7 @@ import * as _ from 'lodash';
 import * as moment from 'moment';
 import StorePage from '@/components/MemberPage.vue';
 import * as customerQueries from '@/graphql/customer';
+import * as auth from '@/graphql/auth';
 import * as kv from '@/lib/keyVal';
 import * as format from '@/lib/format';
 
@@ -46,6 +55,7 @@ function chargeDescription(charge) {
 
 export default {
   apollo: {
+    me: auth.query.me,
     customer_charges: {
       query: customerQueries.query.customer_charges,
       update(data) {
@@ -62,6 +72,13 @@ export default {
         return ret;
       },
     },
+    customer_subscriptions: {
+      query: customerQueries.query.customer_subscriptions,
+      update(data) {
+        return kv.restoreArray(data.customer_subscriptions, [
+          'metadata', 'plan.metadata', 'plan.attributes']);
+      },
+    },
   },
   components: {
     StorePage,
@@ -75,10 +92,38 @@ export default {
         status: chargeStatus(c),
       }));
     },
+    nextPayment() {
+      if (this.customer_subscriptions.length) {
+        const sub = this.customer_subscriptions[0];
+        if (sub.plan.active && !sub.canceled_at && !sub.cancel_at_period_end) {
+          return true;
+        }
+      }
+      return false;
+    },
+    nextPaymentAmount() {
+      if (this.nextPayment) {
+        return format.priceWhole(this.customer_subscriptions[0].plan.amount);
+      }
+      return '';
+    },
+    nextPaymentDescription() {
+      if (this.nextPayment) {
+        return this.customer_subscriptions[0].plan.metadata.title;
+      }
+      return '';
+    },
+    nextPaymentDate() {
+      if (this.nextPayment) {
+        return format.date(this.customer_subscriptions[0].current_period_end);
+      }
+      return '';
+    },
   },
   data() {
     return {
       customer_charges: [],
+      customer_subscriptions: [],
     };
   },
 };
