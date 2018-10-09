@@ -102,7 +102,7 @@ export default {
       return format.priceWhole(p);
     },
     book() {
-      let sku = this.calendar_event.sku;
+      let { sku } = this.calendar_event;
       if (this.me.is_member && this.calendar_event.member_sku) {
         sku = this.calendar_event.member_sku;
       }
