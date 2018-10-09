@@ -21,16 +21,8 @@
 
             <div class="card-deck">
                 <b-card-group deck class="mt-2">
-                    <b-card v-for="sku in passes" :key=sku.id
-                            :title=sku.attributes.title
-                            :sub-title="sku.attributes.subtitle">
-                        <p class="card-text">{{ sku.attributes.description }}</p>
-                        <div slot="footer" class="text-center">
-                            <b-button variant="primary" @click="buy(sku)">
-                                Buy
-                            </b-button>
-                        </div>
-                    </b-card>
+                    <DayPassProductCard :sku="pass_1" />
+                    <DayPassProductCard :sku="pass_5" />
                 </b-card-group>
             </div>
         </StorePage>
@@ -39,42 +31,43 @@
 
 <script>
 import StorePage from '@/components/MemberPage.vue';
+import DayPassProductCard from '@/components/DayPassProductCard.vue';
 import * as auth from '@/graphql/auth';
 import * as products from '@/graphql/products';
 import * as kv from '@/lib/keyVal';
-import * as format from '@/lib/format';
 
 export default {
   apollo: {
     me: auth.query.me,
-    dayPasses: {
-      query: products.query.skus,
+    day_pass_skus: {
+      query: products.query.day_pass_skus,
       update(data) {
-        const ret = [];
-        kv.restoreArray(data.skus, ['attributes', 'metadata']).forEach((sku) => {
-          const copy = sku;
-          copy.fmtPrice = format.priceWhole(sku.price);
-          copy.fmtPricePerUnit = format.priceWhole(sku.price / sku.attributes['bundled-units']);
-          ret.push(copy);
-        });
-        return ret;
+        return kv.restoreObject(data.day_pass_skus, [
+          'nonmember_1.attributes',
+          'nonmember_1.metadata',
+          'nonmember_5.attributes',
+          'nonmember_5.metadata',
+          'member_1.attributes',
+          'member_1.metadata',
+          'member_5.attributes',
+          'member_5.metadata',
+        ]);
       },
     },
     user_passes: products.query.user_passes,
   },
   components: {
     StorePage,
+    DayPassProductCard,
   },
   computed: {
-    memberPasses() {
-      return this.dayPasses.filter(sku => sku.attributes['members-only'] === 'yes');
+    pass_1() {
+      if (this.sub) return this.day_pass_skus.member_1;
+      return this.day_pass_skus.nonmember_1;
     },
-    nonMemberPasses() {
-      return this.dayPasses.filter(sku => sku.attributes['members-only'] !== 'yes');
-    },
-    passes() {
-      if (this.sub) return this.memberPasses;
-      return this.nonMemberPasses;
+    pass_5() {
+      if (this.sub) return this.day_pass_skus.member_5;
+      return this.day_pass_skus.nonmember_5;
     },
     userNewPasses() {
       return this.user_passes.filter(p => p.status === 'new');
@@ -92,6 +85,7 @@ export default {
       user_passes: [],
       show_pass_codes: false,
       dayPasses: [],
+      day_pass_skus: {},
     };
   },
   methods: {
