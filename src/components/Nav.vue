@@ -1,5 +1,5 @@
 <template>
-    <b-navbar fixed type="dark" variant="dark" toggleable="md">
+    <b-navbar fixed="top" type="dark" variant="dark" toggleable="md">
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
         <b-navbar-brand href="/"/>
 
@@ -20,8 +20,10 @@
                 </b-nav-item>
 
                 <b-nav-item-dropdown v-if="me" :text=me.name right>
-                    <b-dd-item-button
-                      :to="{ name: 'member-membership' }">Membership</b-dd-item-button>
+                    <b-dd-item :to="{ name: 'member-membership' }">Membership</b-dd-item>
+                    <b-dd-item :to="{ name: 'member-daypasses' }">Day Passes</b-dd-item>
+                    <b-dd-item :to="{ name: 'member-billing' }">Billing</b-dd-item>
+                    <b-dd-divider></b-dd-divider>
                     <b-dd-item-button @click="signout()">Sign out</b-dd-item-button>
                 </b-nav-item-dropdown>
                 <b-nav-item v-else v-b-modal.auth-modal>
