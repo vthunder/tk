@@ -30,4 +30,8 @@ export default {
 <style lang="scss">
 @import "./styles/app.scss";
 @import "~open-iconic/font/css/open-iconic-bootstrap.css";
+
+#app nav + div {
+    padding-top: 56px;
+}
 </style>
