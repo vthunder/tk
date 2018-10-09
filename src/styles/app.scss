@@ -89,17 +89,34 @@ h5 {
     @media (min-width: 768px) { height: 500px; }
 }
 
+.section-image-sm {
+    background-size: cover !important;
+    height: 200px;
+    @media (min-width: 576px) { height: 300px; }
+    @media (min-width: 768px) { height: 400px; }
+}
+
+.section-image-xs {
+    background-size: cover !important;
+    height: 100px;
+    @media (min-width: 576px) { height: 200px; }
+    @media (min-width: 768px) { height: 300px; }
+}
+
 .tinker-with-us-image {
+    @extend .section-image-xs;
     background: url('/images/14063438_538866749636743_140527491_n.jpg');
     background-position: 50% 40%;
 }
 
 .join-us-image {
+    @extend .section-image;
     background: url('/images/Making-Chocolate.jpg');
     background-position: 100% 80%;
 }
 
 .whats-next-image {
+    @extend .section-image;
     background: #ccccc9 url('/images/Screen-Shot-2016-09-18-at-6.01.43-PM.png');
     background-position: 50% 50%;
     background-repeat: no-repeat;

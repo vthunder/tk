@@ -23,8 +23,6 @@
       </b-container>
 
       <b-container class="mt-4">
-          <h2 class="mb-2">What can you do at Tinker Kitchen?</h2>
-
           <b-row>
               <b-col md="4">
                   <b-card img-src="/images/LN-Demo-500x283.jpeg"
@@ -72,76 +70,9 @@
               our kitchen.</p>
       </b-container>
 
-      <div class="section-image tinker-with-us-image"></div>
+      <div class="join-us-image"></div>
 
-      <div class="section-image join-us-image"></div>
-
-      <div class="container section">
-          <h2 id="pricing">Memberships &amp; Passes</h2>
-
-          <div class="row justify-content-center">
-              <div class="col-md-10">
-                  <p>Ready to embark on your own cooking adventures? Get out of your tiny apartment
-                      kitchen! Join us at our gorgeous 1700sqft space for all your personal
-                      cooking projects.</p>
-              </div>
-          </div>
-          <div class="row justify-content-center">
-              <div class="feature-table col-md-5 d-flex flex-column justify-content-between">
-                  <div>
-                      <h4>Monthly membership</h4>
-                      <ul class="list-unstyled">
-                          <li>Use our makerspace as often as you want</li>
-                          <li>Access all our gadgets and equipment</li>
-                          <li>Join our culinary clubs, make friends, learn something new</li>
-                          <li>Bring a guest for free whenever you visit.</li>
-                          <li>Host a dinner party! We&#x27;ll even help you with the dishes.</li>
-                          <li>We&#x27;ll receive your monthly CSA, Blue Apron, or other cooking box
-                              for you, so you can just come and cook (subject to space
-                              availability)</li>
-                          <li>Get discounts on classes, specialized ingredients, and events</li>
-                          <li>Get invites for special member-only events (pop-up dinners, guest
-                              speakers, beta-test new gadgets, and more)</li>
-                      </ul>
-                  </div>
-                  <div class="product-card-price">
-                      <div>$150/month</div>
-                      <b-button :to="{ name: 'learn-membership' }"
-                                variant="primary" class="mt-2">Learn more</b-button>
-                  </div>
-              </div>
-              <div class="feature-table col-md-5 d-flex flex-column justify-content-between">
-                  <div>
-                      <h4>Day pass</h4>
-                      <ul class="list-unstyled">
-                          <li>Use our makerspace for a day</li>
-                          <li>Access all our gadgets and equipment</li>
-                          <li>Attend open events and activities on the day you use your pass</li>
-                      </ul>
-                  </div>
-                  <div class="product-card-price">
-                      <div class="mb-2">$35/day</div>
-                      <RequireSignIn v-if="enable_login" post_text="to purchase"
-                                     :next_route="{ name: 'member-daypasses' }"
-                                     variant="secondary">
-                          <b-button :to="{ name: 'member-membership' }">Purchase</b-button>
-                      </RequireSignIn>
-                      <div v-else style="height: 38px"></div>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-      <div class="container section">
-          <div class="row justify-content-center">
-              <div class="col-md-10">
-                  <h3>Interested?</h3>
-                  <MailingListSignup variant="secondary" />
-              </div>
-          </div>
-      </div>
-
-      <div class="section-image whats-next-image"></div>
+      <div class="whats-next-image"></div>
 
       <div class="container section">
           <h2 id="makerspace" class="section-heading">The Makerspace</h2>
@@ -180,6 +111,15 @@
           <iframe width="100%" height="450" frameborder="0" style="border:0"
                   :src=maps.src
                   allowfullscreen></iframe>
+      </div>
+
+      <div class="container section">
+          <div class="row justify-content-center">
+              <div class="col-md-10">
+                  <h3>Interested?</h3>
+                  <MailingListSignup variant="secondary" />
+              </div>
+          </div>
       </div>
 
       <div class="about-section">
