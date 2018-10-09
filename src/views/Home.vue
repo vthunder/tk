@@ -6,84 +6,73 @@
               <h3>A cooking makerspace in San Francisco<br>
                   for learning and experimenting with food.</h3>
           </div>
-          <div class="row justify-content-end">
-              <div v-if="enable_ks" class="header-cta bg-dark text-white">
-                  Now on Kickstarter! Check out our page and watch our video.<br/>
-                  <div class="row justify-content-center">
-                      <b-button variant="primary" href="https://www.kickstarter.com/projects/20846993/tinker-kitchen">View on Kickstarter</b-button>
-                  </div>
-              </div>
-              <div v-else class="header-cta bg-dark text-white">
-                  <MailingListSignup :cta=header.cta />
-              </div>
-          </div>
+          <i class="fas fa-angle-double-down text-white"></i>
       </div>
 
-      <div id="what-is-tk" class="container section">
-          <h2 id="about">What is Tinker Kitchen?</h2>
-          <div class="row justify-content-center">
-              <div class="col-md-6">
-                  <img src="/images/TK_space.jpg">
-              </div>
-              <div class="col-md-4">
+      <b-container class="pt-3">
+          <b-row class="justify-content-center">
+              <b-col md="8" lg="6">
                   <p>Tinker Kitchen is an awesome cooking makerspace with specialized,
                       commercial-grade equipment and hard-to-find ingredients like modernist
                       powders, liquid nitrogen, and more.</p>
                   <p>We’re a community space open to everyone, and we have plenty of space to
                       cook, eat, or hang out—by yourself or with friends—all with a flexible
-                      makerspace-style schedule. Come by anytime!</p>
-              </div>
-          </div>
-      </div>
+                      makerspace-style schedule.</p>
+              </b-col>
+          </b-row>
+      </b-container>
+
+      <b-container class="mt-4">
+          <h2 class="mb-2">What can you do at Tinker Kitchen?</h2>
+
+          <b-row>
+              <b-col md="4">
+                  <b-card img-src="/images/LN-Demo-500x283.jpeg"
+                          img-alt="Experiment at Tinker Kitchen"
+                          img-top
+                          class="mt-3">
+                      <p class="card-text">
+                          Experiment and pursue your cooking projects our
+                          kitchen&mdash;loaded with all the equipment you
+                          could dream of.
+                      </p>
+                      <b-link :to="{ name: 'learn-membership' }">Memberships & passes</b-link>
+                  </b-card>
+              </b-col>
+              <b-col md="4">
+                  <b-card img-src="/images/Filling-bonbons-500x289.jpg"
+                          img-alt="Card image"
+                          img-top
+                          class="mt-3">
+                      <p class="card-text">
+                          Take a class and level up your cooking skills,
+                          or join a cooking club and learn at your own
+                          pace together with others.
+                      </p>
+                      <b-link :to="{ name: 'calendar' }">Class calendar</b-link>
+                  </b-card>
+              </b-col>
+              <b-col md="4">
+                  <b-card img-src="/images/Making-ice-cream-500x282.jpg"
+                          img-alt="Card image"
+                          img-top
+                          class="mt-3">
+                      <p class="card-text">
+                          Use our kitchen for a group event: from dinner
+                          parties to team off-sites, we're perfect for
+                          your cooking activity.
+                      </p>
+                      <b-link :to="{ name: 'groups' }">Group events</b-link>
+                  </b-card>
+              </b-col>
+          </b-row>
+
+          <p class="mt-4 mb-4">Are you in the food industry? Learn about
+              <b-link :to="{ name: 'commercial' }">commercial use</b-link> of
+              our kitchen.</p>
+      </b-container>
 
       <div class="section-image tinker-with-us-image"></div>
-
-      <div class="container section">
-          <h2>What can you do at Tinker Kitchen?</h2>
-
-          <div class="row justify-content-center">
-              <div class="feature-table col-md-8 col-lg-6">
-                  <h4>Personal use</h4>
-                  <ul class="list-unstyled">
-                      <li>Experiment with specialized &amp; commercial cooking equipment</li>
-                      <li>Take a class and level up your cooking skills</li>
-                      <li>Pursue personal cooking projects in our awesome space</li>
-                      <li>Join a cooking club</li>
-                      <li>Host a dinner party or group celebration</li>
-                  </ul>
-              </div>
-          </div>
-          <div class="row justify-content-center">
-              <div class="feature-table col-md-5">
-                  <h4>Groups</h4>
-                  <ul class="list-unstyled">
-                      <li>Hold small team off-sites with a
-                          cooking-themed activity</li>
-                      <li>Book the whole space all to yourself for
-                          your special private events: parties,
-                          product launches, or private dinners</li>
-                      <li>Have an idea for a special pop-up event?
-                          Partner with us for a class, demonstration,
-                          or talk</li>
-                  </ul>
-              </div>
-              <div class="feature-table col-md-5">
-                  <h4>Commercial use</h4>
-                  <ul class="list-unstyled">
-                      <li>Practice your skills&#8212;We're a perfect
-                          complement to a culinary degree program</li>
-                      <li>Create new recipes and test product
-                          ideas. We're the perfect venue for all your
-                          R&D, and have a network of mentors and
-                          experts you can access</li>
-                      <li>Host micro-popup events and teach classes to
-                          get feedback and refine your products</li>
-                      <li class="small">Note: no food production for
-                          sale allowed at this time</li>
-                  </ul>
-              </div>
-          </div>
-      </div>
 
       <div class="section-image join-us-image"></div>
 
@@ -147,17 +136,7 @@
           <div class="row justify-content-center">
               <div class="col-md-10">
                   <h3>Interested?</h3>
-                  <div v-if="enable_ks">
-                      <div class="row justify-content-center">
-                          We're live on Kickstarter right now! Back
-                          our campaign and get discounted membership
-                          or daily passes:
-                      </div>
-                      <div class="row justify-content-center">
-                          <b-button variant="primary" href="https://www.kickstarter.com/projects/20846993/tinker-kitchen">Back our Kickstarter</b-button>
-                      </div>
-                  </div>
-                  <MailingListSignup v-else variant="secondary" />
+                  <MailingListSignup variant="secondary" />
               </div>
           </div>
       </div>
@@ -248,7 +227,6 @@ export default {
     // elaborate workaround for eslint line-length errors
     return {
       enable_login: process.env.VUE_APP_ENABLE_LOGIN === 'true',
-      enable_ks: process.env.VUE_APP_ENABLE_KS === 'true',
       header: {
         cta: 'Coming soon to the SF Mission District. ' +
              'Sign up to hear the latest and get on our membership waitlist.',
@@ -273,62 +251,65 @@ export default {
 
 <style lang="scss" scoped>
 .jumbotron {
-    background: url('/images/MakerFaire-LN_Demo.jpg');
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('/images/TK_space.jpg');
     background-position: center;
     background-size: cover;
     border-radius: 0;
     min-height: 300px;
-}
-@media (min-width: 576px) {
-    .jumbotron { min-height: 400px; }
-}
-@media (min-width: 768px) {
-    .jumbotron { min-height: 480px; }
-}
-@media (min-width: 992px) {
-    .jumbotron { min-height: 560px; }
-}
-@media (min-width: 1200px) {
-    .jumbotron { min-height: 600px; }
+    position: relative;
+    @media (min-width: 576px) { min-height: 400px; }
+    @media (min-width: 768px) { min-height: 480px; }
+    @media (min-width: 992px) { min-height: 560px; }
+    @media (min-width: 1200px) { min-height: 600px; }
+
+    .hero {
+        color: white;
+        padding-top: 100px;
+        text-align: center;
+        @media (min-width: 992px) { padding-top: 150px; }
+    }
+
+    .header-cta {
+        border-radius: 5px;
+        font-family: museo;
+        font-weight: 300;
+        margin: 75px 5px 0;
+        padding: 10px;
+        width: 100%;
+        @media (min-width: 576px) {
+            font-size: .875rem;
+            width: 400px;
+        }
+    }
+
+    .fa-angle-double-down {
+        bottom: 20px;
+        display: none;
+        left: 49%;
+        position: absolute;
+        @media (min-width: 768px) { display: block; }
+    }
 }
 
-.jumbotron .hero {
-    color: white;
-    padding-top: 100px;
-    text-align: center;
-}
-@media (min-width: 992px) {
-    .jumbotron .hero { padding-top: 150px; }
-}
-
-.jumbotron .header-cta {
-    border-radius: 5px;
-    font-family: museo;
-    font-weight: 300;
-    margin: 75px 5px 0;
-    padding: 10px;
-    width: 100%;
-    @media (min-width: 576px) { font-size: .875rem; }
-}
-.header-ml-signup .cta-text {
-    margin-bottom: 5px;
-}
-.header-ml-signup input {
-    border: none;
-    font-size: 14px;
-}
-.header-ml-signup button {
-    background-color: #ff7911;
-    border: none;
-    box-shadow: 0 3px 0 0 #aa3400;
-    transition: background-color 250ms;
-}
-.header-ml-signup button:hover {
-    background-color: #cc4600;
-}
-@media (min-width: 576px) {
-    .jumbotron .header-cta { width: 400px; }
-    .header-ml-signup input { font-size: 16px; }
+.header-ml-signup {
+    .cta-text {
+        margin-bottom: 5px;
+    }
+    input {
+        border: none;
+        font-size: 14px;
+        @media (min-width: 576px) { font-size: 16px; }
+    }
+    button {
+        background-color: #ff7911;
+        border: none;
+        box-shadow: 0 3px 0 0 #aa3400;
+        transition: background-color 250ms;
+    }
+    button:hover {
+        background-color: #cc4600;
+    }
 }
 
 #what-is-tk {
