@@ -49,17 +49,17 @@ export default new Router({
       component: Commercial,
     },
     {
-      path: '/member/membership',
+      path: '/account/membership',
       name: 'member-membership',
       component: MemberMembership,
     },
     {
-      path: '/member/daypasses',
+      path: '/account/daypasses',
       name: 'member-daypasses',
       component: MemberDayPasses,
     },
     {
-      path: '/member/billing',
+      path: '/account/billing',
       name: 'member-billing',
       component: MemberBilling,
     },

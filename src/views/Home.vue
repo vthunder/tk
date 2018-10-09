@@ -34,7 +34,11 @@
                           kitchen&mdash;loaded with all the equipment you
                           could dream of.
                       </p>
-                      <b-link :to="{ name: 'learn-membership' }">Memberships & passes</b-link>
+                      <div class="text-center">
+                          <b-button :to="{ name: 'learn-membership' }" size="sm">
+                              Memberships & passes
+                          </b-button>
+                      </div>
                   </b-card>
               </b-col>
               <b-col md="4">
@@ -47,7 +51,11 @@
                           or join a cooking club and learn at your own
                           pace together with others.
                       </p>
-                      <b-link :to="{ name: 'calendar' }">Class calendar</b-link>
+                      <div class="text-center">
+                      <b-button :to="{ name: 'calendar' }" size="sm">
+                          Class calendar
+                      </b-button>
+                      </div>
                   </b-card>
               </b-col>
               <b-col md="4">
@@ -60,7 +68,11 @@
                           parties to team off-sites, we're perfect for
                           your cooking activity.
                       </p>
-                      <b-link :to="{ name: 'groups' }">Group events</b-link>
+                      <div class="text-center">
+                      <b-button :to="{ name: 'groups' }" size="sm">
+                          Group events
+                      </b-button>
+                      </div>
                   </b-card>
               </b-col>
           </b-row>
@@ -70,8 +82,6 @@
               our kitchen.</p>
       </b-container>
 
-      <div class="join-us-image"></div>
-
       <div class="whats-next-image"></div>
 
       <div class="container section">
@@ -79,47 +89,73 @@
 
           <div class="row justify-content-center">
               <div class="col-md-10">
-                  <p>Our makerspace is divided into two areas: a hang-out/dining space and a
-                      kitchen space.</p>
-                  <img src="/images/TopPlan.png"
-                       :srcset=theMakerspace.srcset
-                       sizes="(max-width: 767px) 96vw, (max-width: 991px) 570px, 740px"
-                       class="makerspace-image">
+                  <p>Tinker Kitchen is open and spacious, and designed
+                      to be as flexible as possible. Our work tables
+                      are on weels so we can accommodate groups and
+                      activities of many sizes.</p>
 
-                  <p>From sous vide machines to pasta extruders to combi ovens to chocolate
-                      tempering<br> machines—even liquid nitrogen and modernist
-                      powders—we&#x27;ll have it all! Here&#x27;s a partial list:</p>
-                  <ul>
-                      <li><a href="https://www.webstaurantstore.com/rational-combimaster-plus-model-61-a619106-12-202-combi-oven-with-six-half-size-sheet-pan-capacity-208-240v-3-phase/645619112202208*2403.html">Combi oven</a></li>
-                      <li><a href="https://www.amazon.com/Lello-Musso-5030-Dessert-Maker/dp/B000FIWZLO">Batch ice cream freezer</a> &amp; <a href="https://www.pacojet.com/en/">Pacojet</a></li>
-                      <li><a href="http://www.bottene.net/en/portfolio-item/lillo-due">Pasta extruder</a> &amp; <a href="https://www.amazon.com/Kitchenaid-KPRA-Roller-Spaghetti-Fettuccine/dp/B000KPULR2">sheeter</a></li>
-                      <li><a href="https://www.meatprocessingproducts.com/ary-vp112c.html?gclid=CJ_9qqi-98YCFQZbfgod_dUP4g">Chamber vacuum</a></li>
-                      <li><a href="https://www.coffeeshrub.com/the-quest-m3s-coffee-roaster.html">Coffee roaster</a></li>
-                      <li><a href="https://www.amazon.com/Cryogenic-Container-Liquid-Nitrogen-Straps/dp/B00UJ7E18Q/ref=sr_1_cc_1?s=aps&amp;ie=UTF8&amp;qid=1441325243&amp;sr=1-1-catcorr&amp;keywords=10L+dewar">Liquid nitrogen</a></li>
-                      <li><a href="https://www.bakedeco.com/detail.asp?id=30401">Chocolate tempering machine</a></li>
-                      <li><a href="https://www.webstaurantstore.com/excalibur-3926tw-white-nine-rack-food-dehydrator-with-timer-600w/3583926TW.html">Dehydrator</a></li>
-                      <li><a href="https://en.wikipedia.org/wiki/Centrifuge">Refrigerated centrifuge</a></li>
-                      <li><a href="https://www.nomiku.com/">Sous vide circulators</a></li>
-                      <li><a href="https://www.amazon.com/Premier-Wonder-Table-Grinder-110v/dp/B004OPIBV2">Wet grinder</a></li>
-                      <li>Refractometer, reference thermometer, Searzall, and more!</li>
-                  </ul>
+                  <p>We have all the greatest equipment, from our
+                      ovens to specialty laboratory equipment, to our
+                      amazing 2-minute dishwasher. More on that below.</p>
+
+                  <div class="text-center">
+                      <img src="/images/Equipment-collage.jpeg" width="50%"/>
+                      <p class="mx-auto small" style="max-width: 50%;">
+                          A random sampling of our equipment: coffee
+                          roaster with digital probes, searzall, pasta
+                          extruder, liquid nitrogen, and chocolate
+                          temperers</p>
+                  </div>
+
+                  <h3>Equipment</h3>
+
+                  <p>We're a little obsessed with kitchen
+                      equipment. Tinker Kitchen is a bit like a
+                      "kitchen playground" where home cooks can have
+                      access to the commercial machines which
+                      restaurants and specialty food makers use.</p>
+
+                  <p>Our cook line has multiple ovens, including a
+                      German-made "combi oven" with built-in
+                      humidity/steam control, commercial deep-fryer,
+                      and even a real wok range.</p>
+
+                  <p>We also have a commercial pasta extruder, at
+                      least three ways of making ice cream (batch
+                      freezer, Pacojet, and even liquid nitrogen). We
+                      have chocolate-making tools—for tempering and
+                      making bonbons, as well as for making it
+                      bean-to-bar. And coffee—from a drum roaster to a
+                      dual-boiler espresso machine.</p>
+
+                  <p>Then there's the lab equipment for modernist
+                      cooking&mdash;two centrifuges (a refrigerated
+                      one and a spinzall), dehydrator, freeze drier,
+                      chamber vacuum, and a selection of the powders
+                      and chemicals you need to make foams, gels,
+                      spherify, and more.</p>
               </div>
           </div>
+      </div>
 
-          <h2 class="section-heading text-center">Location</h2>
+      <div class="join-us-image"></div>
+
+      <div class="container section">
+          <h2 class="section-heading text-center">Getting There</h2>
+
+          <p>We're in the Mission District in San Francisco.</p>
+
+          <p><strong>Address:</strong>&nbsp;3233 22nd St<br/>
+              <strong>Hours:</strong>&nbsp;10AM - 9PM, Tuesdays -
+              Sundays &mdash; except for special events
+              (<b-link :to="{ name: 'calendar' }">calendar</b-link>)</p>
+
+          <p>See <b-link :to="{ name: 'learn-membership' }">membership
+              & day-pass options here</b-link>. Just drop by!</p>
 
           <iframe width="100%" height="450" frameborder="0" style="border:0"
                   :src=maps.src
                   allowfullscreen></iframe>
-      </div>
-
-      <div class="container section">
-          <div class="row justify-content-center">
-              <div class="col-md-10">
-                  <h3>Interested?</h3>
-                  <MailingListSignup variant="secondary" />
-              </div>
-          </div>
       </div>
 
       <div class="about-section">
