@@ -83,6 +83,45 @@ export const query = {
       }
     }
   `,
+  day_pass_skus: gql`
+    fragment SkuFields on SKU {
+      id
+      active
+      attributes {
+        key
+        value
+      }
+      currency
+      inventory {
+        quantity
+        type
+        value
+      }
+      livemode
+      metadata {
+        key
+        value
+      }
+      price
+      product
+    }
+    query {
+      day_pass_skus {
+        nonmember_1 {
+          ...SkuFields
+        }
+        nonmember_5 {
+          ...SkuFields
+        }
+        member_1 {
+          ...SkuFields
+        }
+        member_5 {
+          ...SkuFields
+        }
+      }
+    }
+  `,
   user_passes: gql`
     query {
       user_passes {

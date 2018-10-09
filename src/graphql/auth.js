@@ -8,6 +8,7 @@ query Me {
     email
     is_member
     has_stripe_customer
+    has_previous_stripe_ids
   }
 }
 `,
