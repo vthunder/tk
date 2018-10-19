@@ -7,6 +7,9 @@ query Me {
     name
     email
     is_member
+    is_free_member
+    free_member_until
+    free_membership_type
     has_stripe_customer
     has_previous_stripe_ids
   }

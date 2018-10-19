@@ -86,4 +86,9 @@ mutation MailingListSignup($name: String, $email: String!) {
   mailing_list_signup(name: $name, email: $email)
 }
 `,
+  use_membership_coupon: gql`
+mutation UseMembershipCoupon($token: String!) {
+  use_membership_coupon(token: $token)
+}
+`,
 };

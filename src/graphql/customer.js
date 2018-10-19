@@ -234,8 +234,8 @@ export const mutation = {
     }
   `,
   create_subscription: gql`
-    mutation($plans: [String]) {
-      create_subscription(plans: $plans) {
+    mutation($plans: [String], $code: String) {
+      create_subscription(plans: $plans, code: $code) {
         id
         billing_cycle_anchor
         cancel_at_period_end
