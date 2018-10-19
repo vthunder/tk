@@ -11,6 +11,18 @@ export function updatePlan({ plan }) {
   ret.price = format.priceWhole(ret.amount);
   ret.monthly_price = format.priceWhole(ret.monthly_amount);
 
+  ret.ks_amount = ret.amount;
+  if (ret.interval === 'month') {
+    ret.ks_amount = ret.amount - 2500;
+    ret.ks_monthly_amount = ret.ks_amount;
+  }
+  if (ret.interval === 'year') {
+    ret.ks_amount = ret.amount - 20000;
+    ret.ks_monthly_amount = ret.ks_amount / 12;
+  }
+  ret.ks_price = format.priceWhole(ret.ks_amount);
+  ret.ks_monthly_price = format.priceWhole(ret.ks_monthly_amount);
+
   return ret;
 }
 
