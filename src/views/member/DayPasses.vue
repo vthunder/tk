@@ -11,10 +11,11 @@
                 </b-link>
             </p>
             <p v-if="show_pass_codes">
-                You can share these codes to let friends use your day
-                passes. But it's up to you to keep them safe! Once a
-                code is used at Tinker Kitchen, it will be removed
-                from this list.
+                <strong>How do these work?</strong><br>Show a code to
+                Tinker Kitchen staff to use it. Once used, it will be
+                removed from this list. Feel free to share these codes
+                to let friends use your day passes, but keep them
+                safe!
             </p>
             <b-table v-if="show_pass_codes" striped hover :items="passesTableItems">
             </b-table>
