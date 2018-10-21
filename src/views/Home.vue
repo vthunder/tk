@@ -9,34 +9,24 @@
           <i class="fas fa-angle-double-down text-white"></i>
       </div>
 
-      <b-container class="pt-3">
-          <b-row class="justify-content-center">
-              <b-col md="8" lg="6">
-                  <p>Tinker Kitchen is an awesome cooking makerspace with specialized,
-                      commercial-grade equipment and hard-to-find ingredients like modernist
-                      powders, liquid nitrogen, and more.</p>
-                  <p>We’re a community space open to everyone, and we have plenty of space to
-                      cook, eat, or hang out—by yourself or with friends—all with a flexible
-                      makerspace-style schedule.</p>
-              </b-col>
-          </b-row>
-      </b-container>
-
-      <b-container class="mt-4">
+      <b-container class="section what-can-you-do-section mt-4">
+          <h2 class="section-heading">What can you do at Tinker Kitchen?</h2>
           <b-row>
               <b-col md="4">
                   <b-card img-src="/images/LN-Demo-500x283.jpeg"
                           img-alt="Experiment at Tinker Kitchen"
                           img-top
                           class="mt-3">
+                      <h4>Memberships & passes</h4>
                       <p class="card-text">
                           Experiment and pursue your cooking projects our
                           kitchen&mdash;loaded with all the equipment you
                           could dream of.
                       </p>
                       <div class="text-center">
-                          <b-button :to="{ name: 'learn-membership' }" size="sm">
-                              Memberships & passes
+                          <b-button :to="{ name: 'learn-membership' }" size="sm"
+                                    variant="primary">
+                              Become a member
                           </b-button>
                       </div>
                   </b-card>
@@ -46,14 +36,15 @@
                           img-alt="Card image"
                           img-top
                           class="mt-3">
+                      <h4>Classes & workshops</h4>
                       <p class="card-text">
                           Take a class and level up your cooking skills,
                           or join a cooking club and learn at your own
                           pace together with others.
                       </p>
                       <div class="text-center">
-                      <b-button :to="{ name: 'calendar' }" size="sm">
-                          Class calendar
+                      <b-button :to="{ name: 'calendar' }" size="sm" variant="primary">
+                          See class calendar
                       </b-button>
                       </div>
                   </b-card>
@@ -63,14 +54,15 @@
                           img-alt="Card image"
                           img-top
                           class="mt-3">
+                      <h4>Group & private events</h4>
                       <p class="card-text">
-                          Use our kitchen for a group event: from dinner
-                          parties to team off-sites, we're perfect for
-                          your cooking activity.
+                          Use our kitchen for a group event: from
+                          dinner parties to team off-sites, we're the
+                          perfect place for your cooking activity.
                       </p>
                       <div class="text-center">
-                      <b-button :to="{ name: 'groups' }" size="sm">
-                          Group events
+                      <b-button :to="{ name: 'groups' }" size="sm" variant="primary">
+                          Book an event
                       </b-button>
                       </div>
                   </b-card>
@@ -89,14 +81,15 @@
 
           <div class="row justify-content-center">
               <div class="col-md-10">
-                  <p>Tinker Kitchen is open and spacious, and designed
-                      to be as flexible as possible. Our work tables
-                      are on weels so we can accommodate groups and
-                      activities of many sizes.</p>
+                  <p>Tinker Kitchen is an awesome cooking makerspace
+                      with specialized, commercial-grade equipment and
+                      hard-to-find ingredients like modernist powders,
+                      liquid nitrogen, and more.</p>
 
-                  <p>We have all the greatest equipment, from our
-                      ovens to specialty laboratory equipment, to our
-                      amazing 2-minute dishwasher. More on that below.</p>
+                  <p>We’re a community space open to everyone, and we
+                      have plenty of space to cook, eat, or hang
+                      out—by yourself or with friends—all with a
+                      flexible makerspace-style schedule.</p>
 
                   <div class="text-center">
                       <img src="/images/Equipment-collage.jpeg" width="50%"/>
@@ -106,8 +99,6 @@
                           extruder, liquid nitrogen, and chocolate
                           temperers</p>
                   </div>
-
-                  <h3>Equipment</h3>
 
                   <p>We're a little obsessed with kitchen
                       equipment. Tinker Kitchen is a bit like a
@@ -290,6 +281,14 @@ export default {
 
 #what-is-tk {
     img { width: 100%; }
+}
+
+.what-can-you-do-section {
+    .card-img-top {
+        @media (min-width: 768px) { height: 120px; }
+        @media (min-width: 996px) { height: 180px; }
+        @media (min-width: 1200px) { height: 200px; }
+    }
 }
 
 .need-auth {
