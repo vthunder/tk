@@ -44,7 +44,7 @@
                       </p>
                       <div class="text-center">
                       <b-button :to="{ name: 'calendar' }" size="sm" variant="primary">
-                          See class calendar
+                          Class calendar
                       </b-button>
                       </div>
                   </b-card>
