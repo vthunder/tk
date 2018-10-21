@@ -2,17 +2,12 @@
     <div v-if="$apollo.loading" class="loading"><h3>Loading...</h3></div>
     <div v-else class="container section">
         <StorePage>
-            <p>You can rent part of the space at Tinker Kitchen by the
-                hour for a dinner party, group activity, even a pop-up
-                food demo or class. We'll reserve space for up to 12
-                people (a big 2-table pod + seating space as needed).</p>
-            <p>Regular rental pricing is $75/hr + $50 cleaning
-                fee. However, we currently have a special rate for
-                members looking to do a dinner party: $50/hr and we'll
-                waive the cleaning fee if you leave everything clean.</p>
-            <p>To make sure there are no conflicts, we need to book
-                rentals manually. Just talk to Tinker Kitchen staff
-                and we'll set you up!</p>
+            <p>You can rent part of the Tinker Kichen space! Check out
+                our <b-link :to="{ name: 'groups' }">group events page</b-link>
+                for details.</p>
+            <p>To make sure there are no conflicts, we're currently
+                booking rentals manually. Just talk to Tinker Kitchen
+                staff and we'll set you up!</p>
         </StorePage>
     </div>
 </template>
