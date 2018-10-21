@@ -27,11 +27,9 @@
             </div>
         </AdminPage>
         <b-modal id="coupon-modal" ref="couponModalRef" title="Coupon codes" centered ok-only>
-            <p>Generated codes:</p>
+            <p>Generated codes (type: {{ type }}):</p>
             <ul>
-                <li v-for="code in generated" :key="code">
-                    {{ code }}
-                </li>
+                <li v-for="code in generated" :key="code">{{ code }}</li>
             </ul>
         </b-modal>
     </div>
@@ -40,6 +38,7 @@
 <script>
 import AdminPage from '@/components/AdminPage.vue';
 import * as auth from '@/graphql/auth';
+import * as misc from '@/graphql/misc';
 
 export default {
   data() {
@@ -64,7 +63,16 @@ export default {
     AdminPage,
   },
   methods: {
-    doCreateCoupon() {
+    async doCreateCoupon() {
+      this.generated = [];
+      for (let n = 0; n < this.num; n = n + 1) {
+        const { data: { create_coupon_token: token } } =
+          await this.$apollo.mutate({
+            mutation: misc.mutation.create_coupon_token,
+            variables: { type: this.type },
+          });
+        this.generated.push(token);
+      }
       this.$refs.couponModalRef.show();
     },
   },
