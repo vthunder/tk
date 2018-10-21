@@ -38,6 +38,13 @@
                 </div>
             </div>
         </div>
+        <b-modal id="booking-success-modal" ref="bookingSuccessModalRef"
+                 title="Success!" centered ok-only>
+            <p>Hooray! Your booking is confirmed.</p>
+            <p>You'll get a confirmation email, bring it and show
+                Tinker Kitchen staff to get in.</p>
+            <p>Looking forward to cooking with you!</p>
+        </b-modal>
     </div>
 </template>
 
@@ -103,11 +110,14 @@ export default {
     },
     book() {
       let { sku } = this.calendar_event;
-      if (this.me.is_member && this.calendar_event.member_sku) {
+      if ((this.me.is_member || this.me.is_free_member) && this.calendar_event.member_sku) {
         sku = this.calendar_event.member_sku;
       }
       this.$root.$emit('tk::pay-modal::open', [sku]);
       this.$root.$on('tk::pay-modal::complete', this.payComplete);
+    },
+    payComplete() {
+      this.$refs.bookingSuccessModalRef.show();
     },
   },
 };
