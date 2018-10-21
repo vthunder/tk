@@ -6,6 +6,7 @@ import Event from './views/Event.vue';
 import Membership from './views/Membership.vue';
 import Groups from './views/Groups.vue';
 import Commercial from './views/Commercial.vue';
+import AdminCoupons from './views/admin/Coupons.vue';
 import MemberMembership from './views/member/Membership.vue';
 import MemberDayPasses from './views/member/DayPasses.vue';
 import MemberRentals from './views/member/Rentals.vue';
@@ -53,6 +54,7 @@ export default new Router({
       path: '/account/membership',
       name: 'member-membership',
       component: MemberMembership,
+      alias: '/account',
     },
     {
       path: '/account/daypasses',
@@ -84,6 +86,12 @@ export default new Router({
       path: '/incubator',
       name: 'incubator',
       component: Incubator,
+    },
+    {
+      path: '/admin/coupons',
+      name: 'admin-coupons',
+      component: AdminCoupons,
+      alias: '/admin',
     },
   ],
   scrollBehavior(to, from, savedPosition) {
