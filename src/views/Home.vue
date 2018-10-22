@@ -26,7 +26,7 @@
                       <div class="text-center">
                           <b-button :to="{ name: 'learn-membership' }" size="sm"
                                     variant="primary">
-                              Become a member
+                              Membership benefits
                           </b-button>
                       </div>
                   </b-card>
@@ -62,7 +62,7 @@
                       </p>
                       <div class="text-center">
                       <b-button :to="{ name: 'groups' }" size="sm" variant="primary">
-                          Book an event
+                          Group options
                       </b-button>
                       </div>
                   </b-card>
