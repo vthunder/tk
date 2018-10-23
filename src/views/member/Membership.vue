@@ -23,7 +23,7 @@
                             speakers, beta-test new gadgets, and more)</li>
                     </ul>
                 </div>
-                <div>
+                <div v-else>
                     <div v-if="free_member_ks">
                         <p>Membership status: <span class="font-weight-bold">active</span>.
                             Thanks for backing us on Kickstarter <i class="fas fa-grin"></i><br>
@@ -89,76 +89,20 @@
                     </div>
 
                     <p v-if="me.is_free_member" class="mt-4">
-                        Your card will pre-authorized now, but
+                        Your card will be pre-authorized now, but
                         <span class="font-weight-bold">will not</span> be
                         billed until your Kickstarter benefit expires
-                    </p>
-                    <p v-else class="text-center mt-4">
-                        <b-button v-b-modal.coupon-modal>I have a coupon code</b-button>
                     </p>
                 </div>
             </div>
         </StorePage>
 
-        <b-modal id="coupon-modal" ref="couponModalRef"
-                 title="Membership Coupon" centered
-                 @ok.prevent=processCoupon
-                 @shown=onCouponModalShown>
-            <div v-if="working" class="center">
-                <span class="fas fa-spinner fa-7x"></span>
-            </div>
-            <div v-else>
-                <b-form @submit.prevent="processCoupon">
-                    <label for="inputCoupon">Coupon code:</label>
-                    <b-form-input id="inputCoupon"
-                                  ref="inputCouponRef"
-                                  v-model.trim="coupon"
-                                  type="text"
-                                  :state="couponState"
-                                  aria-describedby="inputCouponFeedback"
-                                  placeholder="Enter the coupon code"></b-form-input>
-                    <b-form-invalid-feedback id="inputCouponFeedback">
-                        <!-- This will only be shown if the preceeding
-                             input has an invalid state -->
-                        Invalid coupon code
-                    </b-form-invalid-feedback>
-                </b-form>
-            </div>
-        </b-modal>
-        <b-modal id="coupon-success-modal" ref="couponSuccessModalRef"
-                 title="Success!" centered
-                 @ok.prevent=processCouponSuccess>
-            <div v-if="working" class="center">
-                <span class="fas fa-spinner fa-7x"></span>
-            </div>
-            <div v-else>
-                <p>Your coupon has been applied, you are now a Tinker
-                    Kitchen member and you have 2 day passes to give
-                    out. Hooray!</p>
-                <p>Lock in your special Kickstarter rate! Sign up for
-                    ongoing membership now:</p>
-                <ul>
-                    <li>$125/month (reg. $150)</li>
-                    <li>$1300/year (reg. $1500)</li>
-                </ul>
-            </div>
-            <template slot="modal-footer">
-                <b-button @click="successModalCancel">Not now</b-button>
-                <b-button @click="successModalSignup(monthly)" variant="primary">
-                    Sign-up Monthly
-                </b-button>
-                <b-button @click="successModalSignup(yearly)" variant="primary">
-                    Sign-up Yearly
-                </b-button>
-            </template>
-        </b-modal>
     </div>
 </template>
 
 <script>
 import StorePage from '@/components/MemberPage.vue';
 import * as auth from '@/graphql/auth';
-import * as misc from '@/graphql/misc';
 import * as customerQueries from '@/graphql/customer';
 import { monthlyQuery, yearlyQuery } from '@/lib/plans';
 import * as format from '@/lib/format';
@@ -168,9 +112,6 @@ export default {
     return {
       me: {},
       customer_subscriptions: [],
-      coupon: '',
-      couponState: true,
-      working: false,
     };
   },
   computed: {
@@ -210,54 +151,18 @@ export default {
   components: {
     StorePage,
   },
+  mounted() {
+    this.$root.$on('tk::coupon-modal::complete', this.refresh);
+    this.$root.$on('tk::pay-modal::complete', this.refresh);
+  },
   methods: {
-    async checkout(plan, code) {
-      await this.$apollo.mutate({ mutation: customerQueries.mutation.get_or_create_customer });
-      this.$checkout.open({
-        description: plan.metadata.billing_description,
-        amount: (code === 'KS_CONVERT') ? plan.ks_amount : plan.amount,
-        email: this.me.email,
-        token: async (token) => {
-          await this.$apollo.mutate({
-            mutation: customerQueries.mutation.update_customer,
-            variables: { source: token.id },
-          });
-          await this.$apollo.mutate({
-            mutation: customerQueries.mutation.create_subscription,
-            variables: { plans: [plan.id], code },
-          });
-          ['me', 'customer_subscriptions'].forEach((q) => {
-            this.$apollo.queries[q].refetch();
-          });
-        },
+    checkout(plan, code) {
+      this.$root.$emit('tk::pay-modal::subscribeCheckout', { plan, code });
+    },
+    refresh() {
+      ['me', 'customer_subscriptions'].forEach((q) => {
+        this.$apollo.queries[q].refetch();
       });
-    },
-    onCouponModalShown() {
-      this.$refs.inputCouponRef.focus();
-    },
-    async processCoupon() {
-      this.working = true;
-      const { data: { use_membership_coupon: ret } } = await this.$apollo.mutate({
-        mutation: misc.mutation.use_membership_coupon,
-        variables: { token: this.coupon },
-      });
-      this.working = false;
-
-      if (ret !== 'OK') this.couponState = false;
-      else {
-        this.$refs.couponModalRef.hide();
-        this.$refs.couponSuccessModalRef.show();
-      }
-    },
-    async successModalCancel() {
-      this.$apollo.queries.me.refetch();
-      this.$refs.couponSuccessModalRef.hide();
-    },
-    async successModalSignup(plan) {
-      this.working = true;
-      await this.checkout(plan, 'KS_CONVERT');
-      this.$apollo.queries.me.refetch();
-      this.working = false;
     },
   },
 };
