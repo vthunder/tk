@@ -92,7 +92,7 @@ export default {
       this.$refs.authModal.show();
     },
     switchMode(forgot) {
-      if (forgot) {
+      if (forgot === 'forgot') {
         this.activeMode = 'forgot';
         this.onReset();
         return;
