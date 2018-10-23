@@ -23,7 +23,7 @@
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav class="ml-auto">
                 <b-nav-item-dropdown v-if="me" :text=me.name right>
-                    <b-nav-text>Signed in as {{ me.name }}</b-nav-text>
+                    <b-nav-text class="signed-in-as">Signed in as {{ me.name }}</b-nav-text>
                     <b-dd-item :to="{ name: 'member-account' }">Account</b-dd-item>
                     <b-dd-item :to="{ name: 'member-membership' }">Membership</b-dd-item>
                     <b-dd-item :to="{ name: 'member-daypasses' }">Day Passes</b-dd-item>
@@ -93,10 +93,14 @@ export default {
 
         @media (min-width: 576px) { height: 1.4rem; }
     }
+
+    .signed-in-as { display: none; }
+
     @media only screen and (max-width: 768px) {
         li > a.dropdown-toggle {
             display: none;
         }
+        .signed-in-as { display: block; }
         .dropdown-menu {
             display:block;
             position: static;
