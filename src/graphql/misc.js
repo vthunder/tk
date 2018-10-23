@@ -87,13 +87,13 @@ mutation MailingListSignup($name: String, $email: String!) {
 }
 `,
   create_coupon_token: gql`
-mutation CreateCouponToken($type: String!) {
-  create_coupon_token(type: $type)
+mutation CreateCouponToken($type: String!, $count: Int) {
+  create_coupon_token(type: $type, count: $count)
 }
 `,
-  use_membership_coupon: gql`
-mutation UseMembershipCoupon($token: String!) {
-  use_membership_coupon(token: $token)
+  use_coupon_token: gql`
+mutation UseCouponToken($token: String!) {
+  use_coupon_token(token: $token)
 }
 `,
 };
