@@ -100,19 +100,12 @@ export default {
     togglePasses() {
       this.show_pass_codes = !this.show_pass_codes;
     },
-    buy(sku) {
-      this.$root.$emit('tk::pay-modal::open', [sku]);
-      this.$root.$on('tk::pay-modal::complete', this.payComplete);
-    },
-    payComplete() {
-      // this.$root.$off('tk::pay-modal::complete', this.payComplete);
-      // this.$apollo.queries.user_passes.refetch();
-      // window.location.reload();
-    },
     refresh() {
+      this.$apollo.provider.defaultClient.cache.reset();
       ['me', 'user_passes'].forEach((q) => {
         this.$apollo.queries[q].refetch();
       });
+      window.location.reload();
     },
   },
 };

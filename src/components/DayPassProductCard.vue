@@ -14,6 +14,11 @@
 <script>
 export default {
   props: ['sku'],
+  methods: {
+    buy(sku) {
+      this.$root.$emit('tk::pay-modal::open', [sku]);
+    }
+  },
 };
 </script>
 
