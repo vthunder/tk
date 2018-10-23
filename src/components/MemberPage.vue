@@ -33,6 +33,9 @@ export default {
 </script>
 
 <style lang="scss">
+.need-auth {
+    height: 100vh;
+}
 .member-nav.nav-pills {
     border-right: 1px solid lightgray;
     height: 100%;
