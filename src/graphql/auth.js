@@ -48,31 +48,31 @@ mutation Login($email: String!, $password: String!) {
 }
 `,
 
-  verifyEmail: gql`
+  verify_email: gql`
 mutation VerifyEmail($token: String!) {
   verify_email(token: $token)
 }
 `,
 
-  updateProfile: gql`
+  update_profile: gql`
 mutation UpdateProfile ($profile: ProfileInput!) {
   update_profile(profile: $profile)
 }
 `,
 
-  updatePassword: gql`
+  update_password: gql`
 mutation UpdatePassword($old_password: String!, $password: String!) {
   update_password(old_password: $old_password, password: $password)
 }
 `,
 
-  forgotPassword: gql`
+  forgot_password: gql`
 mutation ForgotPassword($email: String!) {
   forgot_password(email: $email)
 }
 `,
 
-  updatePasswordByToken: gql`
+  update_password_by_token: gql`
 mutation UpdatePasswordByToken($token: String!, $password: String!) {
   update_password_by_token(token: $token, password: $password)
 }
