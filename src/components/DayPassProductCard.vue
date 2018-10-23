@@ -17,7 +17,7 @@ export default {
   methods: {
     buy(sku) {
       this.$root.$emit('tk::pay-modal::open', [sku]);
-    }
+    },
   },
 };
 </script>
