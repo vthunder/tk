@@ -55,7 +55,10 @@ export default {
         ]);
       },
     },
-    user_passes: products.query.user_passes,
+    user_passes: {
+      query: products.query.user_passes,
+      variables: { type: 'day_pass' },
+    },
   },
   components: {
     StorePage,
@@ -89,6 +92,10 @@ export default {
       day_pass_skus: {},
     };
   },
+  mounted() {
+    this.$root.$on('tk::coupon-modal::complete', this.refresh);
+    this.$root.$on('tk::pay-modal::complete', this.refresh);
+  },
   methods: {
     togglePasses() {
       this.show_pass_codes = !this.show_pass_codes;
@@ -98,9 +105,14 @@ export default {
       this.$root.$on('tk::pay-modal::complete', this.payComplete);
     },
     payComplete() {
-      this.$root.$off('tk::pay-modal::complete', this.payComplete);
+      // this.$root.$off('tk::pay-modal::complete', this.payComplete);
       // this.$apollo.queries.user_passes.refetch();
-      window.location.reload();
+      // window.location.reload();
+    },
+    refresh() {
+      ['me', 'user_passes'].forEach((q) => {
+        this.$apollo.queries[q].refetch();
+      });
     },
   },
 };
