@@ -66,6 +66,7 @@ export default {
   },
   mounted() {
     this.$root.$on('tk::pay-modal::open', this.open);
+    this.$root.$on('tk::pay-modal::subscribeCheckout', this.subscribeCheckout);
   },
   destroyed() {
     this.$root.$off('tk::pay-modal::open', this.open);
@@ -134,6 +135,25 @@ export default {
 
           // eslint-disable-next-line
           alert('Purchase successful. Thanks!');
+        },
+      });
+    },
+    async subscribeCheckout({ plan, code }) {
+      await this.$apollo.mutate({ mutation: customerQueries.mutation.get_or_create_customer });
+      this.$checkout.open({
+        description: plan.metadata.billing_description,
+        amount: (code === 'KS_CONVERT') ? plan.ks_amount : plan.amount,
+        email: this.me.email,
+        token: async (token) => {
+          await this.$apollo.mutate({
+            mutation: customerQueries.mutation.update_customer,
+            variables: { source: token.id },
+          });
+          await this.$apollo.mutate({
+            mutation: customerQueries.mutation.create_subscription,
+            variables: { plans: [plan.id], code },
+          });
+          this.$root.$emit('tk::pay-modal::complete');
         },
       });
     },
