@@ -48,7 +48,7 @@ export default {
   computed: {
     ctaText() {
       return this.cta ? this.cta :
-        'Sign up below to hear the latest and get on our membership waitlist.';
+        'Sign up below to get the latest Tinker Kitchen news.';
     },
     listName() {
       return this.list ? this.list :
