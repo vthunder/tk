@@ -3,25 +3,22 @@
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
         <b-navbar-brand href="/"/>
 
-        <b-collapse is-nav id="nav_collapse_icons">
-            <b-navbar-nav class="ml-auto">
-                <b-nav-item href="https://instagram.com/tinkerkitch/">
-                    <img src="/images/Instagram-White2x.png" width="24"
-                            class="social-icon">
-                </b-nav-item>
-                <b-nav-item href="https://twitter.com/tinkerkitch">
-                    <img src="/images/Twitter-White2x.png" width="24"
-                         class="social-icon">
-                </b-nav-item>
-                <b-nav-item href="https://www.facebook.com/tinkerkitchen">
-                    <img src="/images/Facebook-White2x.png" width="24"
-                         class="social-icon">
-                </b-nav-item>
-            </b-navbar-nav>
-        </b-collapse>
-
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav class="ml-auto">
+                <b-collapse is-nav id="nav_collapse_icons">
+                    <b-nav-item href="https://instagram.com/tinkerkitch/">
+                        <img src="/images/Instagram-White2x.png" width="24"
+                             class="social-icon">
+                    </b-nav-item>
+                    <b-nav-item href="https://twitter.com/tinkerkitch">
+                        <img src="/images/Twitter-White2x.png" width="24"
+                             class="social-icon">
+                    </b-nav-item>
+                    <b-nav-item href="https://www.facebook.com/tinkerkitchen">
+                        <img src="/images/Facebook-White2x.png" width="24"
+                             class="social-icon">
+                    </b-nav-item>
+                </b-collapse>
                 <b-nav-item-dropdown v-if="me" :text=me.name right>
                     <b-nav-text class="signed-in-as">Signed in as {{ me.name }}</b-nav-text>
                     <b-dd-item :to="{ name: 'member-account' }">Account</b-dd-item>
@@ -89,7 +86,7 @@ export default {
         background-repeat: no-repeat;
         background-size: contain;
         height: 1.2rem;
-        width: 80%;
+        width: 320px;
 
         @media (min-width: 576px) { height: 1.4rem; }
     }
