@@ -91,6 +91,11 @@ mutation CreateCouponToken($type: String!, $count: Int) {
   create_coupon_token(type: $type, count: $count)
 }
 `,
+  send_coupon_tokens: gql`
+mutation SendCouponTokens($type: String!, $emails: String!) {
+  send_coupon_tokens(type: $type, emails: $emails)
+}
+`,
   use_coupon_token: gql`
 mutation UseCouponToken($token: String!) {
   use_coupon_token(token: $token)
