@@ -25,7 +25,7 @@
     "vue-full-calendar": "^4.0.0-1",
     "vue-markdown": "^2.2.4",
     "vue-router": "^3.0.1",
-    "vue-stripe-checkout": "^1.0.7",
+    "vue-stripe-checkout": "^1.0.8",
     "vue2-filters": "^0.3.0"
   },
   "devDependencies": {
