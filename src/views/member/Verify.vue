@@ -1,6 +1,6 @@
 <template>
-    <div v-if="loading" class="loading"><h3>Loading...</h3></div>
-    <div v-else class="container section">
+    <div v-if="loading" class="member-verify"><h3>Loading...</h3></div>
+    <div v-else class="container section member-verify">
         <p>This verification token is invalid or expired.</p>
     </div>
 </template>
@@ -27,5 +27,5 @@ export default {
 </script>
 
 <style lang="scss">
-.loading { height: 100vh; }
+.member-verify { height: 100vh; }
 </style>
