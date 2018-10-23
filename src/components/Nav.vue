@@ -3,9 +3,8 @@
         <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
         <b-navbar-brand href="/"/>
 
-        <b-collapse is-nav id="nav_collapse">
+        <b-collapse is-nav id="nav_collapse_icons">
             <b-navbar-nav class="ml-auto">
-
                 <b-nav-item href="https://instagram.com/tinkerkitch/">
                     <img src="/images/Instagram-White2x.png" width="24"
                             class="social-icon">
@@ -18,11 +17,19 @@
                     <img src="/images/Facebook-White2x.png" width="24"
                          class="social-icon">
                 </b-nav-item>
+            </b-navbar-nav>
+        </b-collapse>
 
+        <b-collapse is-nav id="nav_collapse">
+            <b-navbar-nav class="ml-auto">
                 <b-nav-item-dropdown v-if="me" :text=me.name right>
+                    <b-nav-text>Signed in as {{ me.name }}</b-nav-text>
+                    <b-dd-item :to="{ name: 'member-account' }">Account</b-dd-item>
                     <b-dd-item :to="{ name: 'member-membership' }">Membership</b-dd-item>
                     <b-dd-item :to="{ name: 'member-daypasses' }">Day Passes</b-dd-item>
+                    <b-dd-item :to="{ name: 'member-rentals' }">Rentals</b-dd-item>
                     <b-dd-item :to="{ name: 'member-billing' }">Billing</b-dd-item>
+                    <b-dd-item :to="{ name: 'member-coupon' }">Redeem Coupon</b-dd-item>
                     <b-dd-divider></b-dd-divider>
                     <b-dd-item-button @click="signout()">Sign out</b-dd-item-button>
                 </b-nav-item-dropdown>
@@ -65,8 +72,17 @@ export default {
 </script>
 
 <style lang="scss">
+.navbar-collapse {
+    background:rgb(52, 58, 64);
+}
+
 .navbar {
     line-height: 1;
+
+    .navbar-toggler {
+        font-size: .85rem;
+        padding: 4px;
+    }
 
     .navbar-brand {
         background: url('/images/TK Wordmark White (1x).png');
@@ -76,6 +92,29 @@ export default {
         width: 80%;
 
         @media (min-width: 576px) { height: 1.4rem; }
+    }
+    @media only screen and (max-width: 768px) {
+        li > a.dropdown-toggle {
+            display: none;
+        }
+        .dropdown-menu {
+            display:block;
+            position: static;
+            float: none;
+            width: auto;
+            margin-top: 0;
+            background-color: transparent;
+            border: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        .dropdown-item {
+            color: white;
+
+            &:hover {
+                color: #212529;
+            }
+        }
     }
 }
 .social-icon {
