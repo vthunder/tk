@@ -47,9 +47,11 @@ export default {
       num: 1,
       type: 'ks_month',
       type_options: [
+        { value: 'staff', text: 'Staff - 1 month' },
+        { value: 'ks_daypasses', text: 'Kickstarter - 2 day passes' },
         { value: 'ks_month', text: 'Kickstarter - 1 month' },
         { value: 'ks_year', text: 'Kickstarter - 1 year' },
-        { value: 'staff', text: 'Staff - 1 month' },
+        { value: 'ks_class', text: 'Kickstarter - 1 class' },
       ],
       generated: [],
     };
@@ -64,15 +66,11 @@ export default {
   },
   methods: {
     async doCreateCoupon() {
-      this.generated = [];
-      for (let n = 0; n < this.num; n = n + 1) {
-        const { data: { create_coupon_token: token } } =
-          await this.$apollo.mutate({
-            mutation: misc.mutation.create_coupon_token,
-            variables: { type: this.type },
-          });
-        this.generated.push(token);
-      }
+      const { data: { create_coupon_token: tokens } } = await this.$apollo.mutate({
+        mutation: misc.mutation.create_coupon_token,
+        variables: { type: this.type, count: this.num },
+      });
+      this.generated = tokens;
       this.$refs.couponModalRef.show();
     },
   },
