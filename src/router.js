@@ -7,10 +7,14 @@ import Membership from './views/Membership.vue';
 import Groups from './views/Groups.vue';
 import Commercial from './views/Commercial.vue';
 import AdminCoupons from './views/admin/Coupons.vue';
+import MemberAccount from './views/member/Account.vue';
 import MemberMembership from './views/member/Membership.vue';
 import MemberDayPasses from './views/member/DayPasses.vue';
 import MemberRentals from './views/member/Rentals.vue';
 import MemberBilling from './views/member/Billing.vue';
+import MemberCoupon from './views/member/Coupon.vue';
+import AccountVerify from './views/member/Verify.vue';
+import AccountForgot from './views/member/Forgot.vue';
 import Kickstarter from './views/Kickstarter.vue';
 import Press from './views/Press.vue';
 import Incubator from './views/Incubator.vue';
@@ -51,10 +55,19 @@ export default new Router({
       component: Commercial,
     },
     {
+      path: '/account',
+      name: 'account-home',
+      redirect: { name: 'member-membership' },
+    },
+    {
+      path: '/account/account',
+      name: 'member-account',
+      component: MemberAccount,
+    },
+    {
       path: '/account/membership',
       name: 'member-membership',
       component: MemberMembership,
-      alias: '/account',
     },
     {
       path: '/account/daypasses',
@@ -70,6 +83,21 @@ export default new Router({
       path: '/account/billing',
       name: 'member-billing',
       component: MemberBilling,
+    },
+    {
+      path: '/account/coupon',
+      name: 'member-coupon',
+      component: MemberCoupon,
+    },
+    {
+      path: '/account/verify/:token',
+      component: AccountVerify,
+      props: true,
+    },
+    {
+      path: '/account/forgot/:token(.*)',
+      component: AccountForgot,
+      props: true,
     },
     {
       path: '/ks',
@@ -88,10 +116,14 @@ export default new Router({
       component: Incubator,
     },
     {
+      path: '/admin',
+      name: 'admin-home',
+      redirect: { name: 'admin-coupons' },
+    },
+    {
       path: '/admin/coupons',
       name: 'admin-coupons',
       component: AdminCoupons,
-      alias: '/admin',
     },
   ],
   scrollBehavior(to, from, savedPosition) {
