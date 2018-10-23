@@ -113,7 +113,7 @@ export default {
           variables: { email: this.form.email },
         });
 
-        if (ok) this.alertMessage = 'Email sent';
+        if (ok === 'OK') this.alertMessage = 'Email sent';
         else this.alertMessage = ok;
         this.showAlert = true;
 
