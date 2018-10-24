@@ -1,6 +1,6 @@
 <template>
     <b-modal id="welcome-modal" ref="welcomeModal" title="Welcome!"
-             ok-title="Go to account" ok-only centered
+             ok-title="Let's get cookin'!" ok-only centered
              @ok="goToAccount">
         <p>Welcome to Tinker Kitchen! Hope to cook up a storm with you
             at our makerspace :-)</p>
@@ -9,9 +9,21 @@
 
 <script>
 export default {
+  data() {
+    return {
+      next: { name: 'member-membership' },
+    };
+  },
+  mounted() {
+    // XXX hack: this is checking whether nextRoute happens to be set
+    // when AuthModal calls us (true in the RequireSignIn path)
+    if (!localStorage.nextRoute) {
+      this.next = null;
+    }
+  },
   methods: {
     goToAccount() {
-      this.$router.push({ name: 'member-membership' });
+      if (this.next) this.$router.push(this.next);
     },
   },
 };
