@@ -32,8 +32,7 @@ export default {
 @import "~open-iconic/font/css/open-iconic-bootstrap.css";
 
 #app nav + div {
-    padding: 1px;
-    @media (min-width: 768px) { padding-top: 48px; }
+    @media (min-width: 768px) { padding-top: 56px; }
     @media (min-width: 992px) { padding-top: 56px; }
     @media (min-width: 1200px) { padding-top: 56px; }
     @media (min-width: 1400px) { padding-top: 56px; }
