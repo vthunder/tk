@@ -90,7 +90,7 @@ export default new Router({
       component: MemberCoupon,
     },
     {
-      path: '/account/verify/:token',
+      path: '/account/verify/:token(.*)',
       component: AccountVerify,
       props: true,
     },
