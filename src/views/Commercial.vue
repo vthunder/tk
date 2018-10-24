@@ -13,13 +13,13 @@
                     focused R&D and get a new product to market,
                     Tinker Kitchen is here for you.</p>
 
-                <p>We have a network of mentors and experts that can help you
-                    get to market faster. Whether you need help with
-                    regulatory compliance, sourcing a good vendor for an
-                    ingredient, designing packaging, or making sure your green
-                    drink stays drink on the shelf (we hear that is
-                    difficult!)&mdash;we can help connect you to the right
-                    expert.</p>
+                <p>We have a network of mentors and experts that can
+                    help you get to market faster. Whether you need
+                    help with regulatory compliance, sourcing a good
+                    vendor for an ingredient, designing packaging, or
+                    making sure your green drink stays green on the
+                    shelf (we hear that is difficult!)&mdash;we can
+                    help connect you to the right expert.</p>
 
                 <p>Because we're a great events space, we can also
                     host micro-popup events and classes/demos designed
