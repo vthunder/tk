@@ -6,6 +6,9 @@
                 <span class="fas fa-spinner fa-7x"></span>
             </div>
             <div v-else>
+                <p>Note: activating a membership coupon begins your
+                    membership immediately. If you want to start it
+                    later, just keep the coupon safe until then!</p>
                 <b-form @submit.prevent="processCoupon">
                     <label for="inputCoupon">Coupon code:</label>
                     <b-form-input id="inputCoupon"
@@ -14,7 +17,7 @@
                                   type="text"
                                   :state="couponState"
                                   aria-describedby="inputCouponFeedback"
-                                  placeholder="Enter the coupon code"></b-form-input>
+                                  placeholder="XXXX-XXXX-XXXX-XXXX"></b-form-input>
                     <b-form-invalid-feedback id="inputCouponFeedback">
                         <!-- This will only be shown if the preceeding
                              input has an invalid state -->
