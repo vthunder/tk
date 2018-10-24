@@ -1,9 +1,10 @@
 <template>
     <div class="container section">
-        <h2>Calendar</h2>
-        <div class="row justify-content-center">
-            <FullCalendar :events=events :config=config />
-        </div>
+        <b-row class="justify-content-center">
+            <b-col lg="9">
+                <FullCalendar :events=events :config=config />
+            </b-col>
+        </b-row>
     </div>
 </template>
 
@@ -29,8 +30,21 @@ export default {
     return {
       calendar_events: [],
       config: {
-        defaultView: 'month',
+        defaultView: 'listWeek',
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'listWeek,month',
+        },
         height: 'auto',
+        views: {
+          month: {
+            displayEventTime: false,
+          },
+          listWeek: {
+            titleFormat: 'MMM D, YYYY',
+          },
+        },
       },
     };
   },
@@ -39,4 +53,7 @@ export default {
 
 <style lang="scss">
 @import '~fullcalendar/dist/fullcalendar.css';
+#calendar {
+    width: 100%;
+}
 </style>
