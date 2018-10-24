@@ -32,7 +32,7 @@
                 </div>
                 <div v-else>
                     <p>Your coupon has been applied, Hooray! Welcome to
-                        Tinker Kitchen <i class="fas fa-grin"></i></p>
+                        Tinker Kitchen.</p>
                     <p>Lock in our special Kickstarter rate! Sign up for
                         ongoing membership now:</p>
                     <ul>

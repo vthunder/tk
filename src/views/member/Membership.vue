@@ -26,7 +26,7 @@
                 <div v-else>
                     <div v-if="free_member_ks">
                         <p>Membership status: <span class="font-weight-bold">active</span>.
-                            Thanks for backing us on Kickstarter <i class="fas fa-grin"></i><br>
+                            Thanks for backing us on Kickstarter!<br>
                             Membership expires: {{ free_member_until }}</p>
                         <p>Extend your membership before it expires
                             and keep the Kickstarter rate!</p>
