@@ -57,13 +57,20 @@
         <h4>Media Resources</h4>
         <b-row>
             <b-col md="6" class="boilerplate">
-                <h6>Short Description</h6>
+                <h6>About Tinker Kitchen</h6>
                 <p class="mb-3">Tinker Kitchen is a new maker space
-                for food hackers in the Mission in San Francisco fully
-                loaded with all the greatest equipment. Members can
-                come anytime and practice cooking techniques, develop
-                personal projects, or just hang out and connect with
-                others.</p>
+                    for food hackers in the Mission in San Francisco
+                    fully loaded with all the greatest
+                    equipment. Members can come anytime and practice
+                    cooking techniques, develop personal projects, or
+                    just hang out and connect with others.</p>
+                <h6>Founder Bio</h6>
+                <p class="mb-3">Dan is the founder of Tinker Kitchen,
+                    where food hackers can learn, experiment, and have
+                    fun with cooking. He is a collector of kitchen
+                    gadgets, big and small. Previously, Dan worked as
+                    a product manager and hacker at tech nonprofits
+                    Creative Commons and Mozilla.</p>
             </b-col>
             <b-col md="6" class="media-download">
                 <div class="media-download-items">
