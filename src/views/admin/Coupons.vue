@@ -102,7 +102,7 @@ export default {
     async doSendCoupons() {
       const { data: { send_coupon_tokens: ret } } = await this.$apollo.mutate({
         mutation: misc.mutation.send_coupon_tokens,
-        variables: { type: this.type, emails: this.emails },
+        variables: { type: this.type2, emails: this.emails },
       });
       // eslint-disable-next-line
       alert(ret);
