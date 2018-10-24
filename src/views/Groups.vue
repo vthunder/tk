@@ -50,15 +50,14 @@
             </b-col>
             <b-col md="4" lg="4">
                 <b-card title="Full space rental" class="mt-2">
-                    <p>Flat $1500-$2000,<br>Up to 40 people</p>
+                    <p>$200/hr + $100 cleaning<br>Up to 40 people</p>
                     <p>Exclusive use for your private party, product
                         launch, or other activity/celebration.</p>
-                    <p>We'll reserve the entire Tinker Kitchen space
-                        for you for 1/2 day (6h) or a whole day, and
-                        we'll also help you with guidance, logistics,
-                        and hiring staff if needed. One month notice
-                        required to inform our members that we’ll be
-                        closed on that day.</p>
+                    <p>4 hour minimum. We'll reserve the entire Tinker
+                        Kitchen space for you , and we'll also help
+                        you with guidance, logistics, and hiring staff
+                        if needed. One month notice required to inform
+                        our members that we’ll be closed on that day.</p>
                 </b-card>
             </b-col>
         </b-row>
