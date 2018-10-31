@@ -165,6 +165,9 @@ export default {
       });
     },
   },
+  metaInfo: {
+    title: 'Account - Membership',
+  },
 };
 </script>
 

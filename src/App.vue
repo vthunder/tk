@@ -24,6 +24,10 @@ export default {
     WelcomeModal,
     PayModal,
   },
+  metaInfo: {
+    title: 'A Page',
+    titleTemplate: '%s | Tinker Kitchen',
+  },
 };
 </script>
 

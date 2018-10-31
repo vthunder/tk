@@ -109,6 +109,14 @@
     </b-container>
 </template>
 
+<script>
+export default {
+  metaInfo: {
+    title: 'Press Resources',
+  },
+};
+</script>
+
 <style lang="scss" scoped>
 h4 {
     margin: 2em 0 .75em;

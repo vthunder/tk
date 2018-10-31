@@ -213,6 +213,9 @@ export default {
     MailingListSignup,
     RequireSignIn,
   },
+  metaInfo: {
+    title: 'Home',
+  },
 };
 </script>
 

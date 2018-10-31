@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import Meta from 'vue-meta';
 import BootstrapVue from 'bootstrap-vue';
 import VueStripeCheckout from 'vue-stripe-checkout';
 import VueAnalytics from 'vue-analytics';
@@ -9,6 +10,7 @@ import App from './App.vue';
 import router from './router';
 import { createProvider } from './vue-apollo';
 
+Vue.use(Meta);
 Vue.use(Vue2Filters);
 Vue.use(BootstrapVue);
 Vue.use(VueStripeCheckout, {

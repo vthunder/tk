@@ -120,6 +120,9 @@ export default {
       this.$refs.bookingSuccessModalRef.show();
     },
   },
+  metaInfo: {
+    title: 'Event',
+  },
 };
 </script>
 

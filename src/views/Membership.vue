@@ -189,6 +189,9 @@ export default {
     RequireSignIn,
     MailingListSignup,
   },
+  metaInfo: {
+    title: 'Membership',
+  },
 };
 </script>
 

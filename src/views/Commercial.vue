@@ -35,5 +35,13 @@
     </b-container>
 </template>
 
+<script>
+export default {
+  metaInfo: {
+    title: 'Commercial Use',
+  },
+};
+</script>
+
 <style lang="scss">
 </style>

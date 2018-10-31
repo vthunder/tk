@@ -70,5 +70,13 @@
     </b-container>
 </template>
 
+<script>
+export default {
+  metaInfo: {
+    title: 'Groups & Events',
+  },
+};
+</script>
+
 <style lang="scss">
 </style>
