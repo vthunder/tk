@@ -78,6 +78,15 @@ query CalendarEvents {
   }
 }
 `,
+  google_calendar_events: gql`
+query GoogleCalendarEvents {
+  google_calendar_events {
+    title
+    start
+    end
+  }
+}
+`,
 };
 
 export const mutation = {

@@ -2,7 +2,7 @@
     <div class="container section">
         <b-row class="justify-content-center">
             <b-col lg="9">
-                <FullCalendar :events=events :config=config />
+                <FullCalendar :eventSources=events :config=config />
             </b-col>
         </b-row>
     </div>
@@ -15,20 +15,30 @@ import * as misc from '../graphql/misc';
 export default {
   apollo: {
     calendar_events: misc.query.calendar_events,
+    google_calendar_events: misc.query.google_calendar_events,
   },
   components: {
     FullCalendar,
   },
   computed: {
     events() {
-      return this
-        .calendar_events
-        .map(e => ({ ...e, url: `/event/${e.id}` }));
+      return [
+        {
+          events: this
+            .calendar_events
+            .map(e => ({ ...e, url: `/event/${e.id}` })),
+        },
+        {
+          events: this
+            .google_calendar_events,
+        },
+      ];
     },
   },
   data() {
     return {
       calendar_events: [],
+      google_calendar_events: [],
       config: {
         defaultView: 'listWeek',
         header: {
@@ -47,6 +57,14 @@ export default {
         },
       },
     };
+  },
+  methods: {
+    foo() {
+      console.log(JSON.parse(JSON.stringify(this.google_calendar_events)));
+    },
+  },
+  metaInfo: {
+    title: 'Calendar',
   },
 };
 </script>
