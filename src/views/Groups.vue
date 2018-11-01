@@ -9,7 +9,7 @@
         <b-row class="justify-content-center">
             <b-col sm="6" lg="5">
                 <b-card title="Partial rental"
-                        sub-title="$75-140/hr + cleaning" class="mt-2">
+                        sub-title="$75-140/hr + $50-100 cleaning" class="mt-2">
                     <p>Get access to our space for your team-building
                         activity, pop-up demo, class, or other
                         activity / gathering.</p>
@@ -45,7 +45,7 @@
             </b-col>
             <b-col sm="6" lg="5">
                 <b-card title="Member dinner party"
-                        sub-title="$50/hr + cleaning" class="mt-2">
+                        sub-title="$50/hr + $50 cleaning" class="mt-2">
                     <p>We love to host dinner parties for our members!
                         If you're a Tinker Kitchen member, we have a
                         special low rental rate for you: just $50/hr,
