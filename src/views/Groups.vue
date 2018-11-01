@@ -33,7 +33,7 @@
         <b-row class="justify-content-center">
             <b-col sm="6" lg="5">
                 <b-card title="Team-building activity"
-                        sub-title="$40-100/person + rental" class="mt-2">
+                        sub-title="$45-100/person + rental" class="mt-2">
                     <p>Looking for a guided activity? Add an activity
                         to a rental! We can help you put together a
                         fun cooking-themed team offsite for your team.</p>
