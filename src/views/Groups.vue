@@ -8,30 +8,6 @@
 
         <b-row class="justify-content-center">
             <b-col sm="6" lg="5">
-                <b-card title="Partial rental"
-                        sub-title="$75-140/hr + $50-100 cleaning" class="mt-2">
-                    <p>Get access to our space for your team-building
-                        activity, pop-up demo, class, or other
-                        activity / gathering.</p>
-                    <p>We'll reserve cooking workspaces and seating
-                        space as needed, for groups of up to 12 (2
-                        tables) or 24 (4 tables).</p>
-                </b-card>
-            </b-col>
-            <b-col sm="6" lg="5">
-                <b-card title="Full space rental"
-                        sub-title="$200/hr + $150 cleaning" class="mt-2">
-                    <p>Exclusive use for your private party, product
-                        launch, or other activity/celebration.</p>
-                    <p>We'll reserve the entire Tinker Kitchen space
-                        for you (up to 40 guests), and help you with
-                        guidance, logistics, and hiring staff if
-                        needed. 2 weeks advance booking required.</p>
-                </b-card>
-            </b-col>
-        </b-row>
-        <b-row class="justify-content-center">
-            <b-col sm="6" lg="5">
                 <b-card title="Team-building activity"
                         sub-title="$70-130/person" class="mt-2">
                     <p>Looking for a fun cooking-themed team offsite
@@ -58,6 +34,32 @@
                 </b-card>
             </b-col>
         </b-row>
+
+        <b-row class="justify-content-center">
+            <b-col sm="6" lg="5">
+                <b-card title="Partial rental"
+                        sub-title="$75-140/hr + $50-100 cleaning" class="mt-2">
+                    <p>Get access to our space for your team-building
+                        activity, pop-up demo, class, or other
+                        activity / gathering.</p>
+                    <p>We'll reserve cooking workspaces and seating
+                        space as needed, for groups of up to 12 (2
+                        tables) or 24 (4 tables).</p>
+                </b-card>
+            </b-col>
+            <b-col sm="6" lg="5">
+                <b-card title="Full space rental"
+                        sub-title="$200/hr + $150 cleaning" class="mt-2">
+                    <p>Exclusive use for your private party, product
+                        launch, or other activity/celebration.</p>
+                    <p>We'll reserve the entire Tinker Kitchen space
+                        for you (up to 40 guests), and help you with
+                        guidance, logistics, and hiring staff if
+                        needed. 2 weeks advance booking required.</p>
+                </b-card>
+            </b-col>
+        </b-row>
+
         <p class="mt-4 text-center">
             <b-button href="mailto:hello@tinkerkitchen.org" variant="primary">
                 Contact us
