@@ -34,13 +34,14 @@
             <b-col sm="6" lg="5">
                 <b-card title="Team-building activity"
                         sub-title="$70-130/person" class="mt-2">
-                    <p>Looking for a guided activity? Add an activity
-                        to a rental! We can help you put together a
-                        fun cooking-themed team offsite for your team.</p>
+                    <p>Looking for a fun cooking-themed team offsite
+                        for your team?</p>
                     <p>Whether you're looking for a short afternoon
                         activity, or a guided multi-course dinner
-                        party--we can make it happen at Tinker Kitchen
-                        :)</p>
+                        party--we can make it happen at Tinker
+                        Kitchen!</p>
+                    <p>Pricing depends on the group size and specific
+                        activity, contact us for a quote</p>
                 </b-card>
             </b-col>
             <b-col sm="6" lg="5">
