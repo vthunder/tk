@@ -15,22 +15,20 @@
                     <p>Whether you're looking for a short afternoon
                         activity, or a guided multi-course dinner
                         party--we can make it happen at Tinker
-                        Kitchen!</p>
-                    <p>Pricing depends on the group size and specific
-                        activity, contact us for a quote</p>
+                        Kitchen! Pricing depends on the group size and
+                        specific activity, contact us for a quote</p>
                 </b-card>
             </b-col>
             <b-col sm="6" lg="5">
                 <b-card title="Member dinner party"
-                        sub-title="$50/hr + $50 cleaning" class="mt-2">
+                        sub-title="$150-$300" class="mt-2">
                     <p>We love to host dinner parties for our members!
-                        If you're a Tinker Kitchen member, we have a
-                        special low rental rate for you: just $50/hr,
-                        your guests don't need to get day passes. And
-                        we'll even waive the cleaning fee if
-                        everything is left clean!</p>
-                    <p>We'll reserve cooking workspace and seating
-                        space as needed for up to 8 people.</p>
+                        If you're a Tinker Kitchen member, we'll
+                        reserve cooking and seating space as needed
+                        for a special low rental rate.</p>
+                    <p>8-person party: $150, 16-person party:
+                        $300. For additional guests, use passes as
+                        usual.</p>
                 </b-card>
             </b-col>
         </b-row>
@@ -43,8 +41,8 @@
                         activity, pop-up demo, class, or other
                         activity / gathering.</p>
                     <p>We'll reserve cooking workspaces and seating
-                        space as needed, for groups of up to 12 (2
-                        tables) or 24 (4 tables).</p>
+                        space as needed, for groups from 12 to 24
+                        people.</p>
                 </b-card>
             </b-col>
             <b-col sm="6" lg="5">
