@@ -26,9 +26,10 @@
                         If you're a Tinker Kitchen member, we'll
                         reserve cooking and seating space as needed
                         for a special low rental rate.</p>
-                    <p>8-person party: $150, 16-person party:
-                        $300. For additional guests, use passes as
-                        usual.</p>
+                    <p>8-guest party: $150, 16-guest party:
+                        $300. Members and +1s don't count towards
+                        guest max. For additional guests, use passes
+                        as usual.</p>
                 </b-card>
             </b-col>
         </b-row>
@@ -41,7 +42,7 @@
                         activity, pop-up demo, class, or other
                         activity / gathering.</p>
                     <p>We'll reserve cooking workspaces and seating
-                        space as needed, for groups from 12 to 24
+                        space as needed, for groups from 10 to 20
                         people.</p>
                 </b-card>
             </b-col>
