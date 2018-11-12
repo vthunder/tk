@@ -15,7 +15,6 @@ import * as misc from '../graphql/misc';
 export default {
   apollo: {
     calendar_events: misc.query.calendar_events,
-    google_calendar_events: misc.query.google_calendar_events,
   },
   components: {
     FullCalendar,
@@ -28,17 +27,12 @@ export default {
             .calendar_events
             .map(e => ({ ...e, url: `/event/${e.id}` })),
         },
-        {
-          events: this
-            .google_calendar_events,
-        },
       ];
     },
   },
   data() {
     return {
       calendar_events: [],
-      google_calendar_events: [],
       config: {
         defaultView: 'listTwoWeeks',
         header: {
