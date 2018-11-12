@@ -40,11 +40,11 @@ export default {
       calendar_events: [],
       google_calendar_events: [],
       config: {
-        defaultView: 'listWeek',
+        defaultView: 'listTwoWeeks',
         header: {
           left: 'prev,next today',
           center: 'title',
-          right: 'listWeek,month',
+          right: 'listTwoWeeks,month',
         },
         height: 'auto',
         views: {
@@ -54,14 +54,17 @@ export default {
           listWeek: {
             titleFormat: 'MMM D, YYYY',
           },
+          listTwoWeeks: {
+            type: 'list',
+            duration: { days: 14 },
+            buttonText: 'list',
+            titleFormat: 'MMM D, YYYY',
+          },
         },
       },
     };
   },
   methods: {
-    foo() {
-      console.log(JSON.parse(JSON.stringify(this.google_calendar_events)));
-    },
   },
   metaInfo: {
     title: 'Calendar',
