@@ -21,15 +21,14 @@
             </b-col>
             <b-col sm="6" lg="5">
                 <b-card title="Member dinner party"
-                        sub-title="$150-$300" class="mt-2">
-                    <p>We love to host dinner parties for our members!
-                        If you're a Tinker Kitchen member, we'll
-                        reserve cooking and seating space as needed
-                        for a special low rental rate.</p>
-                    <p>8-guest party: $150, 16-guest party:
-                        $300. Members and +1s don't count towards
-                        guest max. For additional guests, use passes
-                        as usual.</p>
+                        sub-title="$10/person" class="mt-2">
+                    <p>We love it when our members host dinner parties
+                        for their friends at Tinker Kitchen!  You can
+                        invite additional guests to have dinner for
+                        just $10 each. For larger groups, you can even reserve space in advance.</p>
+                    <p>Available for members only. Guests limited to
+                        dining (not cooking).  Maximum 16
+                        guests. Valid for 3 hours.</p>
                 </b-card>
             </b-col>
         </b-row>
