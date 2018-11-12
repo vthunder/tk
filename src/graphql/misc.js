@@ -11,6 +11,7 @@ query CalendarEvent($id: Int!) {
   calendar_event(id: $id) {
     id
     title
+    image_header
     all_day
     start
     end
@@ -69,6 +70,7 @@ query CalendarEvents {
   calendar_events {
     id
     title
+    image_header
     all_day
     start
     end
@@ -90,6 +92,11 @@ query GoogleCalendarEvents {
 };
 
 export const mutation = {
+  create_calendar_event: gql`
+mutation CreateCalendarEvent($event_data: EventInput!) {
+  create_calendar_event(event_data: $event_data)
+}
+`,
   mailing_list_signup: gql`
 mutation MailingListSignup($name: String, $email: String!) {
   mailing_list_signup(name: $name, email: $email)
