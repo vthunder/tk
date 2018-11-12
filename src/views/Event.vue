@@ -2,6 +2,10 @@
     <div v-if="$apollo.loading" class="loading"><h3>Loading...</h3></div>
     <div v-else class="container section">
         <b-link :to="{ name: 'calendar' }">&lt; Back to calendar</b-link>
+
+        <b-img v-if="calendar_event.image_header"
+               :src=calendar_event.image_header fluid />
+
         <div class="row mt-2">
             <div class="col-md-8">
                 <h1 class="text-left">{{ calendar_event.title }}</h1>
@@ -9,12 +13,12 @@
                     <vue-markdown :source="calendar_event.description"></vue-markdown>
                 </p>
             </div>
-            <div class="col-md-4 border p-4">
-                <h4>{{ date }}</h4>
+            <div class="col-md-4 border-left p-4">
+                <h3>{{ date }}</h3>
                 <h5><strong>{{ start_time }}</strong>,
                     <strong v-if="calendar_event.all_day">all day</strong>
                     <strong v-else-if="calendar_event.duration">
-                        for {{ calendar_event.duration }}
+                        {{ calendar_event.duration }}h long
                     </strong>
                 </h5>
                 <h5 v-if="calendar_event.category && calendar_event.category === 'private'">
