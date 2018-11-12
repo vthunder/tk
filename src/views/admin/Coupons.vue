@@ -2,7 +2,7 @@
     <div v-if="$apollo.loading" class="loading"><h3>Loading...</h3></div>
     <div v-else class="container section">
         <AdminPage>
-            <div class="tab-pane fade show active" id="membership" role="tabpanel">
+            <div class="tab-pane fade show active" id="admin-coupon" role="tabpanel">
                 <h3>Generate coupons:</h3>
                 <b-form @submit.prevent="doCreateCoupon">
                     <b-container fluid>
