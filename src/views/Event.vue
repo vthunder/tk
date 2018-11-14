@@ -34,7 +34,9 @@
                     <div v-if="calendar_event.ext_book_url">
                         <b-button :href="calendar_event.ext_book_url"
                                   variant="primary">Book Event</b-button>
-                        <div v-if="me && me.is_member">Member discount code: {{ calendar_event.ext_member_discount_code }}</div>
+                        <div v-if="me && me.is_member">
+                            Member discount code: {{ calendar_event.ext_member_discount_code }}
+                        </div>
                     </div>
                     <div v-else>
                         <div v-if="me">
