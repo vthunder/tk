@@ -3,11 +3,11 @@
     <div v-else class="container section">
         <b-link :to="{ name: 'calendar' }">&lt; Back to calendar</b-link>
 
-        <b-img v-if="calendar_event.image_header"
-               :src=calendar_event.image_header fluid />
-
         <div class="row mt-2">
             <div class="col-md-8">
+                <b-img v-if="calendar_event.image_header"
+                       :src=calendar_event.image_header fluid />
+
                 <h1 class="text-left">{{ calendar_event.title }}</h1>
                 <p class="event-description mt-4">
                     <vue-markdown :source="calendar_event.description"></vue-markdown>
@@ -26,18 +26,23 @@
                 </h5>
                 <div v-else>
                     <h5>
-                        <strong>Price: {{ formatPrice(calendar_event.sku.price) }}</strong>
+                        <strong>Price: {{ formatPrice(calendar_event.price) }}</strong>
                         <strong v-if="calendar_event.member_sku" class="price mb-2">
-                            &nbsp;(members: {{ formatPrice(calendar_event.member_sku.price) }})
+                            &nbsp;(members: {{ formatPrice(calendar_event.member_price) }})
                         </strong>
                     </h5>
-                    <div v-if="me">
-                        <b-button variant="primary"
-                                  @click="book()">Book Event</b-button>
-                    </div>
-                    <div v-else><b-button variant="primary" v-b-modal.auth-modal>Sign in
-                        <i class="fas fa-sign-in-alt"></i></b-button>
-                        to book this event.
+                    <b-button v-if="calendar_event.ext_book_url"
+                              :href="calendar_event.ext_book_url"
+                              variant="primary">Book Event</b-button>
+                    <div v-else>
+                        <div v-if="me">
+                            <b-button variant="primary"
+                                      @click="book()">Book Event</b-button>
+                        </div>
+                        <div v-else>
+                            <b-button variant="primary"
+                                      v-b-modal.auth-modal>Book Event</b-button>
+                        </div>
                     </div>
                 </div>
             </div>
