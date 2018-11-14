@@ -51,7 +51,7 @@
                         </div>
                         <div v-else>
                             <b-button variant="primary"
-                                      v-b-modal.auth-modal>Book Event</b-button>
+                                      v-b-modal.auth-modal>Sign in</b-button> to Book Event
                         </div>
                     </div>
                 </div>
