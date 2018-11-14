@@ -20,6 +20,7 @@ query CalendarEvent($id: Int!) {
     category
     price
     member_price
+    ext_book_url
     sku {
       id
       active
@@ -77,6 +78,9 @@ query CalendarEvents {
     duration
     description
     category
+    price
+    member_price
+    ext_book_url
   }
 }
 `,
