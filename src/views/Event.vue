@@ -25,7 +25,13 @@
                     <strong>Private event.</strong>
                 </h5>
                 <div v-else>
-                    <h5>
+                    <h5 v-if="calendar_event.price === 0">
+                        <strong>Price: Free!</strong>
+                    </h5>
+                    <h5 v-else-if="!calendar_event.price">
+                        <!-- null / otherwise falsy, hide price altogether -->
+                    </h5>
+                    <h5 v-else>
                         <strong>Price: {{ formatPrice(calendar_event.price) }}</strong>
                         <strong v-if="calendar_event.member_sku" class="price mb-2">
                             &nbsp;(members: {{ formatPrice(calendar_event.member_price) }})
