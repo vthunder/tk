@@ -23,7 +23,6 @@
             <div class="card-deck">
                 <b-card-group deck class="mt-2">
                     <DayPassProductCard :sku="pass_1" />
-                    <DayPassProductCard :sku="pass_5" />
                 </b-card-group>
             </div>
         </StorePage>
