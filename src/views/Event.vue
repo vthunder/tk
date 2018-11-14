@@ -40,7 +40,7 @@
                     <div v-if="calendar_event.ext_book_url">
                         <b-button :href="calendar_event.ext_book_url"
                                   variant="primary">Book Event</b-button>
-                        <div v-if="me && me.is_member && calendar_event.ext_member_discount_code">
+                        <div v-if="show_member_discount">
                             Member discount code: {{ calendar_event.ext_member_discount_code }}
                         </div>
                     </div>
@@ -95,6 +95,13 @@ export default {
       return moment(this.calendar_event.start)
         .add(this.calendar_event.duration, 'hours')
         .format('h:mm a');
+    },
+    show_member_discount() {
+      if (!this.me) return false;
+      if (this.me.is_member || this.me.is_free_member) {
+        return this.calendar_event.ext_member_discount_code;
+      }
+      return false;
     },
   },
   apollo: {
