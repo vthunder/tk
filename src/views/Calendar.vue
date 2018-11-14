@@ -34,25 +34,16 @@ export default {
     return {
       calendar_events: [],
       config: {
-        defaultView: 'listTwoWeeks',
+        defaultView: 'month',
         header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'listTwoWeeks,month',
+          left: 'title',
+          center: '',
+          right: 'prev,next today',
         },
         height: 'auto',
         views: {
           month: {
             displayEventTime: false,
-          },
-          listWeek: {
-            titleFormat: 'MMM D, YYYY',
-          },
-          listTwoWeeks: {
-            type: 'list',
-            duration: { days: 14 },
-            buttonText: 'list',
-            titleFormat: 'MMM D, YYYY',
           },
         },
       },
