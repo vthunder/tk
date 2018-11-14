@@ -21,6 +21,7 @@ query CalendarEvent($id: Int!) {
     price
     member_price
     ext_book_url
+    ext_member_discount_code
     sku {
       id
       active
