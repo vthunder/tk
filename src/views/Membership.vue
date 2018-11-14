@@ -70,11 +70,12 @@
                             come. Because cooking together is twice the fun.</p>
                     </div>
                     <div class="mb-4 pl-5 col-sm-6 col-md-4">
-                        <span class="oi oi-cart feature-icon-plus"></span>
-                        <h6 class="mb-2">Discounts and freebies</h6>
-                        <p>Get discounts on classes, specialized
-                            ingredients, day passes for additional
-                            guests, and more.</p>
+                        <span class="oi oi-box feature-icon"></span>
+                        <h6 class="mb-2">Host a dinner party</h6>
+                        <p>Invite additional guests for dinner (not
+                            cooking) for just $10 each. We'll even
+                            reserve space for you. Limited to 10
+                            guests, 3 hours.</p>
                     </div>
                     <div class="mb-4 pl-5 col-sm-6 col-md-4">
                         <span class="oi oi-beaker feature-icon"></span>
@@ -90,11 +91,11 @@
                             a breeze.</p>
                     </div>
                     <div class="mb-4 pl-5 col-sm-6 col-md-4">
-                        <span class="oi oi-box feature-icon"></span>
-                        <h6 class="mb-2">Dry & cold storage</h6>
-                        <p>Rent shelf space in our storage room or fridge,
-                            so you don't have to bring your ingredients
-                            every time (subject to availability).</p>
+                        <span class="oi oi-cart feature-icon-plus"></span>
+                        <h6 class="mb-2">Discounts and freebies</h6>
+                        <p>Get discounts on classes, specialized
+                            ingredients, day passes for additional
+                            guests, and more.</p>
                     </div>
                     <div class="mb-4 pl-5 col-sm-6 col-md-4">
                         <span class="oi oi-thumb-up feature-icon-plus"></span>
