@@ -32,10 +32,10 @@
                         </strong>
                     </h5>
                     <div v-if="me">
-                        <button class="btn btn-primary"
-                                @click="book()">Book Event</button>
+                        <b-button variant="primary"
+                                  @click="book()">Book Event</b-button>
                     </div>
-                    <div v-else><b-button v-b-modal.auth-modal>Sign in
+                    <div v-else><b-button variant="primary" v-b-modal.auth-modal>Sign in
                         <i class="fas fa-sign-in-alt"></i></b-button>
                         to book this event.
                     </div>
@@ -116,6 +116,8 @@ export default {
       let { sku } = this.calendar_event;
       if ((this.me.is_member || this.me.is_free_member) && this.calendar_event.member_sku) {
         sku = this.calendar_event.member_sku;
+        if (!sku.attributes) sku.attributes = {};
+        sku.attributes.title = this.calendar_event.title;
       }
       this.$root.$emit('tk::pay-modal::open', [sku]);
       this.$root.$on('tk::pay-modal::complete', this.payComplete);
