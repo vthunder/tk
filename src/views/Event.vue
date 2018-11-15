@@ -97,9 +97,10 @@ export default {
         .format('h:mm a');
     },
     show_member_discount() {
-      if (!this.me) return false;
-      if (this.me.is_member || this.me.is_free_member) {
-        return this.calendar_event.ext_member_discount_code;
+      if (this.me &&
+          (this.me.is_member || this.me.is_free_member) &&
+          this.calendar_event.ext_member_discount_code) {
+        return true;
       }
       return false;
     },
