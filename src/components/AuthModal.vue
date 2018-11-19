@@ -1,48 +1,60 @@
 <template>
-    <b-modal id="auth-modal" ref="authModal"
-             centered hide-footer
-             @ok.prevent=onSubmit @hide=onReset>
+    <div>
+        <b-modal id="auth-modal" ref="authModal"
+                 centered hide-footer
+                 @ok.prevent=onSubmit @hide=onReset>
 
-        <template slot="modal-title">{{ mode[activeMode].title }}</template>
-        <b-alert :show=showAlert variant="danger">{{ alertMessage }}</b-alert>
+            <template slot="modal-title">{{ mode[activeMode].title }}</template>
+            <b-alert :show=showAlert variant="danger">{{ alertMessage }}</b-alert>
 
-        <b-form @submit.prevent="onSubmit" @reset="onReset" v-if="showForm">
-            <b-form-group v-if="activeMode === 'register'"
-                          label="Name" label-sr-only label-for="name-field">
-                <b-form-input id="name-field"
-                              type="text"
-                              v-model="form.name"
-                              required
-                              placeholder="Name">
-                </b-form-input>
-            </b-form-group>
-            <b-form-group label="Email" label-sr-only label-for="email-field">
-                <b-form-input id="email-field"
-                              type="email"
-                              v-model="form.email"
-                              required
-                              placeholder="Email">
-                </b-form-input>
-            </b-form-group>
-            <b-form-group v-if="activeMode !== 'forgot'"
-                          label="Password" label-sr-only label-for="password-field">
-                <b-form-input id="password-field"
-                              type="password"
-                              v-model="form.password"
-                              required
-                              placeholder="Password">
-                </b-form-input>
-            </b-form-group>
-            <b-button type="submit" variant="primary">{{ mode[activeMode].submitText }}</b-button>
-        </b-form>
+            <b-form @submit.prevent="onSubmit" @reset="onReset" v-if="showForm">
+                <b-form-group v-if="activeMode === 'register'"
+                              label="Name" label-sr-only label-for="name-field">
+                    <b-form-input id="name-field"
+                                  type="text"
+                                  v-model="form.name"
+                                  required
+                                  placeholder="Name">
+                    </b-form-input>
+                </b-form-group>
+                <b-form-group label="Email" label-sr-only label-for="email-field">
+                    <b-form-input id="email-field"
+                                  type="email"
+                                  v-model="form.email"
+                                  required
+                                  placeholder="Email">
+                    </b-form-input>
+                </b-form-group>
+                <b-form-group v-if="activeMode !== 'forgot'"
+                              label="Password" label-sr-only label-for="password-field">
+                    <b-form-input id="password-field"
+                                  type="password"
+                                  v-model="form.password"
+                                  required
+                                  placeholder="Password">
+                    </b-form-input>
+                </b-form-group>
+                <b-button type="submit" variant="primary">
+                    {{ mode[activeMode].submitText }}
+                </b-button>
+            </b-form>
 
-        <div class="footer-link mt-2">
-            {{ mode[activeMode].footerPrompt }}
-            <b-link @click=switchMode>{{ mode[activeMode].footerLink }}</b-link>
-            &nbsp;&middot;&nbsp;
-            <b-link @click="switchMode('forgot')">Forgot your password?</b-link>
-        </div>
-    </b-modal>
+            <div class="footer-link mt-2">
+                {{ mode[activeMode].footerPrompt }}
+                <b-link @click=switchMode>{{ mode[activeMode].footerLink }}</b-link>
+                <span v-if="activeMode === 'signin'">
+                    &nbsp;&middot;&nbsp;
+                    <b-link @click="switchMode('forgot')">Forgot your password?</b-link>
+                </span>
+            </div>
+        </b-modal>
+        <b-modal id="welcome-modal" ref="welcomeModal" title="Welcome!"
+                 ok-title="Let's get cookin'!" ok-only centered
+                 @ok="goToNext">
+            <p>Welcome to Tinker Kitchen! Hope to cook up a storm with you
+                at our makerspace :-)</p>
+        </b-modal>
+    </div>
 </template>
 
 <script>
@@ -52,7 +64,7 @@ import * as auth from '@/graphql/auth';
 export default {
   data() {
     return {
-      activeMode: 'signin',
+      activeMode: 'register',
       alertMessage: 'Invalid username/password',
       form: {
         name: '',
@@ -70,7 +82,7 @@ export default {
           title: 'Register',
           submitText: 'Register',
           footerPrompt: '',
-          footerLink: 'Use existing account',
+          footerLink: 'I already have an account',
         },
         forgot: {
           title: 'Forgot password',
@@ -132,12 +144,9 @@ export default {
         onLogin(this.$apollo.provider.defaultClient, ret.jwt.token);
         this.$refs.authModal.hide();
         if (this.activeMode === 'register') {
-          this.$root.$emit('bv::show::modal', 'welcome-modal');
-        }
-        if (localStorage.nextRoute) {
-          this.$router.push(JSON.parse(localStorage.nextRoute));
-          delete localStorage.nextRoute;
-          window.location.reload(); // FIXME: otherwise user won't be signed in...
+          this.$refs.welcomeModal.show();
+        } else {
+          this.goToNext();
         }
       } catch (e) {
         if (this.activeMode === 'signin') {
@@ -149,6 +158,18 @@ export default {
           this.showAlert = true;
         }
       }
+    },
+    goToNext() {
+      if (localStorage.nextRoute) {
+        this.$router.push(JSON.parse(localStorage.nextRoute));
+        delete localStorage.nextRoute;
+      }
+      if (localStorage.nextAction) {
+        const action = localStorage.nextAction;
+        delete localStorage.nextAction;
+        this.$root.$emit(action);
+      }
+      this.$root.$emit('tk::auth-modal::complete');
     },
     onReset() {
       this.form.name = '';

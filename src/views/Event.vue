@@ -45,14 +45,14 @@
                         </div>
                     </div>
                     <div v-else>
-                        <div v-if="me">
+                        <RequireSignIn post_text=" "
+                                       btn_text="Book Event"
+                                       btn_icon="0"
+                                       auth_class="plain"
+                                       next_action="tk::event::book">
                             <b-button variant="primary"
                                       @click="book()">Book Event</b-button>
-                        </div>
-                        <div v-else>
-                            <b-button variant="primary"
-                                      v-b-modal.auth-modal>Sign in</b-button> to Book Event
-                        </div>
+                        </RequireSignIn>
                     </div>
                 </div>
             </div>
@@ -70,6 +70,7 @@
 <script>
 import moment from 'moment';
 import VueMarkdown from 'vue-markdown';
+import RequireSignIn from '@/components/RequireSignIn.vue';
 import * as auth from '@/graphql/auth';
 import * as misc from '@/graphql/misc';
 import * as kv from '@/lib/keyVal';
@@ -81,6 +82,9 @@ export default {
       calendar_event: {},
       me: '',
     };
+  },
+  mounted() {
+    this.$root.$on('tk::event::book', this.book);
   },
   computed: {
     date() {
@@ -129,6 +133,7 @@ export default {
     },
   },
   components: {
+    RequireSignIn,
     VueMarkdown,
   },
   methods: {

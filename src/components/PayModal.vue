@@ -18,7 +18,11 @@
         </div>
 
         <b-table striped hover foot-clone :items="items" :fields="table_fields">
-            <template slot="edit" slot-scope="row"></template>
+            <template slot="delete" slot-scope="row">
+                <b-button @click.stop="deleteItem" variant="link" class="delete_item">
+                    <span class="fas fa-minus-circle"></span>
+                </b-button>
+            </template>
             <template slot="FOOT_title" slot-scope="data">Total</template>
             <template slot="FOOT_quantity" slot-scope="data"></template>
             <template slot="FOOT_price" slot-scope="data">{{ totalPrice }}</template>
@@ -41,7 +45,11 @@ export default {
       showAlert: false,
       alertMessage: 'Error!',
       items: [],
-      table_fields: [{ key: 'title', label: 'Item' }, 'quantity', 'price'],
+      table_fields: [
+        { key: 'title', label: 'Item' },
+        'quantity', 'price',
+        { key: 'delete', label: '' },
+      ],
       saveCard: true,
       working: false,
     };
@@ -201,5 +209,8 @@ export default {
 }
 .total-footer {
     font-weight: 500;
+}
+button.delete_item {
+    color: inherit;
 }
 </style>
