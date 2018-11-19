@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/views/Home.vue';
 import Calendar from '@/views/Calendar.vue';
+import Classes from '@/views/Classes.vue';
 import Event from '@/views/Event.vue';
 import Membership from '@/views/Membership.vue';
 import FAQ from '@/views/FAQ.vue';
@@ -35,6 +36,11 @@ export default new Router({
       path: '/calendar',
       name: 'calendar',
       component: Calendar,
+    },
+    {
+      path: '/classes',
+      name: 'classes',
+      component: Classes,
     },
     {
       path: '/event/:id',
