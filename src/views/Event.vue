@@ -135,14 +135,20 @@ export default {
     formatPrice(p) {
       return format.priceWhole(p);
     },
-    book() {
+    book(qty = 1) {
       let { sku } = this.calendar_event;
       if ((this.me.is_member || this.me.is_free_member) && this.calendar_event.member_sku) {
         sku = this.calendar_event.member_sku;
         if (!sku.attributes) sku.attributes = {};
         sku.attributes.title = this.calendar_event.title;
       }
-      this.$root.$emit('tk::pay-modal::open', [sku]);
+      this.$root.$emit('tk::pay-modal::open', [{
+        id: `sku:${sku.id}`,
+        sku: sku.id,
+        quantity: qty,
+        title: sku.attributes.title,
+        amount: sku.price * qty,
+      }]);
       this.$root.$on('tk::pay-modal::complete', this.payComplete);
     },
     payComplete() {

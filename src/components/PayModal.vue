@@ -1,6 +1,6 @@
 <template>
     <b-modal id="pay-modal" ref="payModal"
-             title="Confirm" ok-title="Pay Now" centered
+             title="Cart" cancel-title="Close" ok-title="Checkout" centered
              @ok.prevent=checkout @hide=onReset>
 
         <template v-if="working" slot="modal-header">&nbsp;</template>
@@ -17,8 +17,9 @@
             </p>
         </div>
 
-        <b-table striped hover foot-clone :items="tableItems">
-            <template slot="FOOT_item" slot-scope="data">Total</template>
+        <b-table striped hover foot-clone :items="items" :fields="table_fields">
+            <template slot="edit" slot-scope="row"></template>
+            <template slot="FOOT_title" slot-scope="data">Total</template>
             <template slot="FOOT_quantity" slot-scope="data"></template>
             <template slot="FOOT_price" slot-scope="data">{{ totalPrice }}</template>
         </b-table>
@@ -40,6 +41,7 @@ export default {
       showAlert: false,
       alertMessage: 'Error!',
       items: [],
+      table_fields: [{ key: 'title', label: 'Item' }, 'quantity', 'price'],
       saveCard: true,
       working: false,
     };
@@ -49,37 +51,54 @@ export default {
       if (!this.customer_payment_sources) return null;
       return this.customer_payment_sources.find(() => true);
     },
-    tableItems() {
-      // FIXME: user configurable qty
-
-      return this.items.map(i => ({
-        item: i.attributes.title,
-        quantity: 1,
-        price: format.priceCents(i.price),
-      }));
-    },
     totalPrice() {
-      let total = 0;
-      this.items.forEach((i) => { total += i.price; });
-      return format.priceCents(total);
+      const totalAmt = this.items.reduce((acc, cur) => acc + (cur.amount * cur.quantity), 0);
+      return format.priceCents(totalAmt);
     },
   },
   mounted() {
     this.$root.$on('tk::pay-modal::open', this.open);
+    this.$root.$on('tk::pay-modal::add', this.open);
     this.$root.$on('tk::pay-modal::subscribeCheckout', this.subscribeCheckout);
   },
   destroyed() {
     this.$root.$off('tk::pay-modal::open', this.open);
+    this.$root.$off('tk::pay-modal::add', this.add);
   },
   methods: {
     open(items) {
-      this.items = items;
+      if (items) this.add(items);
       this.working = false;
       this.$refs.payModal.show();
+    },
+    /*
+     * items: array of objects containing:
+     *   id: String: unique ID; consists of colon-separated type string & type-specific ID
+     *       e.g.: sku:sku_DyIJDRjZCbcNmR
+     *   type: String: type (same as in id)
+     *   sku: String: if type sku, the Stripe sku id
+     *   title: String
+     *   quantity: Int
+     */
+    add(items) {
+      items.forEach((newItem) => {
+        const idx = this.items.map(c => (c.id)).indexOf(newItem.id);
+        if (idx >= 0) {
+          this.items[idx].quantity += newItem.quantity;
+          this.items[idx].price = format.priceCents(newItem.amount * this.items[idx].quantity);
+        } else {
+          this.items.push({
+            ...newItem,
+            price: format.priceCents(newItem.amount * newItem.quantity),
+          });
+        }
+      });
     },
     async checkout() {
       this.working = true;
       const { items } = this;
+
+      // fixme: what to do if any items are not type sku?
 
       // Make sure a Stripe customer record exists for current user
       const { data: { get_or_create_customer: customer } } = await this.$apollo.mutate({
@@ -89,7 +108,7 @@ export default {
       // Create a Stripe order
       const { data: { create_order: order } } = await this.$apollo.mutate({
         mutation: customerQueries.mutation.create_order,
-        variables: { skus: items.map(i => (i.id)) },
+        variables: { items: items.map(i => ({ sku: i.sku, quantity: i.quantity })) },
       });
 
       // If customer has a saved card ready to go, pay the order
@@ -99,6 +118,7 @@ export default {
           mutation: customerQueries.mutation.pay_order,
           variables: { order: order.id, customer: customer.id },
         });
+        this.clearCart();
         this.$refs.payModal.hide();
         this.$root.$emit('tk::pay-modal::complete');
         return;
@@ -130,6 +150,8 @@ export default {
             variables: payVars,
           });
 
+          this.clearCart();
+
           this.$refs.payModal.hide();
           this.$root.$emit('tk::pay-modal::complete');
 
@@ -157,8 +179,11 @@ export default {
         },
       });
     },
-    onReset() {
+    clearCart() {
       this.items = [];
+      this.onReset();
+    },
+    onReset() {
       this.showAlert = false;
       this.alertMessage = 'Error!';
     },

@@ -15,8 +15,14 @@
 export default {
   props: ['sku'],
   methods: {
-    buy(sku) {
-      this.$root.$emit('tk::pay-modal::open', [sku]);
+    buy(sku, qty = 1) {
+      this.$root.$emit('tk::pay-modal::open', [{
+        id: `sku:${sku.id}`,
+        sku: sku.id,
+        quantity: qty,
+        title: sku.attributes.title,
+        amount: sku.price * qty,
+      }]);
     },
   },
 };

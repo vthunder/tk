@@ -273,8 +273,8 @@ export const mutation = {
     }
   `,
   create_order: gql`
-    mutation($skus: [String]) {
-      create_order(skus: $skus) {
+    mutation($items: [OrderItemInput]) {
+      create_order(items: $items) {
         id
         amount
         amount_returned
