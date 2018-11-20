@@ -1,5 +1,6 @@
 <template>
     <div class="container section">
+        <h1>Classes & Talks</h1>
         <b-row class="justify-content-center">
             <b-col md="12">
                 <b-row>
