@@ -220,6 +220,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+@import "../styles/section-image";
+
+h1.home-page {
+    font-size: 3rem;
+    line-height: 2.5rem;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .73), 0 2px 4px rgba(0, 0, 0, .19);
+    @media (min-width: 768px) {
+        font-size: 4.25rem;
+        line-height: 3.5rem;
+    }
+}
 .jumbotron {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
                 url('/images/TK_space.jpg');
@@ -294,7 +306,31 @@ export default {
     }
 }
 
+.join-us-image {
+    @extend .section-image;
+    background: url('/images/Making-Chocolate.jpg');
+    background-position: 100% 80%;
+}
+
+.whats-next-image {
+    @extend .section-image;
+    background: #ccccc9 url('/images/Screen-Shot-2016-09-18-at-6.01.43-PM.png');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain, auto !important;
+}
+
 .need-auth {
     height: unset;
+}
+
+.about-section {
+    background-color: #f2f2f2;
+    padding: 20px 0;
+    .mugshot-image {
+        display: block;
+        margin: 0 auto;
+        border-radius: 70px;
+    }
 }
 </style>

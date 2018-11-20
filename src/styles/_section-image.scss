@@ -1,0 +1,20 @@
+.section-image {
+    background-size: cover !important;
+    height: 300px;
+    @media (min-width: 576px) { height: 400px; }
+    @media (min-width: 768px) { height: 500px; }
+}
+
+.section-image-sm {
+    background-size: cover !important;
+    height: 200px;
+    @media (min-width: 576px) { height: 300px; }
+    @media (min-width: 768px) { height: 400px; }
+}
+
+.section-image-xs {
+    background-size: cover !important;
+    height: 100px;
+    @media (min-width: 576px) { height: 200px; }
+    @media (min-width: 768px) { height: 300px; }
+}
