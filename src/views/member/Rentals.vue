@@ -14,34 +14,15 @@
 
 <script>
 import StorePage from '@/components/MemberPage.vue';
-import DayPassProductCard from '@/components/DayPassProductCard.vue';
 import * as auth from '@/graphql/auth';
-import * as products from '@/graphql/products';
 import * as kv from '@/lib/keyVal';
 
 export default {
   apollo: {
     me: auth.query.me,
-    day_pass_skus: {
-      query: products.query.day_pass_skus,
-      update(data) {
-        return kv.restoreObject(data.day_pass_skus, [
-          'nonmember_1.attributes',
-          'nonmember_1.metadata',
-          'nonmember_5.attributes',
-          'nonmember_5.metadata',
-          'member_1.attributes',
-          'member_1.metadata',
-          'member_5.attributes',
-          'member_5.metadata',
-        ]);
-      },
-    },
-    user_passes: products.query.user_passes,
   },
   components: {
     StorePage,
-    DayPassProductCard,
   },
   computed: {
     pass_1() {
