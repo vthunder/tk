@@ -40,7 +40,7 @@ export default {
     classes() {
       return this
         .calendar_events
-        .filter(e => e.category === 'class')
+        .filter(e => (e.category === 'class' || e.category === 'talk'))
         .map(e => ({
           ...e,
           short_description: this.ellipsis(e.description, 110),
