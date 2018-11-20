@@ -17,7 +17,8 @@
             </p>
         </div>
 
-        <b-table striped hover foot-clone :items="items" :fields="table_fields">
+        <b-table id="cart-items" :items="items" :fields="table_fields"
+                 striped hover foot-clone>
             <template slot="delete" slot-scope="row">
                 <b-button @click.stop="deleteItem" variant="link" class="delete_item">
                     <span class="fas fa-minus-circle"></span>
@@ -60,7 +61,7 @@ export default {
       return this.customer_payment_sources.find(() => true);
     },
     totalPrice() {
-      const totalAmt = this.items.reduce((acc, cur) => acc + (cur.amount * cur.quantity), 0);
+      const totalAmt = this.items.reduce((acc, cur) => acc + cur.amount, 0);
       return format.priceCents(totalAmt);
     },
   },
@@ -87,17 +88,26 @@ export default {
      *   sku: String: if type sku, the Stripe sku id
      *   title: String
      *   quantity: Int
+     *   amount_each: Int: price each 1 qty in cts
+     *
+     * these are computed internally, no need to pass them in:
+     *   amount: total amount in cts for all of qty
+     *   price: total price already formatted for display
+     *
+     * note: this method is not resilient to item amounts changing between each call
      */
     add(items) {
       items.forEach((newItem) => {
         const idx = this.items.map(c => (c.id)).indexOf(newItem.id);
         if (idx >= 0) {
           this.items[idx].quantity += newItem.quantity;
-          this.items[idx].price = format.priceCents(newItem.amount * this.items[idx].quantity);
+          this.items[idx].amount = this.items[idx].quantity * newItem.amount_each;
+          this.items[idx].price = format.priceCents(this.items[idx].amount);
         } else {
           this.items.push({
             ...newItem,
-            price: format.priceCents(newItem.amount * newItem.quantity),
+            amount: newItem.amount_each * newItem.quantity,
+            price: format.priceCents(newItem.amount_each * newItem.quantity),
           });
         }
       });
@@ -133,7 +143,7 @@ export default {
       }
 
       // Otherwise, open the Stripe payment modal
-      let [{ attributes: { title: description } }] = items;
+      let [{ title: description }] = items;
       if (items.length === 2) description += ' and 1 more item';
       if (items.length > 2) description += ` and ${items.length - 1} more items`;
 
@@ -207,10 +217,19 @@ export default {
     animation: spin 2s linear infinite;
     margin: 0 auto;
 }
-.total-footer {
-    font-weight: 500;
-}
-button.delete_item {
-    color: inherit;
+#cart-items {
+    .total-footer {
+        font-weight: 500;
+    }
+
+    button.delete_item {
+        color: gray;
+        margin: 0;
+        padding: 0;
+
+        &:hover {
+            
+        }
+    }
 }
 </style>
