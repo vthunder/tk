@@ -49,7 +49,13 @@ import * as kv from '@/lib/keyVal';
 
 export default {
   apollo: {
-    me: auth.query.me,
+    me: {
+      query: auth.query.me,
+      update(data) {
+        if (!data || !data.me) return {};
+        return data.me;
+      },
+    },
     day_pass_skus: {
       query: products.query.day_pass_skus,
       update(data) {
@@ -64,6 +70,10 @@ export default {
     user_passes: {
       query: products.query.user_passes,
       variables: { type: 'day_pass' },
+      update(data) {
+        if (!data || !data.user_passes) return [];
+        return data.user_passes;
+      },
     },
   },
   components: {
