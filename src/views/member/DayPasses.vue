@@ -2,36 +2,47 @@
     <div v-if="$apollo.loading" class="loading"><h3>Loading...</h3></div>
     <div v-else class="container section">
         <StorePage>
-            <p>You have {{ user_passes.length }}
-                {{ user_passes.length | pluralize('pass', 'passes') }}</p>
+            <p>You have <span class="cur_daypasses">{{ user_passes.length }}</span>
+                {{ user_passes.length | pluralize('pass', 'passes') }}.</p>
+            <p>To use a day pass, just give us your email when you
+                check-in and we'll deduct it from your account. To
+                share a day pass with a friend, send us an email and
+                we'll generate a coupon code for them.</p>
+            <!--
             <p><b-link v-if="user_passes.length" @click="togglePasses()">
                     <span v-if="show_pass_codes">Hide</span><span v-else>Show</span> pass codes
                     <i v-if="show_pass_codes" class="fas fa-arrow-circle-down"></i>
                     <i v-else class="fas fa-arrow-circle-right"></i>
                 </b-link>
             </p>
+
             <p v-if="show_pass_codes">
-                <strong>How do these work?</strong><br>Show a code to
-                Tinker Kitchen staff to use it. Once used, it will be
-                removed from this list. Feel free to share these codes
-                to let friends use your day passes, but keep them
-                safe!
+                <strong>How do these work?</strong><br>Share these
+                codes with friends to give them a day pass. Once used,
+                passes will be removed from this list.
             </p>
             <b-table v-if="show_pass_codes" striped hover :items="passesTableItems">
             </b-table>
+            -->
+            <hr>
+            <h3>Get Day Passes</h3>
 
-            <div class="card-deck">
-                <b-card-group deck class="mt-2">
-                    <DayPassProductCard :sku="pass_1" />
-                </b-card-group>
-            </div>
+            <p>
+                Day passes are <span v-if="sub">$25 each for members</span>
+                <span v-else>$35 each</span>. Come spend a day cooking with us!<br>
+                You can also share them with friends.
+            </p>
+            <b-form class="daypass_form" inline>
+                <label>How many:</label>
+                <b-form-input v-model="how_many" type="number"></b-form-input>
+                <b-button @click="buyDayPass" variant="primary">Buy</b-button>
+            </b-form>
         </StorePage>
     </div>
 </template>
 
 <script>
 import StorePage from '@/components/MemberPage.vue';
-import DayPassProductCard from '@/components/DayPassProductCard.vue';
 import * as auth from '@/graphql/auth';
 import * as products from '@/graphql/products';
 import * as kv from '@/lib/keyVal';
@@ -45,12 +56,8 @@ export default {
         return kv.restoreObject(data.day_pass_skus, [
           'nonmember_1.attributes',
           'nonmember_1.metadata',
-          'nonmember_5.attributes',
-          'nonmember_5.metadata',
           'member_1.attributes',
           'member_1.metadata',
-          'member_5.attributes',
-          'member_5.metadata',
         ]);
       },
     },
@@ -61,16 +68,11 @@ export default {
   },
   components: {
     StorePage,
-    DayPassProductCard,
   },
   computed: {
     pass_1() {
       if (this.sub) return this.day_pass_skus.member_1;
       return this.day_pass_skus.nonmember_1;
-    },
-    pass_5() {
-      if (this.sub) return this.day_pass_skus.member_5;
-      return this.day_pass_skus.nonmember_5;
     },
     userNewPasses() {
       return this.user_passes.filter(p => p.status === 'new');
@@ -89,6 +91,7 @@ export default {
       show_pass_codes: false,
       dayPasses: [],
       day_pass_skus: {},
+      how_many: 1,
     };
   },
   mounted() {
@@ -106,10 +109,33 @@ export default {
       });
       window.location.reload();
     },
+    buyDayPass() {
+      const sku = this.pass_1;
+      const qty = parseInt(this.how_many, 10);
+
+      this.$root.$emit('tk::pay-modal::open', [{
+        id: `sku:${sku.id}`,
+        sku: sku.id,
+        quantity: qty,
+        title: sku.attributes.title,
+        amount_each: sku.price,
+      }]);
+    },
   },
 };
 </script>
 
 <style lang="scss">
 .loading { height: 100vh; }
+.cur_daypasses {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.daypass_form {
+    input {
+        margin-left: .75em;
+        margin-right: .75em;
+        max-width: 4em;
+    }
+}
 </style>
