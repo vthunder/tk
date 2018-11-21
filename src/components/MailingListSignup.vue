@@ -8,9 +8,9 @@
         </b-alert>
         <b-form @submit="onSubmit" @reset="onReset" v-if="showForm">
             <div class="cta-text">{{ ctaText }}</div>
-            <b-form-group label="Email" label-sr-only label-for="email-field">
+            <b-form-group label="Email" label-sr-only label-for="ml-email-field">
                 <b-input-group>
-                    <b-form-input id="email-field"
+                    <b-form-input id="ml-email-field"
                                   type="email"
                                   v-model="form.email"
                                   required
