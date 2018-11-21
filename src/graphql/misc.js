@@ -119,7 +119,10 @@ mutation SendCouponTokens($type: String!, $emails: String!) {
 `,
   use_coupon_token: gql`
 mutation UseCouponToken($token: String!) {
-  use_coupon_token(token: $token)
+  use_coupon_token(token: $token) {
+    status
+    type
+  }
 }
 `,
 };
