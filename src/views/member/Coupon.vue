@@ -33,7 +33,7 @@
                 <div v-if="working" class="center">
                     <span class="fas fa-spinner fa-7x"></span>
                 </div>
-                <div v-else>
+                <div v-else-if="couponType.match(/^ks_/)">
                     <p>Your coupon has been applied, Hooray! Welcome to
                         Tinker Kitchen.</p>
                     <p>Lock in our special Kickstarter rate! Sign up for
@@ -44,14 +44,22 @@
                     </ul>
                     <p>(Only backers get this special deal!)</p>
                 </div>
+                <div v-else>
+                    <p>Your coupon has been applied, Hooray!</p>
+                </div>
                 <template slot="modal-footer">
-                    <b-button @click="successModalCancel">Not now</b-button>
-                    <b-button @click="successModalSignup(monthly)" variant="primary">
-                        Sign-up Monthly
-                    </b-button>
-                    <b-button @click="successModalSignup(yearly)" variant="primary">
-                        Sign-up Yearly
-                    </b-button>
+                    <div v-if="couponType.match(/^ks_/)">
+                        <b-button @click="successModalCancel">Not now</b-button>
+                        <b-button @click="successModalSignup(monthly)" variant="primary">
+                            Sign-up Monthly
+                        </b-button>
+                        <b-button @click="successModalSignup(yearly)" variant="primary">
+                            Sign-up Yearly
+                        </b-button>
+                    </div>
+                    <div v-else>
+                        <b-button @click="successModalCancel" variant="primary">OK</b-button>
+                    </div>
                 </template>
             </b-modal>
             <b-modal id="sub-success-modal" ref="subSuccessModalRef"
@@ -78,6 +86,7 @@ export default {
       coupon: '',
       couponState: null,
       working: false,
+      couponType: '',
     };
   },
   components: {
@@ -94,8 +103,9 @@ export default {
       });
       this.working = false;
 
-      if (ret !== 'OK') this.couponState = false;
+      if (ret.status !== 'OK') this.couponState = false;
       else {
+        this.couponType = ret.type;
         this.$apollo.provider.defaultClient.cache.reset();
         this.$refs.couponSuccessModalRef.show();
       }
