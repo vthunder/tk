@@ -39,19 +39,19 @@
                     </h5>
                     <div v-if="calendar_event.ext_book_url">
                         <b-button :href="calendar_event.ext_book_url"
-                                  variant="primary">Book Event</b-button>
+                                  variant="primary">Add to Cart</b-button>
                         <div v-if="show_member_discount">
                             Member discount code: {{ calendar_event.ext_member_discount_code }}
                         </div>
                     </div>
                     <div v-else>
                         <RequireSignIn post_text=" "
-                                       btn_text="Book Event"
+                                       btn_text="Add to Cart"
                                        btn_icon="0"
                                        auth_class="plain"
                                        next_action="tk::event::book">
                             <b-button variant="primary"
-                                      @click="book()">Book Event</b-button>
+                                      @click="book()">Add to Cart</b-button>
                         </RequireSignIn>
                     </div>
                 </div>
@@ -160,8 +160,10 @@ export default {
       this.$refs.bookingSuccessModalRef.show();
     },
   },
-  metaInfo: {
-    title: 'Event',
+  metaInfo() {
+    return {
+      title: this.calendar_event.title,
+    };
   },
 };
 </script>
