@@ -74,6 +74,7 @@ export default {
       emails: '',
       type_options: [
         { value: 'staff', text: 'Staff - 1 month' },
+        { value: 'daypass', text: '1 day pass' },
         { value: 'ks_daypasses', text: 'Kickstarter - 2 day passes' },
         { value: 'ks_month', text: 'Kickstarter - 1 month' },
         { value: 'ks_year', text: 'Kickstarter - 1 year' },
