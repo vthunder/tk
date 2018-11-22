@@ -42,8 +42,8 @@ export default {
       return this
         .calendar_events
         .filter(e => (e.category === 'class' || e.category === 'talk'))
-        .filter(e => moment(e.start) > moment())
-        .sort((a, b) => moment(a.start) > moment(b.start))
+        .filter(e => moment(e.start).isAfter())
+        .sort((a, b) => (moment(a.start).isAfter(moment(b.start)) ? 1 : -1))
         .map(e => ({
           ...e,
           short_description: this.ellipsis(e.description, 110),
