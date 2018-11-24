@@ -45,14 +45,14 @@
                         </div>
                     </div>
                     <div v-else>
-                        <RequireSignIn post_text=" "
+                        <RequireSignInForm post_text=" "
                                        btn_text="Add to Cart"
                                        btn_icon="0"
                                        auth_class="plain"
                                        next_action="tk::event::book">
                             <b-button variant="primary"
                                       @click="book()">Add to Cart</b-button>
-                        </RequireSignIn>
+                        </RequireSignInForm>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
 <script>
 import moment from 'moment';
 import VueMarkdown from 'vue-markdown';
-import RequireSignIn from '@/components/RequireSignIn.vue';
+import RequireSignInForm from '@/components/RequireSignInForm.vue';
 import * as auth from '@/graphql/auth';
 import * as misc from '@/graphql/misc';
 import * as kv from '@/lib/keyVal';
@@ -133,7 +133,7 @@ export default {
     },
   },
   components: {
-    RequireSignIn,
+    RequireSignInForm,
     VueMarkdown,
   },
   methods: {
@@ -142,17 +142,24 @@ export default {
     },
     book(qty = 1) {
       let { sku } = this.calendar_event;
+
+      window.fbq('track', 'AddToCart', {
+        value: sku.price / 100,
+        currency: 'usd',
+      });
+
       if ((this.me.is_member || this.me.is_free_member) && this.calendar_event.member_sku) {
         sku = this.calendar_event.member_sku;
         if (!sku.attributes) sku.attributes = {};
         sku.attributes.title = this.calendar_event.title;
       }
+      console.log(JSON.stringify(sku));
       this.$root.$emit('tk::pay-modal::open', [{
         id: `sku:${sku.id}`,
         sku: sku.id,
         quantity: qty,
         title: sku.attributes.title,
-        amount: sku.price * qty,
+        amount_each: sku.price,
       }]);
       this.$root.$on('tk::pay-modal::complete', this.payComplete);
     },
