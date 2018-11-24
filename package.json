@@ -20,7 +20,6 @@
     "string-mask": "^0.3.0",
     "vue": "^2.5.16",
     "vue-analytics": "^5.12.2",
-    "vue-analytics-facebook-pixel": "^1.0.1",
     "vue-apollo": "^3.0.0-beta.10",
     "vue-cli-plugin-apollo": "^0.13.9",
     "vue-full-calendar": "^4.0.0-1",

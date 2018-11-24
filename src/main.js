@@ -3,7 +3,6 @@ import Meta from 'vue-meta';
 import BootstrapVue from 'bootstrap-vue';
 import VueStripeCheckout from 'vue-stripe-checkout';
 import VueAnalytics from 'vue-analytics';
-import VueFacebookPixel from 'vue-analytics-facebook-pixel';
 import Vue2Filters from 'vue2-filters';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
@@ -31,10 +30,6 @@ Vue.use(VueAnalytics, {
   },
   router,
 });
-
-Vue.use(VueFacebookPixel);
-Vue.analytics.fbq.init('225268454866988');
-Vue.analytics.fbq.event('track', 'PageView');
 
 Vue.config.productionTip = false;
 
