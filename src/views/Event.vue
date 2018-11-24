@@ -143,17 +143,17 @@ export default {
     book(qty = 1) {
       let { sku } = this.calendar_event;
 
-      window.fbq('track', 'AddToCart', {
-        value: sku.price / 100,
-        currency: 'usd',
-      });
-
       if ((this.me.is_member || this.me.is_free_member) && this.calendar_event.member_sku) {
         sku = this.calendar_event.member_sku;
         if (!sku.attributes) sku.attributes = {};
         sku.attributes.title = this.calendar_event.title;
       }
-      console.log(JSON.stringify(sku));
+
+      window.fbq('track', 'AddToCart', {
+        value: sku.price / 100,
+        currency: 'USD',
+      });
+
       this.$root.$emit('tk::pay-modal::open', [{
         id: `sku:${sku.id}`,
         sku: sku.id,
