@@ -45,11 +45,7 @@
                         </div>
                     </div>
                     <div v-else>
-                        <RequireSignInForm post_text=" "
-                                       btn_text="Add to Cart"
-                                       btn_icon="0"
-                                       auth_class="plain"
-                                       next_action="tk::event::book">
+                        <RequireSignInForm next_action="tk::event::book">
                             <b-button variant="primary"
                                       @click="book()">Add to Cart</b-button>
                         </RequireSignInForm>
