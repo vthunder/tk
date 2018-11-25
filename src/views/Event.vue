@@ -141,8 +141,6 @@ export default {
 
       if ((this.me.is_member || this.me.is_free_member) && this.calendar_event.member_sku) {
         sku = this.calendar_event.member_sku;
-        if (!sku.attributes) sku.attributes = {};
-        sku.attributes.title = this.calendar_event.title;
       }
 
       window.fbq('track', 'AddToCart', {
@@ -154,7 +152,7 @@ export default {
         id: `sku:${sku.id}`,
         sku: sku.id,
         quantity: qty,
-        title: sku.attributes.title,
+        title: this.calendar_event.title,
         amount_each: sku.price,
       }]);
       this.$root.$on('tk::pay-modal::complete', this.payComplete);
