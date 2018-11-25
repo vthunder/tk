@@ -47,7 +47,7 @@
                 </span>
             </div>
         </div>
-        <b-modal ref="welcomeModal" title="Welcome!"
+        <b-modal ref="formWelcomeModal" title="Welcome!"
                  ok-title="Let's get cookin'!" ok-only centered
                  @ok="goToNext">
             <p>Welcome to Tinker Kitchen! Hope to cook up a storm with you
@@ -61,6 +61,7 @@ import { onLogin } from '@/vue-apollo';
 import * as auth from '@/graphql/auth';
 
 export default {
+  props: ['next_action'],
   data() {
     return {
       activeMode: 'register',
@@ -94,8 +95,6 @@ export default {
       showForm: true,
       success: false,
     };
-  },
-  mounted() {
   },
   methods: {
     switchMode(forgot) {
@@ -136,12 +135,13 @@ export default {
         const { data } = await this.$apollo.mutate({ mutation, variables });
         const ret = data.login ? data.login : data.signup;
         this.token = ret.jwt.token;
-        onLogin(this.$apollo.provider.defaultClient, ret.jwt.token);
+        await onLogin(this.$apollo.provider.defaultClient, ret.jwt.token);
 
         this.success = true;
+
         if (this.activeMode === 'register') {
-          this.$refs.welcomeModal.show();
-        } else {
+          // this.$refs.formWelcomeModal.show();
+          // } else {
           this.goToNext();
         }
       } catch (e) {
@@ -156,15 +156,7 @@ export default {
       }
     },
     goToNext() {
-      if (localStorage.nextRoute) {
-        this.$router.push(JSON.parse(localStorage.nextRoute));
-        delete localStorage.nextRoute;
-      }
-      if (localStorage.nextAction) {
-        const action = localStorage.nextAction;
-        delete localStorage.nextAction;
-        this.$root.$emit(action);
-      }
+      if (this.next_action) this.$root.$emit(this.next_action);
       this.$root.$emit('tk::auth-form::complete');
     },
     onReset() {

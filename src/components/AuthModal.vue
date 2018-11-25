@@ -141,7 +141,7 @@ export default {
         const { data } = await this.$apollo.mutate({ mutation, variables });
         const ret = data.login ? data.login : data.signup;
         this.token = ret.jwt.token;
-        onLogin(this.$apollo.provider.defaultClient, ret.jwt.token);
+        await onLogin(this.$apollo.provider.defaultClient, ret.jwt.token);
         this.$refs.authModal.hide();
         if (this.activeMode === 'register') {
           this.$refs.welcomeModal.show();
