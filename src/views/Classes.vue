@@ -6,7 +6,7 @@
                 <b-row>
                     <b-col v-for="event in classes" v-bind:key="event.id" md="6">
                         <b-link :to="{ name: 'event', params: { id: event.id } }"
-                                class="class-link">
+                                class="card-link">
                             <b-card :title="event.title"
                                     :sub-title="event.date"
                                     :img-src="event.image_header"
@@ -26,7 +26,6 @@
 
 <script>
 import moment from 'moment';
-import { FullCalendar } from 'vue-full-calendar';
 import * as misc from '@/graphql/misc';
 import * as format from '@/lib/format';
 
@@ -35,7 +34,6 @@ export default {
     calendar_events: misc.query.calendar_events,
   },
   components: {
-    FullCalendar,
   },
   computed: {
     classes() {
@@ -87,14 +85,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~fullcalendar/dist/fullcalendar.css';
-.class-link {
-    color: inherit;
-    &:hover {
-        color: inherit;
-        text-decoration: none;
-    }
-}
 .class-card {
     margin-bottom: 2em;
 
