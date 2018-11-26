@@ -1,77 +1,75 @@
 <template>
-  <div class="home">
+    <div class="home">
       <div class="jumbotron">
-          <div class="hero container justify-content-center">
-              <h1 class="home-page">Tinker Kitchen</h1>
-              <h3>A cooking makerspace in San Francisco<br>
-                  for learning and experimenting with food.</h3>
-          </div>
+          <b-row>
+              <b-col md="8">
+                  <div class="hero container justify-content-center">
+                      <h1 class="home-page">Tinker Kitchen</h1>
+                      <h3>A cooking makerspace in San Francisco<br>
+                          for learning and experimenting with food.</h3>
+                  </div>
+              </b-col>
+              <b-col md="4">
+                  <b-card bg-variant="dark" text-variant="white">
+                      <b-link :to="{ name: 'classes' }" class="card-link">
+                          <div class="header-card">
+                              <img src="/images/15408755594_87a6c22584_o square.jpg"/>
+                              <h4>Take a cooking class</h4>
+                          </div>
+                      </b-link>
+                      <b-link :to="{ name: 'learn-daypasses' }" class="card-link">
+                          <div class="header-card">
+                              <img src="/images/928804_432342363614597_1945912251_n.jpg"/>
+                              <h4>Get a day pass</h4>
+                          </div>
+                      </b-link>
+                      <b-link :to="{ name: 'learn-membership' }" class="card-link">
+                          <div class="header-card">
+                              <img src="/images/MakerFaire-LN_Demo.jpg"/>
+                              <h4>Become a member</h4>
+                          </div>
+                      </b-link>
+                      <b-link :to="{ name: 'groups' }" class="card-link">
+                          <div class="header-card">
+                              <img src="/images/44511992_194691154803338_393358455199342745_n.jpg"/>
+                              <h4>Groups & private events</h4>
+                          </div>
+                      </b-link>
+                  </b-card>
+              </b-col>
+          </b-row>
           <i class="fas fa-angle-double-down text-white"></i>
       </div>
 
       <b-container class="section what-can-you-do-section mt-4">
-          <h2 class="section-heading">What can you do at Tinker Kitchen?</h2>
-          <b-row>
-              <b-col md="4">
-                  <b-card img-src="/images/LN-Demo-500x283.jpeg"
-                          img-alt="Experiment at Tinker Kitchen"
-                          img-top
-                          class="mt-3">
-                      <h4>Memberships & passes</h4>
-                      <p class="card-text">
-                          Experiment and pursue your cooking projects our
-                          kitchen&mdash;loaded with all the equipment you
-                          could dream of.
-                      </p>
-                      <div class="text-center">
-                          <b-button :to="{ name: 'learn-membership' }" size="sm"
-                                    variant="primary">
-                              Membership benefits
-                          </b-button>
-                      </div>
-                  </b-card>
-              </b-col>
-              <b-col md="4">
-                  <b-card img-src="/images/Filling-bonbons-500x289.jpg"
-                          img-alt="Card image"
-                          img-top
-                          class="mt-3">
-                      <h4>Classes & workshops</h4>
-                      <p class="card-text">
-                          Take a class and level up your cooking skills,
-                          or join a cooking club and learn at your own
-                          pace together with others.
-                      </p>
-                      <div class="text-center">
-                      <b-button :to="{ name: 'calendar' }" size="sm" variant="primary">
-                          Class calendar
-                      </b-button>
-                      </div>
-                  </b-card>
-              </b-col>
-              <b-col md="4">
-                  <b-card img-src="/images/Making-ice-cream-500x282.jpg"
-                          img-alt="Card image"
-                          img-top
-                          class="mt-3">
-                      <h4>Group & private events</h4>
-                      <p class="card-text">
-                          Use our kitchen for a group event: from
-                          dinner parties to team off-sites, we're the
-                          perfect place for your cooking activity.
-                      </p>
-                      <div class="text-center">
-                      <b-button :to="{ name: 'groups' }" size="sm" variant="primary">
-                          Group options
-                      </b-button>
-                      </div>
-                  </b-card>
+          <b-row class="justify-content-center">
+              <b-col md="8">
+                  <p>
+                      Tinker Kitchen is a <strong>makerspace for cooking</strong>:
+                      <b-link :to="{ name: 'learn-membership' }">our members</b-link>
+                      can come to our space anytime and cook whatever
+                      personal projects they like (or just hang out!).
+                  </p>
+                  <p>
+                      We also host a variety of <b-link :to="{ name: 'classes' }">cooking
+                      classes</b-link>, as well as team building
+                      events and other group gatherings.
+                  </p>
+                  <p>
+                      Our kitchen has just about every cooking gadget
+                      imaginable. If you love to cook, this place is
+                      for you!
+                  </p>
+                  <p>
+                      Tinker Kitchen is not a place to cook food for
+                      sale. We're not a restaurant, either. But if
+                      you're looking to get into the food business, we
+                      can be your launching pad! Learn about
+                      <b-link :to="{ name: 'commercial' }">commercial use</b-link> of
+                      our kitchen.
+                  </p>
               </b-col>
           </b-row>
-
-          <p class="mt-4 mb-4">Are you in the food industry? Learn about
-              <b-link :to="{ name: 'commercial' }">commercial use</b-link> of
-              our kitchen.</p>
       </b-container>
 
       <div class="whats-next-image"></div>
@@ -331,6 +329,26 @@ h1.home-page {
         display: block;
         margin: 0 auto;
         border-radius: 70px;
+    }
+}
+
+.header-card {
+    background-color: #3D3D3D;
+    border: 2px solid #636363;
+    border-radius: 4px;
+
+    &:hover {
+        background-color: #636363;
+    }
+
+    * { display: inline; }
+    img {
+        border-radius: 4px 0 0 4px;
+        height: 5em;
+    }
+    h4 {
+        margin-left: .75em;
+        font-weight: 600;
     }
 }
 </style>
