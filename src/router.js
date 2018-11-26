@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue';
 import Calendar from '@/views/Calendar.vue';
 import Classes from '@/views/Classes.vue';
 import Event from '@/views/Event.vue';
+import DayPasses from '@/views/DayPasses.vue';
 import Membership from '@/views/Membership.vue';
 import FAQ from '@/views/FAQ.vue';
 import Groups from '@/views/Groups.vue';
@@ -51,6 +52,11 @@ export default new Router({
       path: '/membership',
       name: 'learn-membership',
       component: Membership,
+    },
+    {
+      path: '/daypasses',
+      name: 'learn-daypasses',
+      component: DayPasses,
     },
     {
       path: '/faq',
