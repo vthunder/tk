@@ -5,6 +5,9 @@
 
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav class="ml-auto">
+                <b-nav-item :to="{ name: 'the-makerspace' }">Equipment</b-nav-item>
+                <b-nav-item :to="{ name: 'location' }">Location & Hours</b-nav-item>
+                <b-nav-item :to="{ name: 'about' }">About Us</b-nav-item>
                 <b-collapse is-nav id="nav_collapse_icons">
                     <b-nav-item href="https://instagram.com/tinkerkitch/">
                         <img src="/images/Instagram-White2x.png" width="24"
