@@ -41,4 +41,12 @@ export default {
     @media (min-width: 1200px) { padding-top: 56px; }
     @media (min-width: 1400px) { padding-top: 56px; }
 }
+
+.card-link {
+    color: inherit;
+    &:hover {
+        color: inherit;
+        text-decoration: none;
+    }
+}
 </style>
