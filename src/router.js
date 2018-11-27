@@ -12,6 +12,7 @@ import Membership from '@/views/Membership.vue';
 import FAQ from '@/views/FAQ.vue';
 import Groups from '@/views/Groups.vue';
 import Commercial from '@/views/Commercial.vue';
+import AdminDashboard from '@/views/admin/Dashboard.vue';
 import AdminCoupons from '@/views/admin/Coupons.vue';
 import AdminEvent from '@/views/admin/Event.vue';
 import MemberAccount from '@/views/member/Account.vue';
@@ -155,7 +156,12 @@ export default new Router({
     {
       path: '/admin',
       name: 'admin-home',
-      redirect: { name: 'admin-coupons' },
+      redirect: { name: 'admin-dashboard' },
+    },
+    {
+      path: '/admin/dashboard',
+      name: 'admin-dashboard',
+      component: AdminDashboard,
     },
     {
       path: '/admin/coupons',

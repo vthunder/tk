@@ -5,6 +5,7 @@
                 <b-row>
                     <b-col cols="4" md="3">
                         <b-nav class="admin-nav" vertical pills variant="secondary">
+                            <b-nav-item :to="{ name: 'admin-dashboard' }">Dashboard</b-nav-item>
                             <b-nav-item :to="{ name: 'admin-coupons' }">Coupons</b-nav-item>
                             <b-nav-item :to="{ name: 'admin-events' }">Events</b-nav-item>
                         </b-nav>
