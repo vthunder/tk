@@ -69,14 +69,15 @@ export default {
     return {
       me: {},
       num: 1,
-      type: 'ks_month',
-      type2: 'ks_month',
+      type: 'ks_monthonly',
+      type2: 'ks_monthonly',
       emails: '',
       type_options: [
         { value: 'staff', text: 'Staff - 1 month' },
         { value: 'daypass', text: '1 day pass' },
         { value: 'ks_daypasses', text: 'Kickstarter - 2 day passes' },
-        { value: 'ks_month', text: 'Kickstarter - 1 month' },
+        { value: 'ks_month', text: 'Kickstarter - 1 month + 2 day passes' },
+        { value: 'ks_monthonly', text: 'Kickstarter - 1 month only' },
         { value: 'ks_year', text: 'Kickstarter - 1 year' },
         { value: 'ks_class', text: 'Kickstarter - 1 class' },
       ],
