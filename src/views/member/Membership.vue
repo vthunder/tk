@@ -130,8 +130,7 @@ export default {
       return format.date(this.me.free_member_until);
     },
     free_member_ks() {
-      if (this.me.free_membership_type === 'ks_month') return true;
-      if (this.me.free_membership_type === 'ks_year') return true;
+      if (this.me.free_membership_type.match(/ks_(month|monthonly|year)/)) return true;
       return false;
     },
     free_member_staff() {
