@@ -39,7 +39,7 @@
                     </h5>
                     <div v-if="calendar_event.ext_book_url">
                         <b-button :href="calendar_event.ext_book_url"
-                                  variant="primary">Add to Cart</b-button>
+                                  variant="primary">Book this class</b-button>
                         <div v-if="show_member_discount">
                             Member discount code: {{ calendar_event.ext_member_discount_code }}
                         </div>
