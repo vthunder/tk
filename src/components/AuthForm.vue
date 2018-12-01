@@ -142,8 +142,8 @@ export default {
         if (this.activeMode === 'register') {
           // this.$refs.formWelcomeModal.show();
           // } else {
-          this.goToNext();
         }
+        this.goToNext();
       } catch (e) {
         if (this.activeMode === 'signin') {
           console.log(`Login error: ${e}`);
