@@ -57,13 +57,14 @@ export default {
       this.show_pass_codes = !this.show_pass_codes;
     },
     buy(sku, qty = 1) {
-      this.$root.$emit('tk::pay-modal::open', [{
+      this.$root.$emit('tk::pay-modal::add', [{
         id: `sku:${sku.id}`,
         sku: sku.id,
         quantity: qty,
         title: sku.attributes.title,
         amount: sku.price * qty,
       }]);
+      this.$root.$emit('tk::pay-modal::open');
       this.$root.$on('tk::pay-modal::complete', this.payComplete);
     },
     payComplete() {

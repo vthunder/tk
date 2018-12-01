@@ -148,13 +148,14 @@ export default {
         currency: 'USD',
       });
 
-      this.$root.$emit('tk::pay-modal::open', [{
+      this.$root.$emit('tk::pay-modal::add', [{
         id: `sku:${sku.id}`,
         sku: sku.id,
         quantity: qty,
         title: this.calendar_event.title,
         amount_each: sku.price,
       }]);
+      this.$root.$emit('tk::pay-modal::open');
       this.$root.$on('tk::pay-modal::complete', this.payComplete);
     },
     payComplete() {

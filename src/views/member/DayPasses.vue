@@ -123,13 +123,14 @@ export default {
       const sku = this.pass_1;
       const qty = parseInt(this.how_many, 10);
 
-      this.$root.$emit('tk::pay-modal::open', [{
+      this.$root.$emit('tk::pay-modal::add', [{
         id: `sku:${sku.id}`,
         sku: sku.id,
         quantity: qty,
         title: sku.attributes.title,
         amount_each: sku.price,
       }]);
+      this.$root.$emit('tk::pay-modal::open');
     },
   },
 };
