@@ -15,7 +15,6 @@
 <script>
 import StorePage from '@/components/MemberPage.vue';
 import * as auth from '@/graphql/auth';
-import * as kv from '@/lib/keyVal';
 
 export default {
   apollo: {
