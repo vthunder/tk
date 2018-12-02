@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueApollo from 'vue-apollo';
+import { BatchHttpLink } from 'apollo-link-batch-http';
 import { createApolloClient, restartWebsockets } from 'vue-cli-plugin-apollo/graphql-client';
 
 // Install the vue plugin
@@ -26,7 +27,9 @@ const defaultOptions = {
   ssr: false,
 
   // Override default http link
-  // link: myLink
+  link: new BatchHttpLink({
+    uri: process.env.VUE_APP_GRAPHQL_HTTP || 'http://localhost:4000/graphql',
+  }),
 
   // Override default cache
   // cache: myCache
