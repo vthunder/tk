@@ -11,6 +11,7 @@
 <script>
 import { FullCalendar } from 'vue-full-calendar';
 import * as misc from '../graphql/misc';
+import * as evhelpers from '@/lib/calendar_events';
 
 export default {
   apollo: {
@@ -25,6 +26,8 @@ export default {
         {
           events: this
             .calendar_events
+            .events
+            .map(evhelpers.merge_master(this.calendar_events.masters))
             .map(e => ({ ...e, url: `/event/${e.id}` })),
         },
       ];
@@ -32,7 +35,10 @@ export default {
   },
   data() {
     return {
-      calendar_events: [],
+      calendar_events: {
+        events: [],
+        masters: [],
+      },
       config: {
         defaultView: 'month',
         header: {

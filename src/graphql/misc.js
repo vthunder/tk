@@ -70,18 +70,33 @@ query CalendarEvent($id: Int!) {
   calendar_events: gql`
 query CalendarEvents {
   calendar_events {
-    id
-    title
-    image_header
-    all_day
-    start
-    end
-    duration
-    description
-    category
-    price
-    member_price
-    ext_book_url
+    events {
+      id
+      master_id
+      title
+      image_header
+      all_day
+      start
+      end
+      duration
+      description
+      category
+      price
+      member_price
+      ext_book_url
+    }
+    masters {
+      id
+      title
+      image_header
+      all_day
+      duration
+      description
+      category
+      price
+      member_price
+      ext_book_url
+    }
   }
 }
 `,

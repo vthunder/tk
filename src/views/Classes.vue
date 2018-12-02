@@ -28,6 +28,7 @@
 import moment from 'moment';
 import * as misc from '@/graphql/misc';
 import * as format from '@/lib/format';
+import * as evhelpers from '@/lib/calendar_events';
 
 export default {
   apollo: {
@@ -39,9 +40,15 @@ export default {
     classes() {
       return this
         .calendar_events
+        .events
         .filter(e => (e.category === 'class' || e.category === 'talk'))
         .filter(e => moment(e.start).isAfter())
         .sort((a, b) => (moment(a.start).isAfter(moment(b.start)) ? 1 : -1))
+        .filter((e, i, array) => {
+          if (!e.master_id) return true;
+          return (array.findIndex(tmp => tmp.master_id === e.master_id) === i);
+        })
+        .map(evhelpers.merge_master(this.calendar_events.masters))
         .map(e => ({
           ...e,
           short_description: this.ellipsis(e.description, 110),
@@ -53,7 +60,10 @@ export default {
   },
   data() {
     return {
-      calendar_events: [],
+      calendar_events: {
+        events: [],
+        masters: [],
+      },
       config: {
         defaultView: 'month',
         header: {
@@ -79,7 +89,7 @@ export default {
     },
   },
   metaInfo: {
-    title: 'Calendar',
+    title: 'Upcoming Classes',
   },
 };
 </script>
