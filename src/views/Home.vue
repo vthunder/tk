@@ -85,6 +85,9 @@
 
 <script>
 export default {
+  mounted() {
+    this.$ga.require('GTM-MG2TDXS')
+  },
   metaInfo: {
     title: 'Home',
   },
