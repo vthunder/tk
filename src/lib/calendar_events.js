@@ -1,4 +1,4 @@
-function remove_null(obj) {
+function removeNull(obj) {
   const newObj = {};
   Object.keys(obj).forEach((prop) => {
     if (obj[prop] != null) { newObj[prop] = obj[prop]; }
@@ -6,10 +6,11 @@ function remove_null(obj) {
   return newObj;
 }
 
-export function merge_master(masters) {
+// eslint-disable-next-line
+export function mergeMaster(masters) {
   return (e) => {
     if (!e.master_id) return e;
     const master = masters.find(m => m.id === e.master_id);
-    return Object.assign({}, remove_null(master), remove_null(e));
+    return Object.assign({}, removeNull(master), removeNull(e));
   };
 }
