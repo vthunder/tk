@@ -228,7 +228,6 @@ export default {
         padding: 0;
 
         &:hover {
-            
         }
     }
 }
