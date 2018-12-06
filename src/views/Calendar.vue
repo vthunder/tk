@@ -10,7 +10,7 @@
 
 <script>
 import { FullCalendar } from 'vue-full-calendar';
-import * as misc from '../graphql/misc';
+import * as misc from '@/graphql/misc';
 import * as evhelpers from '@/lib/calendar_events';
 
 export default {
@@ -27,7 +27,7 @@ export default {
           events: this
             .calendar_events
             .events
-            .map(evhelpers.merge_master(this.calendar_events.masters))
+            .map(evhelpers.mergeMaster(this.calendar_events.masters))
             .map(e => ({ ...e, url: `/event/${e.id}` })),
         },
       ];

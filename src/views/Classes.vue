@@ -48,7 +48,7 @@ export default {
           if (!e.master_id) return true;
           return (array.findIndex(tmp => tmp.master_id === e.master_id) === i);
         })
-        .map(evhelpers.merge_master(this.calendar_events.masters))
+        .map(evhelpers.mergeMaster(this.calendar_events.masters))
         .map(e => ({
           ...e,
           short_description: this.ellipsis(e.description, 110),
