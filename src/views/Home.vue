@@ -46,9 +46,12 @@
               <b-col md="8">
                   <p>
                       Tinker Kitchen is a <strong>makerspace for cooking</strong>:
-                      <b-link :to="{ name: 'learn-membership' }">our members</b-link>
-                      can come to our space anytime and cook whatever
-                      personal projects they like (or just hang out!).
+                      our members can come to our space anytime and
+                      cook whatever personal projects they like (or
+                      just hang out!). We have a no-reservation
+                      system. Just check <b-link :to="{ name: 'calendar' }">our
+                      calendar</b-link>, and drop by during
+                      <b-link :to="{ name: 'about' }">open hours</b-link>.
                   </p>
                   <p>
                       We also host a variety of <b-link :to="{ name: 'classes' }">cooking
@@ -58,7 +61,8 @@
                   <p>
                       Our kitchen has just about every cooking gadget
                       imaginable. If you love to cook, this place is
-                      for you!
+                      for you! Check out our <b-link :to="{ name: 'about' }">
+                      long list of equipment</b-link>.
                   </p>
                   <p>
                       Tinker Kitchen is not a place to cook food for
@@ -97,6 +101,13 @@ export default {
 <style lang="scss" scoped>
 
 @import "../styles/section-image";
+
+#app .navbar + div {
+    @media (min-width: 768px) { padding-top: 0px; }
+    @media (min-width: 992px) { padding-top: 0px; }
+    @media (min-width: 1200px) { padding-top: 0px; }
+    @media (min-width: 1400px) { padding-top: 0px; }
+}
 
 h1.home-page {
     font-size: 3rem;
