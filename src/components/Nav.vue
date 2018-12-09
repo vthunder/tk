@@ -1,29 +1,13 @@
 <template>
-    <b-navbar fixed="top" type="dark" variant="dark" toggleable="md">
-        <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+    <b-navbar fixed="top" toggleable="md" v-bind:class="{ 'bg-dark': subpage }">
+        <b-navbar-toggle target="nav_collapse"><i class="fas fa-bars"></i></b-navbar-toggle>
         <b-navbar-brand href="/"/>
+        <span></span>
 
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav class="ml-auto">
-                <b-nav-item :to="{ name: 'the-makerspace' }">Equipment</b-nav-item>
-                <b-nav-item :to="{ name: 'location' }">Location & Hours</b-nav-item>
-                <b-nav-item :to="{ name: 'about' }">About Us</b-nav-item>
-                <b-collapse is-nav id="nav_collapse_icons">
-                    <b-nav-item href="https://instagram.com/tinkerkitch/">
-                        <img src="/images/Instagram-White2x.png" width="24"
-                             class="social-icon">
-                    </b-nav-item>
-                    <b-nav-item href="https://twitter.com/tinkerkitch">
-                        <img src="/images/Twitter-White2x.png" width="24"
-                             class="social-icon">
-                    </b-nav-item>
-                    <b-nav-item href="https://www.facebook.com/tinkerkitchen">
-                        <img src="/images/Facebook-White2x.png" width="24"
-                             class="social-icon">
-                    </b-nav-item>
-                </b-collapse>
                 <b-nav-item-dropdown v-if="me" :text=me.name right>
-                    <b-nav-text class="signed-in-as">Signed in as {{ me.name }}</b-nav-text>
+                    <b-nav-text class="signed-in-as">Signed in as: {{ me.name }}</b-nav-text>
                     <b-dd-item :to="{ name: 'member-account' }">Account</b-dd-item>
                     <b-dd-item :to="{ name: 'member-membership' }">Membership</b-dd-item>
                     <b-dd-item :to="{ name: 'member-daypasses' }">Day Passes</b-dd-item>
@@ -52,6 +36,7 @@ export default {
     return {
       me: '',
       enable_login: process.env.VUE_APP_ENABLE_LOGIN === 'true',
+      subpage: false,
     };
   },
   apollo: {
@@ -63,6 +48,14 @@ export default {
       },
     },
   },
+  watch: {
+    $route: () => {
+      if (this.$route.name !== 'home') this.subpage = true;
+    },
+  },
+  mounted() {
+    if (this.$route.name !== 'home') this.subpage = true;
+  },
   methods: {
     signout() {
       onLogout(this.$apollo.provider.defaultClient);
@@ -72,14 +65,20 @@ export default {
 </script>
 
 <style lang="scss">
-.navbar-collapse {
-    background:rgb(52, 58, 64);
+.navbar-collapse.collapsing,
+.navbar-collapse.show {
+    background: #f8f9fa;
+    margin-top: .5em;
+    border-radius: 10px;
 }
 
 .navbar {
+    background-color: transparent;
+
     line-height: 1;
 
     .navbar-toggler {
+        color: white;
         font-size: .85rem;
         padding: 4px;
     }
@@ -94,7 +93,10 @@ export default {
         @media (min-width: 576px) { height: 1.4rem; }
     }
 
-    .signed-in-as { display: none; }
+    .signed-in-as {
+        display: none;
+        margin-left: 1em;
+    }
 
     @media only screen and (max-width: 768px) {
         li > a.dropdown-toggle {
@@ -112,12 +114,9 @@ export default {
             -webkit-box-shadow: none;
             box-shadow: none;
         }
-        .dropdown-item {
-            color: white;
-
-            &:hover {
-                color: #212529;
-            }
+        .dropdown-item:hover {
+            background-color: #212529;
+            color: #343a40;
         }
     }
 }
