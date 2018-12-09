@@ -37,6 +37,10 @@
                 </b-col>
             </b-row>
             <div class="copyright">© 2018 Tinker Kitchen Inc. All rights reserved.</div>
+            <div class="footer-links text-center">
+                <b-link :to="{ name: 'tos' }">Terms</b-link> -
+                <b-link :to="{ name: 'privacy' }">Privacy</b-link>
+            </div>
         </b-container>
     </div>
 </template>

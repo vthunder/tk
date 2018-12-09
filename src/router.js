@@ -25,6 +25,8 @@ import AccountVerify from '@/views/member/Verify.vue';
 import AccountForgot from '@/views/member/Forgot.vue';
 import Kickstarter from '@/views/Kickstarter.vue';
 import Press from '@/views/Press.vue';
+import Privacy from '@/views/Privacy.vue';
+import TOS from '@/views/TOS.vue';
 import Incubator from '@/views/Incubator.vue';
 
 Vue.use(Router);
@@ -147,6 +149,16 @@ export default new Router({
       path: '/press',
       name: 'press',
       component: Press,
+    },
+    {
+      path: '/legal/privacy',
+      name: 'privacy',
+      component: Privacy,
+    },
+    {
+      path: '/legal/terms',
+      name: 'tos',
+      component: TOS,
     },
     {
       path: '/incubator',
