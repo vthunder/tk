@@ -1,7 +1,7 @@
 <template>
     <div v-if="$apollo.loading" class="loading"><h3>Loading...</h3></div>
     <div v-else class="container section">
-        <b-link :to="{ name: 'calendar' }">&lt; Back to calendar</b-link>
+        <b-link :to="{ name: 'classes' }">&lt; Back to class list</b-link>
 
         <div class="row mt-2">
             <div class="col-md-8">
@@ -46,8 +46,12 @@
                     </div>
                     <div v-else>
                         <RequireSignInForm next_action="tk::event::book">
-                            <b-button variant="primary"
-                                      @click="book()">Add to Cart</b-button>
+                            <b-form class="booking_form" inline>
+                                <b-form-input id="how_many"
+                                              v-model="how_many" type="number"></b-form-input>
+                                <b-button variant="primary"
+                                          @click="book()">Add to Cart</b-button>
+                            </b-form>
                         </RequireSignInForm>
                     </div>
                 </div>
@@ -77,12 +81,16 @@ export default {
     return {
       calendar_event: {},
       me: '',
+      how_many: 1,
     };
   },
   mounted() {
     this.$root.$on('tk::event::book', this.book);
   },
   computed: {
+    member() {
+      return this.me.is_member || this.me.is_free_member;
+    },
     date() {
       return moment(this.calendar_event.start)
         .format('dddd MMMM Do');
@@ -136,25 +144,47 @@ export default {
     formatPrice(p) {
       return format.priceWhole(p);
     },
-    book(qty = 1) {
-      let { sku } = this.calendar_event;
+    book() {
+      const event = this.calendar_event;
+      const qty = parseInt(this.how_many, 10);
+      let discount = 0;
 
-      if ((this.me.is_member || this.me.is_free_member) && this.calendar_event.member_sku) {
-        sku = this.calendar_event.member_sku;
+      // is this a free event?
+      // fixme: track user going to this free event (!)
+      if (!event.price) {
+        window.fbq('track', 'AddToCart', { value: 0, currency: 'USD' });
+        this.$refs.bookingSuccessModalRef.show();
+        return;
+      }
+
+      // current user is a member, and there is a discount available
+      if (this.member && (event.price !== event.member_price)) {
+        discount = event.price - event.member_price;
       }
 
       window.fbq('track', 'AddToCart', {
-        value: sku.price / 100,
+        value: (event.price - discount) / 100,
         currency: 'USD',
       });
 
-      this.$root.$emit('tk::pay-modal::add', [{
-        id: `sku:${sku.id}`,
-        sku: sku.id,
+      const items = [{
+        id: `sku:${event.sku.id}`,
+        sku: event.sku.id,
         quantity: qty,
-        title: this.calendar_event.title,
-        amount_each: sku.price,
-      }]);
+        title: event.title,
+        amount_each: event.price,
+      }];
+      if (discount) {
+        items.push({
+          id: `discount:${event.sku.id}`,
+          type: 'discount',
+          quantity: qty,
+          title: 'Member discount',
+          amount_each: discount,
+        });
+      }
+
+      this.$root.$emit('tk::pay-modal::add', items);
       this.$root.$emit('tk::pay-modal::open');
       this.$root.$on('tk::pay-modal::complete', this.payComplete);
     },
@@ -186,5 +216,11 @@ export default {
 }
 .event-description {
     img { width: 100%; }
+}
+.booking_form {
+    input {
+        margin-right: .5em;
+        max-width: 4em;
+    }
 }
 </style>
