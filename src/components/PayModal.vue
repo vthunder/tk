@@ -19,11 +19,17 @@
 
         <b-table id="cart-items" :items="items" :fields="table_fields"
                  striped hover foot-clone>
+
+            <template slot="price" slot-scope="data">
+                {{ ((data.item.type === 'discount')? '-' : '') + data.item.price }}
+            </template>
+
             <template slot="delete" slot-scope="row">
                 <b-button @click.stop="deleteItem" variant="link" class="delete_item">
                     <span class="fas fa-minus-circle"></span>
                 </b-button>
             </template>
+
             <template slot="FOOT_title" slot-scope="data">Total</template>
             <template slot="FOOT_quantity" slot-scope="data"></template>
             <template slot="FOOT_price" slot-scope="data">{{ totalPrice }}</template>
@@ -60,9 +66,26 @@ export default {
       if (!this.customer_payment_sources) return null;
       return this.customer_payment_sources.find(() => true);
     },
+    totalBeforeDiscountsRaw() {
+      return this
+        .items
+        .filter(i => i.type !== 'discount')
+        .reduce((acc, cur) => acc + cur.amount, 0);
+    },
+    totalBeforeDiscounts() {
+      return format.priceCents(this.totalBeforeDiscountsRaw);
+    },
+    totalDiscountsRaw() {
+      return this
+        .items
+        .filter(i => i.type === 'discount')
+        .reduce((acc, cur) => acc + cur.amount, 0);
+    },
+    totalDiscounts() {
+      return format.priceCents(this.totalDiscountsRaw);
+    },
     totalPrice() {
-      const totalAmt = this.items.reduce((acc, cur) => acc + cur.amount, 0);
-      return format.priceCents(totalAmt);
+      return format.priceCents(this.totalBeforeDiscountsRaw - this.totalDiscountsRaw);
     },
   },
   mounted() {
@@ -114,9 +137,9 @@ export default {
     },
     async checkout() {
       this.working = true;
-      const { items } = this;
 
       // fixme: what to do if any items are not type sku?
+      const items = this.items.filter(i => i.type !== 'discount');
 
       // Make sure a Stripe customer record exists for current user
       const { data: { get_or_create_customer: customer } } = await this.$apollo.mutate({
@@ -223,11 +246,14 @@ export default {
     }
 
     button.delete_item {
+        opacity: 0;
+        transition: opacity 250ms;
         color: gray;
         margin: 0;
         padding: 0;
 
         &:hover {
+            opacity: 1;
         }
     }
 }
