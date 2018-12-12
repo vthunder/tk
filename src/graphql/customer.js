@@ -300,8 +300,8 @@ export const mutation = {
     }
   `,
   pay_order: gql`
-    mutation($order: String!, $source: String) {
-      pay_order(order: $order, source: $source) {
+    mutation($order: String, $source: String, $email: String) {
+      pay_order(order: $order, source: $source, email: $email) {
         id
         amount
         amount_returned
