@@ -102,22 +102,22 @@ export default {
       ],
       info: {
         gc35: {
-          sku: 'sku_E8j6ayXgSAlFaq',
+          sku: 'sku_E8lfyjyT3BiBjZ',
           title: 'Gift Certificate ($35)',
           amount: 3500,
         },
         gc100: {
-          sku: 'sku_E8j6qSHZNB5Q23',
+          sku: 'sku_E8lgfDhHa4J75e',
           title: 'Gift Certificate ($100)',
           amount: 10000,
         },
         gc150: {
-          sku: 'sku_E8j78IiDqVp2Pn',
+          sku: 'sku_E8lgKIxqbIVmgV',
           title: 'Gift Certificate ($150)',
           amount: 15000,
         },
         gc1500: {
-          sku: 'sku_E8j7kIvr0U7yjC',
+          sku: 'sku_E8lgqvWDeODNeJ',
           title: 'Gift Certificate ($1500)',
           amount: 150000,
         },
