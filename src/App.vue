@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <Nav/>
+        <Nav :subpage="this.$route.name !== 'home'" />
         <router-view/>
         <AuthModal/>
         <WelcomeModal/>

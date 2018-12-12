@@ -1,5 +1,5 @@
 <template>
-    <b-navbar fixed="top" toggleable="md" v-bind:class="{ 'bg-dark': subpage }">
+    <b-navbar fixed="top" toggleable="md" :class="{ 'bg-dark': subpage }">
         <b-navbar-toggle target="nav_collapse"><i class="fas fa-bars"></i></b-navbar-toggle>
         <b-navbar-brand href="/"/>
         <span></span>
@@ -18,9 +18,7 @@
                     <b-dd-item-button @click="signout()">Sign out</b-dd-item-button>
                 </b-nav-item-dropdown>
                 <b-nav-item v-else v-b-modal.auth-modal>
-                    <span v-if="enable_login">Sign in
-                        <i class="fas fa-sign-in-alt"></i>
-                    </span>
+                    <span class="signin-link">Sign in <i class="fas fa-sign-in-alt"></i></span>
                 </b-nav-item>
             </b-navbar-nav>
         </b-collapse>
@@ -32,11 +30,11 @@ import * as auth from '../graphql/auth';
 import { onLogout } from '../vue-apollo';
 
 export default {
+  props: ['subpage'],
   data() {
     return {
       me: '',
-      enable_login: process.env.VUE_APP_ENABLE_LOGIN === 'true',
-      subpage: false,
+      subpage: (this.subpage || false),
     };
   },
   apollo: {
@@ -47,14 +45,6 @@ export default {
         return null;
       },
     },
-  },
-  watch: {
-    $route: () => {
-      if (this.$route.name !== 'home') this.subpage = true;
-    },
-  },
-  mounted() {
-    if (this.$route.name !== 'home') this.subpage = true;
   },
   methods: {
     signout() {
@@ -96,6 +86,10 @@ export default {
     .signed-in-as {
         display: none;
         margin-left: 1em;
+    }
+
+    .signin-link {
+        color: white;
     }
 
     @media only screen and (max-width: 768px) {
