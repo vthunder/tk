@@ -141,10 +141,14 @@ export default {
       // fixme: what to do if any items are not type sku?
       const items = this.items.filter(i => i.type !== 'discount');
 
-      // Make sure a Stripe customer record exists for current user
-      const { data: { get_or_create_customer: customer } } = await this.$apollo.mutate({
-        mutation: customerQueries.mutation.get_or_create_customer,
-      });
+      // Make sure a Stripe customer record exists for current user (if logged in)
+      let customer;
+      if (this.me) {
+        const ret = await this.$apollo.mutate({
+          mutation: customerQueries.mutation.get_or_create_customer,
+        });
+        customer = ret.data.get_or_create_customer;
+      }
 
       // Create a Stripe order
       const { data: { create_order: order } } = await this.$apollo.mutate({
@@ -154,7 +158,7 @@ export default {
 
       // If customer has a saved card ready to go, pay the order
       // FIXME: allow user to use a diff card
-      if (customer.sources && customer.sources.length) {
+      if (customer && customer.sources && customer.sources.length) {
         await this.$apollo.mutate({
           mutation: customerQueries.mutation.pay_order,
           variables: { order: order.id, customer: customer.id },
@@ -170,19 +174,23 @@ export default {
       if (items.length === 2) description += ' and 1 more item';
       if (items.length > 2) description += ` and ${items.length - 1} more items`;
 
-      await this.$checkout.open({
+      const payOpts = {
         description,
         amount: order.amount,
-        email: this.me.email,
         token: async (token) => {
           const payVars = { order: order.id };
 
-          if (this.saveCard) {
-            await this.$apollo.mutate({
-              mutation: customerQueries.mutation.update_customer,
-              variables: { source: token.id },
-            });
+          if (this.me) {
+            if (this.saveCard) {
+              await this.$apollo.mutate({
+                mutation: customerQueries.mutation.update_customer,
+                variables: { source: token.id },
+              });
+            } else {
+              payVars.source = token.id;
+            }
           } else {
+            payVars.email = token.email;
             payVars.source = token.id;
           }
 
@@ -199,7 +207,9 @@ export default {
           // eslint-disable-next-line
           alert('Purchase successful. Thanks!');
         },
-      });
+      };
+      if (this.me) payOpts.email = this.me.email;
+      this.$checkout.open(payOpts);
     },
     async subscribeCheckout({ plan, code }) {
       await this.$apollo.mutate({ mutation: customerQueries.mutation.get_or_create_customer });
