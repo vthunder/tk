@@ -10,6 +10,7 @@ import Event from '@/views/Event.vue';
 import DayPasses from '@/views/DayPasses.vue';
 import Membership from '@/views/Membership.vue';
 import FAQ from '@/views/FAQ.vue';
+import GiftCerts from '@/views/GiftCerts.vue';
 import Groups from '@/views/Groups.vue';
 import Commercial from '@/views/Commercial.vue';
 import AdminDashboard from '@/views/admin/Dashboard.vue';
@@ -83,6 +84,11 @@ export default new Router({
       path: '/faq',
       name: 'faq',
       component: FAQ,
+    },
+    {
+      path: '/gift-certificates',
+      name: 'gift-certificates',
+      component: GiftCerts,
     },
     {
       path: '/groups',

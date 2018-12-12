@@ -1,0 +1,174 @@
+<template>
+    <div class="container section">
+        <h1>Gift Certificates</h1>
+        <b-row align-h="center">
+            <b-col md="10">
+                <b-card-group deck>
+                    <b-card title="$35 Gift Certificate"
+                            sub-title="Perfect for a day pass!"
+                            img-src="/images/Gift card promo.png"
+                            img-top
+                            class="class-card">
+                        <p></p>
+                        <b-form class="buy-form" inline>
+                            <b-form-select v-model="count.gc35" :options="num_options" />
+                            <b-button variant="primary"
+                                      @click="buy('gc35')">Add to Cart</b-button>
+                        </b-form>
+                    </b-card>
+                    <b-card title="$100 Gift Certificate"
+                            sub-title="Covers most classes"
+                            img-src="/images/Gift card promo.png"
+                            img-top
+                            class="class-card">
+                        <p></p>
+                        <b-form class="buy-form" inline>
+                            <b-form-select v-model="count.gc100" :options="num_options" />
+                            <b-button variant="primary"
+                                      @click="buy('gc100')">Add to Cart</b-button>
+                        </b-form>
+                    </b-card>
+                </b-card-group>
+                <b-card-group deck class="mt-3">
+                    <b-card title="$150 Gift Certificate"
+                            sub-title="1 month of membership"
+                            img-src="/images/Gift card promo.png"
+                            img-top
+                            class="class-card">
+                        <p></p>
+                        <b-form class="buy-form" inline>
+                            <b-form-select v-model="count.gc150" :options="num_options" />
+                            <b-button variant="primary"
+                                      @click="buy('gc150')">Add to Cart</b-button>
+                        </b-form>
+                    </b-card>
+                    <b-card title="$1500 Gift Certificate"
+                            sub-title="1 year of membership"
+                            img-src="/images/Gift card promo.png"
+                            img-top
+                            class="class-card">
+                        <p></p>
+                        <b-form class="buy-form" inline>
+                            <b-form-select v-model="count.gc1500" :options="num_options" />
+                            <b-button variant="primary"
+                                      @click="buy('gc1500')">Add to Cart</b-button>
+                        </b-form>
+                    </b-card>
+                </b-card-group>
+            </b-col>
+        </b-row>
+        <b-modal id="success-modal" ref="successModalRef"
+                 title="Success!" centered ok-only>
+            <p>Hooray! Purchase successful.</p>
+        </b-modal>
+    </div>
+</template>
+
+<script>
+export default {
+  apollo: {
+  },
+  components: {
+  },
+  computed: {
+  },
+  data() {
+    return {
+      count: {
+        gc35: 1,
+        gc100: 1,
+        gc150: 1,
+        gc1500: 1,
+      },
+      num_options: [
+        { value: 1, text: '1' },
+        { value: 2, text: '2' },
+        { value: 3, text: '3' },
+        { value: 4, text: '4' },
+        { value: 5, text: '5' },
+      ],
+      info: {
+        gc35: {
+          sku: 'sku_E8j6ayXgSAlFaq',
+          title: 'Gift Certificate ($35)',
+          amount: 3500,
+        },
+        gc100: {
+          sku: 'sku_E8j6qSHZNB5Q23',
+          title: 'Gift Certificate ($100)',
+          amount: 10000,
+        },
+        gc150: {
+          sku: 'sku_E8j78IiDqVp2Pn',
+          title: 'Gift Certificate ($150)',
+          amount: 15000,
+        },
+        gc1500: {
+          sku: 'sku_E8j7kIvr0U7yjC',
+          title: 'Gift Certificate ($1500)',
+          amount: 150000,
+        },
+      },
+    };
+  },
+  methods: {
+    buy(item) {
+      const info = this.info[item];
+      const qty = parseInt(this.count[item], 10);
+
+      window.fbq('track', 'AddToCart', {
+        value: info.amount / 100,
+        currency: 'USD',
+      });
+
+      const items = [{
+        id: `sku:${info.sku}`,
+        sku: info.sku,
+        quantity: qty,
+        title: info.title,
+        amount_each: info.amount,
+      }];
+
+      this.$root.$emit('tk::pay-modal::add', items);
+      this.$root.$emit('tk::pay-modal::open');
+      this.$root.$on('tk::pay-modal::complete', this.payComplete);
+    },
+    payComplete() {
+      this.$refs.successModalRef.show();
+    },
+  },
+  metaInfo: {
+    title: 'Gift Certificates',
+  },
+};
+</script>
+
+<style lang="scss">
+.class-card {
+    margin-bottom: 2em;
+
+    .card-title {
+        font-weight: 700;
+    }
+    p {
+        margin-top: 2em;
+    }
+    p.price {
+        margin-top: 1em;
+        font-size: 1.25rem;
+        font-weight: 300;
+        line-height: 1.25rem;
+        text-align: right;
+        .perperson {
+            font-size: 1rem;
+        }
+    }
+}
+.buy-form {
+    justify-content: center;
+    select {
+        margin-right: .5em;
+        max-width: 4em;
+    }
+}
+</style>
