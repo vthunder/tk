@@ -1,44 +1,44 @@
 <template>
     <div class="home">
         <div class="jumbotron">
-            <b-container fluid class="top-banner">
-                Gift certificates now available!
-                <b-button :to="{ name: 'gift-certificates' }"
-                          size="sm" variant="primary">Get one now</b-button>
-            </b-container>
             <b-row>
-                <b-col md="8">
+                <b-col md="7" lg="8">
+                    <b-container fluid class="top-banner">
+                        Gift certificates now available!
+                        <b-button :to="{ name: 'gift-certificates' }"
+                                  size="sm" variant="primary">Get one now →</b-button>
+                    </b-container>
                     <div class="hero container justify-content-center">
                         <h1 class="home-page">Tinker Kitchen</h1>
                         <h3>A cooking makerspace in San Francisco<br>
                             for learning and experimenting with food.</h3>
                     </div>
                 </b-col>
-                <b-col md="4">
+                <b-col md="5" lg="4">
                     <b-card bg-variant="dark" text-variant="white">
                         <b-link :to="{ name: 'classes' }" class="card-link">
                             <div class="header-card">
                                 <img src="/images/15408755594_87a6c22584_o square.jpg"/>
-                                <h4>Cooking classes</h4>
+                                <h4>Take a class →</h4>
                             </div>
                         </b-link>
                         <b-link :to="{ name: 'learn-daypasses' }" class="card-link">
                             <div class="header-card">
                                 <img src="/images/928804_432342363614597_1945912251_n.jpg"/>
-                                <h4>Day passes</h4>
+                                <h4>Buy a day pass →</h4>
                             </div>
                         </b-link>
                         <b-link :to="{ name: 'learn-membership' }" class="card-link">
                             <div class="header-card">
                                 <img src="/images/MakerFaire-LN_Demo.jpg"/>
-                                <h4>Memberships</h4>
+                                <h4>Become a member →</h4>
                             </div>
                         </b-link>
                         <b-link :to="{ name: 'groups' }" class="card-link">
                             <div class="header-card">
                                 <img
                                   src="/images/44511992_194691154803338_393358455199342745_n.jpg"/>
-                                <h4>Groups & private events</h4>
+                                <h4>Host an event →</h4>
                             </div>
                         </b-link>
                     </b-card>
@@ -47,7 +47,7 @@
             <i class="fas fa-angle-double-down text-white"></i>
         </div>
 
-        <b-container class="mt-4">
+        <b-container id="firstSection" class="mt-4">
             <b-row class="justify-content-center">
                 <b-col md="8">
                     <p>
@@ -95,8 +95,29 @@
 
 <script>
 export default {
+  data() {
+    return {
+      subpage: false,
+    };
+  },
+  methods: {
+    updateScroll() {
+      const firstSectionOffset = this.$el.querySelector('#firstSection').offsetTop;
+      const distance = firstSectionOffset - window.scrollY;
+      this.subpage = distance < 60;
+    },
+  },
+  watch: {
+    subpage(newValue) {
+      this.$root.$emit('tk::nav::subpage', newValue);
+    },
+  },
   mounted() {
     this.$ga.require('GTM-MG2TDXS');
+    window.addEventListener('scroll', this.updateScroll);
+  },
+  destroy() {
+    window.removeEventListener('scroll', this.updateScroll);
   },
   metaInfo: {
     title: 'Home',
@@ -125,14 +146,6 @@ h1.home-page {
     }
 }
 
-.top-banner {
-    background-color: #f8f9fa;
-    margin-bottom: 20px;
-    padding: 1em;
-    border-radius: 5px;
-    border: 1px solid #343a40;
-}
-
 .jumbotron {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url('/images/TK_space.jpg');
@@ -146,11 +159,24 @@ h1.home-page {
     @media (min-width: 992px) { min-height: 560px; }
     @media (min-width: 1200px) { min-height: 600px; }
 
+    .top-banner {
+        display: flex;
+        justify-content: space-between;
+        background-color: #f8f9fa;
+        margin-bottom: 20px;
+        padding: 1em;
+        border-radius: 5px;
+        border: 1px solid #343a40;
+        font-size: 1.25rem;
+
+        .btn { margin-left: 1em; }
+    }
+
     .hero {
         color: white;
-        padding-top: 100px;
+        padding-top: 80px;
         text-align: center;
-        @media (min-width: 992px) { padding-top: 150px; }
+        @media (min-width: 992px) { padding-top: 120px; }
     }
 
     .header-cta {

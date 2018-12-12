@@ -1,7 +1,7 @@
 <template>
-    <b-navbar fixed="top" toggleable="md" :class="{ 'bg-dark': subpage }">
+    <b-navbar fixed="top" toggleable="md" :class="{ subpage }">
         <b-navbar-toggle target="nav_collapse"><i class="fas fa-bars"></i></b-navbar-toggle>
-        <b-navbar-brand href="/"/>
+        <b-navbar-brand :to="{ name: 'home' }"/>
         <span></span>
 
         <b-collapse is-nav id="nav_collapse">
@@ -34,7 +34,6 @@ export default {
   data() {
     return {
       me: '',
-      subpage: (this.subpage || false),
     };
   },
   apollo: {
@@ -50,6 +49,15 @@ export default {
     signout() {
       onLogout(this.$apollo.provider.defaultClient);
     },
+    updateSubpage(newValue) {
+      this.subpage = newValue;
+    },
+  },
+  mounted() {
+    this.$root.$on('tk::nav::subpage', this.updateSubpage);
+  },
+  destroyed() {
+    this.$root.$off('tk::nav::subpage', this.updateSubpage);
   },
 };
 </script>
@@ -63,9 +71,15 @@ export default {
 }
 
 .navbar {
-    background-color: transparent;
-
+    background: rgba(2, 2, 5, 0);
+    box-shadow: 0 4px 8px rgba(14, 13, 29, 0);
+    transition: all 250ms ease-out;
     line-height: 1;
+
+    &.subpage {
+        background: rgba(2, 2, 5, .8);
+        box-shadow: 0 4px 8px rgba(14, 13, 29, 0.2);
+    }
 
     .navbar-toggler {
         color: white;
