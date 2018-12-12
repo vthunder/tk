@@ -87,6 +87,9 @@ export default {
   mounted() {
     this.$root.$on('tk::event::book', this.book);
   },
+  destroyed() {
+    this.$root.$off('tk::event::book', this.book);
+  },
   computed: {
     member() {
       return this.me.is_member || this.me.is_free_member;
