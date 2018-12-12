@@ -1,8 +1,21 @@
 <template>
     <div class="container section">
         <h1>Gift Certificates</h1>
+
         <b-row align-h="center">
             <b-col md="10">
+
+                <h3>How do these work?</h3>
+
+                <p>Give the gift of cooking! We'll email you within 24
+                hours of your purchase and either give you a
+                certificate coupon you can print, or we can send it
+                directly to the recipient if you prefer.</p>
+
+                <p v-if="me">We'll use the email you signed in with.</p>
+                <p v-else>We'll get your email during
+                checkout. Make sure you type it in correctly!</p>
+
                 <b-card-group deck>
                     <b-card title="$35 Gift Certificate"
                             sub-title="Perfect for a day pass!"
