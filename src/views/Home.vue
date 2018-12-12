@@ -1,89 +1,95 @@
 <template>
     <div class="home">
-      <div class="jumbotron">
-          <b-row>
-              <b-col md="8">
-                  <div class="hero container justify-content-center">
-                      <h1 class="home-page">Tinker Kitchen</h1>
-                      <h3>A cooking makerspace in San Francisco<br>
-                          for learning and experimenting with food.</h3>
-                  </div>
-              </b-col>
-              <b-col md="4">
-                  <b-card bg-variant="dark" text-variant="white">
-                      <b-link :to="{ name: 'classes' }" class="card-link">
-                          <div class="header-card">
-                              <img src="/images/15408755594_87a6c22584_o square.jpg"/>
-                              <h4>Cooking classes</h4>
-                          </div>
-                      </b-link>
-                      <b-link :to="{ name: 'learn-daypasses' }" class="card-link">
-                          <div class="header-card">
-                              <img src="/images/928804_432342363614597_1945912251_n.jpg"/>
-                              <h4>Day passes</h4>
-                          </div>
-                      </b-link>
-                      <b-link :to="{ name: 'learn-membership' }" class="card-link">
-                          <div class="header-card">
-                              <img src="/images/MakerFaire-LN_Demo.jpg"/>
-                              <h4>Memberships</h4>
-                          </div>
-                      </b-link>
-                      <b-link :to="{ name: 'groups' }" class="card-link">
-                          <div class="header-card">
-                              <img src="/images/44511992_194691154803338_393358455199342745_n.jpg"/>
-                              <h4>Groups & private events</h4>
-                          </div>
-                      </b-link>
-                  </b-card>
-              </b-col>
-          </b-row>
-          <i class="fas fa-angle-double-down text-white"></i>
-      </div>
+        <div class="jumbotron">
+            <b-container fluid class="top-banner">
+                Gift certificates now available!
+                <b-button :to="{ name: 'gift-certificates' }"
+                          size="sm" variant="primary">Get one now</b-button>
+            </b-container>
+            <b-row>
+                <b-col md="8">
+                    <div class="hero container justify-content-center">
+                        <h1 class="home-page">Tinker Kitchen</h1>
+                        <h3>A cooking makerspace in San Francisco<br>
+                            for learning and experimenting with food.</h3>
+                    </div>
+                </b-col>
+                <b-col md="4">
+                    <b-card bg-variant="dark" text-variant="white">
+                        <b-link :to="{ name: 'classes' }" class="card-link">
+                            <div class="header-card">
+                                <img src="/images/15408755594_87a6c22584_o square.jpg"/>
+                                <h4>Cooking classes</h4>
+                            </div>
+                        </b-link>
+                        <b-link :to="{ name: 'learn-daypasses' }" class="card-link">
+                            <div class="header-card">
+                                <img src="/images/928804_432342363614597_1945912251_n.jpg"/>
+                                <h4>Day passes</h4>
+                            </div>
+                        </b-link>
+                        <b-link :to="{ name: 'learn-membership' }" class="card-link">
+                            <div class="header-card">
+                                <img src="/images/MakerFaire-LN_Demo.jpg"/>
+                                <h4>Memberships</h4>
+                            </div>
+                        </b-link>
+                        <b-link :to="{ name: 'groups' }" class="card-link">
+                            <div class="header-card">
+                                <img
+                                  src="/images/44511992_194691154803338_393358455199342745_n.jpg"/>
+                                <h4>Groups & private events</h4>
+                            </div>
+                        </b-link>
+                    </b-card>
+                </b-col>
+            </b-row>
+            <i class="fas fa-angle-double-down text-white"></i>
+        </div>
 
-      <b-container class="mt-4">
-          <b-row class="justify-content-center">
-              <b-col md="8">
-                  <p>
-                      Tinker Kitchen is a <strong>makerspace for cooking</strong>:
-                      our members can come to our space anytime and
-                      cook whatever personal projects they like (or
-                      just hang out!). We have a no-reservation
-                      system. Just check <b-link :to="{ name: 'calendar' }">our
-                      calendar</b-link>, and drop by during
-                      <b-link :to="{ name: 'about' }">open hours</b-link>.
-                  </p>
-                  <p>
-                      We also host a variety of <b-link :to="{ name: 'classes' }">cooking
-                      classes</b-link>, as well as team building
-                      events and other group gatherings.
-                  </p>
-                  <p>
-                      Our kitchen has just about every cooking gadget
-                      imaginable. If you love to cook, this place is
-                      for you! Check out our <b-link :to="{ name: 'about' }">
-                      long list of equipment</b-link>.
-                  </p>
-                  <p>
-                      Tinker Kitchen is not a place to cook food for
-                      sale. We're not a restaurant, either. But if
-                      you're looking to get into the food business, we
-                      can be your launching pad! Learn about
-                      <b-link :to="{ name: 'commercial' }">commercial use</b-link> of
-                      our kitchen.
-                  </p>
-              </b-col>
-          </b-row>
-      </b-container>
+        <b-container class="mt-4">
+            <b-row class="justify-content-center">
+                <b-col md="8">
+                    <p>
+                        Tinker Kitchen is a <strong>makerspace for cooking</strong>:
+                        our members can come to our space anytime and
+                        cook whatever personal projects they like (or
+                        just hang out!). We have a no-reservation
+                        system. Just check <b-link :to="{ name: 'calendar' }">our
+                        calendar</b-link>, and drop by during
+                        <b-link :to="{ name: 'about' }">open hours</b-link>.
+                    </p>
+                    <p>
+                        We also host a variety of <b-link :to="{ name: 'classes' }">cooking
+                        classes</b-link>, as well as team building
+                        events and other group gatherings.
+                    </p>
+                    <p>
+                        Our kitchen has just about every cooking gadget
+                        imaginable. If you love to cook, this place is
+                        for you! Check out our <b-link :to="{ name: 'about' }">
+                        long list of equipment</b-link>.
+                    </p>
+                    <p>
+                        Tinker Kitchen is not a place to cook food for
+                        sale. We're not a restaurant, either. But if
+                        you're looking to get into the food business, we
+                        can be your launching pad! Learn about
+                        <b-link :to="{ name: 'commercial' }">commercial use</b-link> of
+                        our kitchen.
+                    </p>
+                </b-col>
+            </b-row>
+        </b-container>
 
-      <b-container>
-          <b-row class="justify-content-center">
-              <b-col md="8">
-                  <b-nav fill>
-                  </b-nav>
-              </b-col>
-          </b-row>
-      </b-container>
+        <b-container>
+            <b-row class="justify-content-center">
+                <b-col md="8">
+                    <b-nav fill>
+                    </b-nav>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
 </template>
 
@@ -118,9 +124,18 @@ h1.home-page {
         line-height: 3.5rem;
     }
 }
+
+.top-banner {
+    background-color: #f8f9fa;
+    margin-bottom: 20px;
+    padding: 1em;
+    border-radius: 5px;
+    border: 1px solid #343a40;
+}
+
 .jumbotron {
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-                url('/images/TK_space.jpg');
+    url('/images/TK_space.jpg');
     background-position: center;
     background-size: cover;
     border-radius: 0;
