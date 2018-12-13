@@ -136,6 +136,11 @@ export default new Router({
       component: MemberCoupon,
     },
     {
+      path: '/coupon',
+      name: 'enter-coupon',
+      redirect: { name: 'member-coupon' },
+    },
+    {
       path: '/account/verify/:token(.*)',
       component: AccountVerify,
       props: true,
