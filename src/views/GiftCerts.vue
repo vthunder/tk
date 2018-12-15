@@ -102,22 +102,22 @@ export default {
       ],
       info: {
         gc35: {
-          sku: 'sku_E8lfyjyT3BiBjZ',
+          sku: process.env.VUE_APP_SKU_GIFT_CERT_35,
           title: 'Gift Certificate ($35)',
           amount: 3500,
         },
         gc100: {
-          sku: 'sku_E8lgfDhHa4J75e',
+          sku: process.env.VUE_APP_SKU_GIFT_CERT_100,
           title: 'Gift Certificate ($100)',
           amount: 10000,
         },
         gc150: {
-          sku: 'sku_E8lgKIxqbIVmgV',
+          sku: process.env.VUE_APP_SKU_GIFT_CERT_150,
           title: 'Gift Certificate ($150)',
           amount: 15000,
         },
         gc1500: {
-          sku: 'sku_E8lgqvWDeODNeJ',
+          sku: process.env.VUE_APP_SKU_GIFT_CERT_1500,
           title: 'Gift Certificate ($1500)',
           amount: 150000,
         },
