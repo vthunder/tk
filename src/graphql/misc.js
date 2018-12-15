@@ -109,6 +109,11 @@ query GoogleCalendarEvents {
   }
 }
 `,
+  gift_certificate_balance: gql`
+query GiftCertificateBalance {
+  gift_certificate_balance
+}
+`,
 };
 
 export const mutation = {

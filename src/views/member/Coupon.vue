@@ -6,11 +6,16 @@
                 <span class="fas fa-spinner fa-7x"></span>
             </div>
             <div v-else>
+                <p v-if="gift_certificate_balance">Your gift certificate balance is:
+                    <span class="gift-cert-balance">
+                        {{ formatPrice(gift_certificate_balance) }}
+                    </span>
+                </p>
                 <p>Note: activating a membership coupon begins your
                     membership immediately. If you want to start it
                     later, just keep the coupon safe until then!</p>
                 <b-form @submit.prevent="processCoupon">
-                    <label for="inputCoupon">Coupon code:</label>
+                    <label for="inputCoupon">Coupon/cerificate code:</label>
                     <b-form-input id="inputCoupon"
                                   ref="inputCouponRef"
                                   v-model.trim="coupon"
@@ -75,11 +80,13 @@
 import StorePage from '@/components/MemberPage.vue';
 import * as misc from '@/graphql/misc';
 import { monthlyQuery, yearlyQuery } from '@/lib/plans';
+import * as format from '@/lib/format';
 
 export default {
   apollo: {
     monthly: monthlyQuery,
     yearly: yearlyQuery,
+    gift_certificate_balance: misc.query.gift_certificate_balance,
   },
   data() {
     return {
@@ -87,6 +94,7 @@ export default {
       couponState: null,
       working: false,
       couponType: '',
+      gift_certificate_balance: null,
     };
   },
   components: {
@@ -95,6 +103,9 @@ export default {
   computed: {
   },
   methods: {
+    formatPrice(p) {
+      return format.priceWhole(p);
+    },
     async processCoupon() {
       this.working = true;
       const { data: { use_coupon_token: ret } } = await this.$apollo.mutate({
@@ -140,6 +151,10 @@ export default {
     margin: 0 auto;
 }
 .total-footer {
+    font-weight: 500;
+}
+.gift-cert-balance {
+    font-size: 1.5rem;
     font-weight: 500;
 }
 </style>
