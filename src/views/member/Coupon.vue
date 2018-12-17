@@ -8,8 +8,9 @@
             <div v-else>
                 <p v-if="gift_certificate_balance">Your gift certificate balance is:
                     <span class="gift-cert-balance">
-                        {{ formatPrice(gift_certificate_balance) }}
-                    </span>
+                        {{ formatPrice(gift_certificate_balance) }}</span>. To
+                    apply any amount of it towards a purchase,
+                    <b-link href="mailto:hello@tinkerkitchen.org">email us</b-link>!
                 </p>
                 <p>Note: activating a membership coupon begins your
                     membership immediately. If you want to start it
