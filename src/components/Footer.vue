@@ -16,6 +16,8 @@
                         <li><b-link :to="{ name: 'learn-daypasses' }">Day passes</b-link></li>
                         <li><b-link :to="{ name: 'learn-membership' }">Membership</b-link></li>
                         <li><b-link :to="{ name: 'groups' }">Groups & Events</b-link></li>
+                        <li><b-link :to="{ name: 'gift-certificates' }">
+                            Gift Certificates</b-link></li>
                     </ul>
                 </b-col>
                 <b-col md="3">
@@ -25,6 +27,7 @@
                         <li><b-link :to="{ name: 'about' }">Equipment</b-link></li>
                         <li><b-link :to="{ name: 'calendar' }">Calendar</b-link></li>
                         <li><b-link :to="{ name: 'faq' }">FAQ</b-link></li>
+                        <li><b-link :to="{ name: 'press' }">Press</b-link></li>
                     </ul>
                 </b-col>
                 <b-col md="3">
