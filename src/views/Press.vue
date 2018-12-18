@@ -10,50 +10,85 @@
             </b-row>
         </b-jumbotron>
         <h4>News Stories</h4>
-        <b-card-group deck class="mb-4">
-            <div class="press-card">
-            </div>
-            <b-card img-src="/images/Press Logos/SF_Chronicle.svg"
-                    img-alt="San Francisco Chronicle"
-                    bg-variant="white">
-                <div slot="footer">
-                    <a href="https://www.sfchronicle.com/recipes/article/Tinker-Kitchen-aims-to-bring-a-science-minded-12486026.php"
-                       class="card-link">Read more</a>
-                </div>
-            </b-card>
-            <b-card img-src="/images/Press Logos/The_Spoon.png"
-                    img-alt="The Spoon"
-                    bg-variant="white">
-                <div slot="footer">
-                    <a href="https://thespoon.tech/tinker-kitchen-is-a-maker-space-for-foodie-experimenters/"
-                       class="card-link">Read More</a>
-                </div>
-            </b-card>
-            <b-card img-src="/images/Press Logos/Mission-Local-Logo.png"
-                    img-alt="Mission Local"
-                    bg-variant="white">
-                <div slot="footer">
-                    <a href="https://missionlocal.org/2018/01/sfs-mission-will-have-seven-cooking-schools/"
-                       class="card-link">Read more</a>
-                </div>
-            </b-card>
-            <b-card img-src="/images/Press Logos/Make_logo.svg"
-                    img-alt="Make:"
-                    bg-variant="white">
-                <div slot="footer">
-                    <a href="https://makezine.com/2016/08/01/5-reasons-why-chefs-need-hackerspaces/"
-                       class="card-link">Read more</a>
-                </div>
-            </b-card>
-            <b-card img-src="/images/Press Logos/Marc Guzman.jpg"
-                    img-alt="Marc Guzman Podcast"
-                    bg-variant="white">
-                <div slot="footer">
-                    <a href="https://www.facebook.com/MarcGuzmanHomes/posts/2125236250827318"
-                       class="card-link">Listen</a>
-                </div>
-            </b-card>
-        </b-card-group>
+        <b-row>
+            <b-col sm="6" md="4">
+                <b-card bg-variant="white">
+                    <div class="card-img">
+                        <img src="/images/Press Logos/SF_Chronicle.svg"
+                             alt="San Francisco Chronicle">
+                    </div>
+                    <a href="https://www.sfchronicle.com/restaurants/article/Tinker-Kitchen-a-maker-space-for-food-13388060.php">
+                        Maker space for cooks who can’t try this at home opens in the Mission
+                    </a>
+                </b-card>
+            </b-col>
+            <b-col sm="6" md="4">
+                <b-card bg-variant="white">
+                    <div class="card-img">
+                        <img src="/images/Press Logos/Mission-Local-Logo.png"
+                             alt="Mission Local">
+                    </div>
+                    <a href="https://missionlocal.org/2018/11/tinker-kitchen-opens-playground-for-amateur-enthusiasts-and-cooking-nerds/">
+                        Tinker Kitchen opens playground for amateur enthusiasts and cooking nerds
+                    </a>
+                </b-card>
+            </b-col>
+            <b-col sm="6" md="4">
+                <b-card bg-variant="white">
+                    <div class="card-img">
+                        <img src="/images/Press Logos/The_Spoon.png"
+                             alt="The Spoon">
+                    </div>
+                    <a href="https://thespoon.tech/tinker-kitchen-is-a-maker-space-for-foodie-experimenters/">
+                        Tinker Kitchen is a Maker Space for Foodie Experimenters<br><br>
+                    </a>
+                </b-card>
+            </b-col>
+            <b-col sm="6" md="4">
+                <b-card bg-variant="white">
+                    <div class="card-img">
+                        <img src="/images/Press Logos/Make_logo.svg"
+                             alt="Make:">
+                    </div>
+                    <a href="https://makezine.com/2016/08/01/5-reasons-why-chefs-need-hackerspaces/">
+                        5 Reasons Why Chefs Need Hackerspaces
+                    </a>
+                </b-card>
+            </b-col>
+            <b-col sm="6" md="4">
+                <b-card bg-variant="white">
+                    <div class="card-img">
+                        <img src="/images/Press Logos/Marc Guzman.jpg"
+                             alt="Marc Guzman Podcast">
+                    </div>
+                    <a href="https://www.facebook.com/MarcGuzmanHomes/posts/2125236250827318">
+                        Combining Food with Science with Dan Mills, Founder of Tinker Kitchen
+                    </a>
+                </b-card>
+            </b-col>
+            <b-col sm="6" md="4">
+                <b-card bg-variant="white">
+                    <div class="card-img">
+                        <img src="/images/Press Logos/SF_Chronicle.svg"
+                             alt="San Francisco Chronicle">
+                    </div>
+                    <a href="https://www.sfchronicle.com/recipes/article/Tinker-Kitchen-aims-to-bring-a-science-minded-12486026.php">
+                        Tinker Kitchen seeks to bring a science-minded space to the Mission
+                    </a>
+                </b-card>
+            </b-col>
+            <b-col sm="6" md="4">
+                <b-card bg-variant="white">
+                    <div class="card-img">
+                        <img src="/images/Press Logos/Mission-Local-Logo.png"
+                             alt="Mission Local">
+                    </div>
+                    <a href="https://missionlocal.org/2018/01/sfs-mission-will-have-seven-cooking-schools/">
+                        SF’s Mission will have seven cooking schools
+                    </a>
+                </b-card>
+            </b-col>
+        </b-row>
         <h4>Media Resources</h4>
         <b-row>
             <b-col md="6" class="boilerplate">
@@ -123,14 +158,15 @@ h4 {
     text-align: center;
 }
 .card {
-    max-width: 400px;
-    img {
-//        max-height: 3em;
-        padding: .5em;
+    margin-bottom: 1em;
+    .card-img {
+        display: flex;
+        justify-content: center;
     }
-    a.card-link {
-        display: block;
-        text-align: center;
+    img {
+        max-height: 2em;
+        max-width: 100%;
+        margin-bottom: .5em;
     }
 }
 
