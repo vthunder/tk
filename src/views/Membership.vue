@@ -9,32 +9,29 @@
                         cooking adventures? Get out of your tiny apartment
                         kitchen! Join us at our gorgeous 1700sqft space
                         for all your personal cooking projects.</p>
-                    <p class="text-center">{{ monthly.monthly_price }}/month
-                        <br>{{ yearly.monthly_price }}/month
-                        (paid yearly)</p>
                 </b-col>
-                <b-col md="4">
-                    <b-card>
-                        <div v-if="me && me.is_member" class="card-text">
-                            Membership <strong>active</strong>. Yay!
-                            <div class="mt-2 text-center">
-                                <b-button :to="{ name: 'member-membership' }"
-                                          variant="primary">
-                                    Account & Billing
-                                </b-button>
-                            </div>
+                <b-col md="6">
+                    <div class="text-center">
+                        <div v-if="me && me.is_member">
+                            Thanks for being a member!
                         </div>
-                        <div v-else class="card-text">
-                            Membership <strong>inactive</strong>.
-                            <RequireSignIn post_text="to become a member."
-                                           :next_route="{ name: 'member-membership' }">
-                                <div class="text-center">
-                                    <b-button :to="{ name: 'member-membership' }"
-                                              variant="primary">Sign up</b-button>
-                                </div>
-                            </RequireSignIn>
-                        </div>
-                    </b-card>
+                        <RequireSignInForm v-else>
+                            <b-card-group>
+                                <b-card header="Pay Monthly">
+                                    <p>$150/month</p>
+                                    <b-button
+                                      variant="primary"
+                                      @click="signup(this.monthly)">Sign up</b-button>
+                                </b-card>
+                                <b-card header="Pay Yearly">
+                                    <p>$125/month</p>
+                                    <b-button
+                                      variant="primary"
+                                      @click="signup(this.yearly)">Sign up</b-button>
+                                </b-card>
+                            </b-card-group>
+                        </RequireSignInForm>
+                    </div>
                 </b-col>
             </b-row>
 
@@ -111,8 +108,7 @@
 </template>
 
 <script>
-import RequireSignIn from '@/components/RequireSignIn.vue';
-import MailingListSignup from '@/components/MailingListSignup.vue';
+import RequireSignInForm from '@/components/RequireSignInForm.vue';
 import { monthlyQuery, yearlyQuery } from '@/lib/plans';
 import * as auth from '@/graphql/auth';
 
@@ -129,14 +125,13 @@ export default {
     monthly: monthlyQuery,
     yearly: yearlyQuery,
   },
-  computed: {
-    plans() {
-      return [this.monthly, this.yearly];
-    },
-  },
   components: {
-    RequireSignIn,
-    MailingListSignup,
+    RequireSignInForm,
+  },
+  methods: {
+    signup(plan, code) {
+      this.$root.$emit('tk::pay-modal::subscribeCheckout', { plan, code });
+    },
   },
   metaInfo: {
     title: 'Membership',
