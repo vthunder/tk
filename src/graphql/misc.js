@@ -22,81 +22,25 @@ query CalendarEvent($id: Int!) {
     member_price
     ext_book_url
     ext_member_discount_code
-    sku {
-      id
-      active
-      attributes {
-        key
-        value
-      }
-      currency
-      inventory {
-        quantity
-        type
-        value
-      }
-      livemode
-      metadata {
-        key
-        value
-      }
-      price
-      product
-    }
-    member_sku {
-      id
-      active
-      attributes {
-        key
-        value
-      }
-      currency
-      inventory {
-        quantity
-        type
-        value
-      }
-      livemode
-      metadata {
-        key
-        value
-      }
-      price
-      product
-    }
+    sku_id
   }
 }
 `,
   calendar_events: gql`
 query CalendarEvents {
   calendar_events {
-    events {
-      id
-      master_id
-      title
-      image_header
-      all_day
-      start
-      end
-      duration
-      description
-      category
-      price
-      member_price
-      ext_book_url
-    }
-    masters {
-      id
-      title
-      image_header
-      all_day
-      duration
-      description
-      category
-      price
-      member_price
-      ext_book_url
-    }
+    id
+    title
+    image_header
+    all_day
+    start
+    end
+    duration
+    description
+    category
+    price
+    member_price
+    ext_book_url
   }
 }
 `,
