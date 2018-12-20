@@ -33,7 +33,7 @@
                     </h5>
                     <h5 v-else>
                         <strong>Price: {{ formatPrice(calendar_event.price) }}</strong>
-                        <strong v-if="calendar_event.member_sku" class="price mb-2">
+                        <strong v-if="calendar_event.member_price" class="price mb-2">
                             &nbsp;(members: {{ formatPrice(calendar_event.member_price) }})
                         </strong>
                     </h5>
@@ -75,6 +75,7 @@ import * as auth from '@/graphql/auth';
 import * as misc from '@/graphql/misc';
 import * as kv from '@/lib/keyVal';
 import * as format from '@/lib/format';
+import * as evhelpers from '@/lib/calendar_events';
 
 export default {
   data() {
@@ -124,12 +125,6 @@ export default {
           id: this.$route.params.id,
         };
       },
-      update(data) {
-        const ret = JSON.parse(JSON.stringify(data.calendar_event));
-        ret.sku = kv.restoreObject(ret.sku, ['attributes', 'metadata']);
-        ret.member_sku = kv.restoreObject(ret.member_sku, ['attributes', 'metadata']);
-        return ret;
-      },
     },
     me: {
       query: auth.query.me,
@@ -171,15 +166,15 @@ export default {
       });
 
       const items = [{
-        id: `sku:${event.sku.id}`,
-        sku: event.sku.id,
+        id: `sku:${event.sku_id}`,
+        sku: event.sku_id,
         quantity: qty,
         title: event.title,
         amount_each: event.price,
       }];
       if (discount) {
         items.push({
-          id: `discount:${event.sku.id}`,
+          id: `discount:${event.sku_id}`,
           type: 'discount',
           quantity: qty,
           title: 'Member discount',
