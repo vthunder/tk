@@ -29,16 +29,16 @@
                                       @click="buy('gc35')">Add to Cart</b-button>
                         </b-form>
                     </b-card>
-                    <b-card title="$100 Gift Certificate"
+                    <b-card title="$80 Gift Certificate"
                             sub-title="Covers most classes"
                             img-src="/images/Gift card promo.png"
                             img-top
                             class="class-card">
                         <p></p>
                         <b-form class="buy-form" inline>
-                            <b-form-select v-model="count.gc100" :options="num_options" />
+                            <b-form-select v-model="count.gc80" :options="num_options" />
                             <b-button variant="primary"
-                                      @click="buy('gc100')">Add to Cart</b-button>
+                                      @click="buy('gc80')">Add to Cart</b-button>
                         </b-form>
                     </b-card>
                 </b-card-group>
@@ -89,7 +89,7 @@ export default {
     return {
       count: {
         gc35: 1,
-        gc100: 1,
+        gc80: 1,
         gc150: 1,
         gc1500: 1,
       },
@@ -106,10 +106,10 @@ export default {
           title: 'Gift Certificate ($35)',
           amount: 3500,
         },
-        gc100: {
-          sku: process.env.VUE_APP_SKU_GIFT_CERT_100,
-          title: 'Gift Certificate ($100)',
-          amount: 10000,
+        gc80: {
+          sku: process.env.VUE_APP_SKU_GIFT_CERT_80,
+          title: 'Gift Certificate ($80)',
+          amount: 8000,
         },
         gc150: {
           sku: process.env.VUE_APP_SKU_GIFT_CERT_150,
