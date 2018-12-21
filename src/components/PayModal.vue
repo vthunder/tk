@@ -20,6 +20,11 @@
         <b-table id="cart-items" :items="items" :fields="table_fields"
                  striped hover foot-clone>
 
+            <template slot="title" slot-scope="data">
+                {{ data.item.title }}
+                <div class="subtitle" v-if="data.item.subtitle">{{ data.item.subtitle }}</div>
+            </template>
+
             <template slot="price" slot-scope="data">
                 {{ ((data.item.type === 'discount')? '-' : '') + data.item.price }}
             </template>
@@ -110,6 +115,7 @@ export default {
      *   type: String: type (same as in id)
      *   sku: String: if type sku, the Stripe sku id
      *   title: String
+     *   subtitle: String
      *   quantity: Int
      *   amount_each: Int: price each 1 qty in cts
      *
@@ -251,6 +257,10 @@ export default {
     margin: 0 auto;
 }
 #cart-items {
+    .subtitle {
+        font-size: .875rem;
+    }
+
     .total-footer {
         font-weight: 500;
     }
