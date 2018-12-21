@@ -10,7 +10,9 @@ query Ping {
 query CalendarEvent($id: Int!) {
   calendar_event(id: $id) {
     id
+    master_id
     title
+    slug
     image_header
     all_day
     start
@@ -26,11 +28,40 @@ query CalendarEvent($id: Int!) {
   }
 }
 `,
+  calendar_master: gql`
+query CalendarMaster($id: Int, $slug: String) {
+  calendar_master(id: $id, slug: $slug) {
+    id
+    featured
+    title
+    slug
+    image_header
+    all_day
+    duration
+    description
+    category
+    price
+    member_price
+    max_size
+    ext_book_url
+    ext_member_discount_code
+    events {
+      id
+      start
+      duration
+      all_day
+      sku_id
+    }
+  }
+}
+`,
   calendar_events: gql`
 query CalendarEvents {
   calendar_events {
     id
+    master_id
     title
+    slug
     image_header
     all_day
     start
@@ -41,6 +72,26 @@ query CalendarEvents {
     price
     member_price
     ext_book_url
+  }
+}
+`,
+  calendar_event_masters: gql`
+query CalendarEventMasters {
+  calendar_event_masters {
+    id
+    featured
+    title
+    slug
+    image_header
+    all_day
+    duration
+    description
+    category
+    price
+    member_price
+    max_size
+    ext_book_url
+    ext_member_discount_code
   }
 }
 `,
@@ -87,6 +138,11 @@ mutation UseCouponToken($token: String!) {
     status
     type
   }
+}
+`,
+  class_interest: gql`
+mutation ClassInterest($email: String!, $master_id: Int!) {
+  class_interest(email: $email, master_id: $master_id)
 }
 `,
 };
