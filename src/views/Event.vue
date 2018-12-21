@@ -125,7 +125,8 @@ export default {
       });
     },
     event() {
-      return this.master.events.find(e => e.id === this.which_event);
+      const id = parseInt(this.which_event, 10);
+      return this.master.events.find(e => e.id === id);
     },
     show_member_discount() {
       if (this.me &&
