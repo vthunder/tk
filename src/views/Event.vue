@@ -46,21 +46,32 @@
                             </RequireSignInForm>
                         </div>
                     </div>
-                    <div v-else-if="interested_success">
-                        <p>Thanks! We'll let you know when this class
-                        is back on the schedule.</p>
+                    <div v-if="interested_success" class="mt-2">
+                        <p>Thanks! We'll let you know when we schedule
+                        this class.</p>
                     </div>
                     <div v-else>
-                        <h3>Interested?</h3>
-                        <p>Sign up and we'll let you know when we put it on the
-                            schedule!</p>
+                        <div v-if="master.events.length" class="mt-4">
+                            <h4>None of these dates work?</h4>
+                            <p>Sign up below and we'll let you know
+                                when we add new dates to the schedule!</p>
+                        </div>
+                        <div v-else>
+                            <h3>Interested?</h3>
+                            <p>Sign up below and we'll let you know
+                                when it's back on the schedule!</p>
+                        </div>
                         <b-form class="my-2" inline>
                             <b-input v-model="interested_email"
                                      type="email"
                                      placeholder="email@example.com" />
-                            <b-button variant="primary"
-                                      @click.prevent="interested()" class="ml-1">
-                                Submit</b-button>
+                            <b-button v-if="master.events.length"
+                                      @click.prevent="interested()"
+                                      class="ml-1">Let me know</b-button>
+                            <b-button v-else
+                                      variant="primary"
+                                      @click.prevent="interested()"
+                                      class="ml-1">Submit</b-button>
                         </b-form>
                     </div>
                 </div>
