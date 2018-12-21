@@ -66,9 +66,10 @@ export default new Router({
       component: Classes,
     },
     {
-      path: '/event/:id',
+      path: '/event/:slug',
       name: 'event',
       component: Event,
+      props: route => ({ id: route.query.id }),
     },
     {
       path: '/membership',
