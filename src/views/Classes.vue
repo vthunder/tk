@@ -3,12 +3,30 @@
         <h1>Classes & Talks</h1>
         <b-row class="justify-content-center">
             <b-col md="12">
+                <h3>Upcoming</h3>
                 <b-row>
                     <b-col v-for="event in classes" v-bind:key="event.id" md="6">
-                        <b-link :to="{ name: 'event', params: { id: event.id } }"
+                        <b-link :to="{ name: 'event', params: { slug: event.slug }, query: { id: event.id } }"
                                 class="card-link">
                             <b-card :title="event.title"
                                     :sub-title="event.date"
+                                    :img-src="event.image_header"
+                                    img-top
+                                    class="class-card">
+                                <p>{{ event.short_description }}</p>
+                                <p class="price">{{ event.disp_price }}<br>
+                                    <span class="perperson">/person</span></p>
+                            </b-card>
+                        </b-link>
+                    </b-col>
+                </b-row>
+
+                <h3>We also teach:</h3>
+                <b-row>
+                    <b-col v-for="event in masters" v-bind:key="event.id" md="6">
+                        <b-link :to="{ name: 'event', params: { slug: event.slug } }"
+                                class="card-link">
+                            <b-card :title="event.title"
                                     :img-src="event.image_header"
                                     img-top
                                     class="class-card">
@@ -28,11 +46,11 @@
 import moment from 'moment';
 import * as misc from '@/graphql/misc';
 import * as format from '@/lib/format';
-import * as evhelpers from '@/lib/calendar_events';
 
 export default {
   apollo: {
     calendar_events: misc.query.calendar_events,
+    calendar_event_masters: misc.query.calendar_event_masters,
   },
   components: {
   },
@@ -51,10 +69,25 @@ export default {
           disp_member_price: format.priceWhole(e.member_price),
         }));
     },
+    masters() {
+      return this
+        .calendar_event_masters
+        .filter(e => e.featured)
+        .filter(e => !this.classes.filter(c => {
+          return c.master_id === e.id
+        }).length)
+        .map(e => ({
+          ...e,
+          short_description: this.ellipsis(e.description, 110),
+          disp_price: format.priceWhole(e.price),
+          disp_member_price: format.priceWhole(e.member_price),
+        }));
+    },
   },
   data() {
     return {
       calendar_events: [],
+      calendar_event_masters: [],
       config: {
         defaultView: 'month',
         header: {
