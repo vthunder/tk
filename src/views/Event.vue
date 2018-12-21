@@ -3,61 +3,70 @@
     <div v-else class="container section">
         <b-link :to="{ name: 'classes' }">&lt; Back to class list</b-link>
 
-        <div class="row mt-2">
-            <div class="col-md-8">
-                <b-img v-if="calendar_event.image_header"
-                       :src=calendar_event.image_header fluid />
+        <b-row class="mt-2">
+            <b-col md="7">
+                <b-img v-if="master.image_header"
+                       :src=master.image_header fluid />
 
-                <h1 class="text-left">{{ calendar_event.title }}</h1>
+                <h1 class="text-left">{{ master.title }}</h1>
                 <p class="event-description mt-4">
-                    <vue-markdown :source="calendar_event.description"></vue-markdown>
+                    <vue-markdown :source="master.description"></vue-markdown>
                 </p>
-            </div>
-            <div class="col-md-4 border-left p-4">
-                <h3>{{ date }}</h3>
-                <h5><strong>{{ start_time }}</strong>,
-                    <strong v-if="calendar_event.all_day">all day</strong>
-                    <strong v-else-if="calendar_event.duration">
-                        {{ calendar_event.duration }}h long
-                    </strong>
-                </h5>
-                <h5 v-if="calendar_event.category && calendar_event.category === 'private'">
+            </b-col>
+            <b-col md="5" class="border-left">
+                <h5 v-if="master.category && master.category === 'private'">
                     <strong>Private event.</strong>
                 </h5>
                 <div v-else>
-                    <h5 v-if="calendar_event.price === 0">
-                        <strong>Price: Free!</strong>
-                    </h5>
-                    <h5 v-else-if="!calendar_event.price">
-                        <!-- null / otherwise falsy, hide price altogether -->
-                    </h5>
-                    <h5 v-else>
-                        <strong>Price: {{ formatPrice(calendar_event.price) }}</strong>
-                        <strong v-if="calendar_event.member_price" class="price mb-2">
-                            &nbsp;(members: {{ formatPrice(calendar_event.member_price) }})
-                        </strong>
-                    </h5>
-                    <div v-if="calendar_event.ext_book_url">
-                        <b-button :href="calendar_event.ext_book_url"
-                                  variant="primary">Book this class</b-button>
-                        <div v-if="show_member_discount">
-                            Member discount code: {{ calendar_event.ext_member_discount_code }}
+                    <h4 v-if="master.price === 0" class="price">Price: Free!</h4>
+                    <!-- null / otherwise falsy, hide price altogether -->
+                    <h4 v-else-if="!master.price" class="price"></h4>
+                    <h4 v-else class="price">
+                        Price: {{ formatPrice(master.price) }}
+                        <span v-if="master.member_price">
+                            &nbsp;(members: {{ formatPrice(master.member_price) }})
+                        </span>
+                    </h4>
+                    <div v-if="master.events.length">
+                        <div v-if="master.ext_book_url">
+                            <b-button :href="master.ext_book_url"
+                                      variant="primary">Book this class</b-button>
+                            <div v-if="show_member_discount">
+                                Member discount code: {{ master.ext_member_discount_code }}
+                            </div>
+                        </div>
+                        <div v-else>
+                            <RequireSignInForm next_action="tk::event::book">
+                                <b-form-select v-model="which_event" :options="event_opts" />
+                                <b-form class="booking_form" inline>
+                                    <b-form-select v-model="how_many" :options="num_options" />
+                                    <b-button variant="primary"
+                                              @click="book()">Add to Cart</b-button>
+                                </b-form>
+                            </RequireSignInForm>
                         </div>
                     </div>
+                    <div v-else-if="interested_success">
+                        <p>Thanks! We'll let you know when this class
+                        is back on the schedule.</p>
+                    </div>
                     <div v-else>
-                        <RequireSignInForm next_action="tk::event::book">
-                            <b-form class="booking_form" inline>
-                                <b-form-input id="how_many"
-                                              v-model="how_many" type="number"></b-form-input>
-                                <b-button variant="primary"
-                                          @click="book()">Add to Cart</b-button>
-                            </b-form>
-                        </RequireSignInForm>
+                        <h3>Interested?</h3>
+                        <p>Sign up and we'll let you know when we put it on the
+                            schedule!</p>
+                        <b-form class="my-2" inline>
+                            <b-input v-model="interested_email"
+                                     type="email"
+                                     placeholder="email@example.com" />
+                            <b-button variant="primary"
+                                      @click.prevent="interested()" class="ml-1">
+                                Submit</b-button>
+                        </b-form>
                     </div>
                 </div>
-            </div>
-        </div>
-        <b-modal id="booking-success-modal" ref="bookingSuccessModalRef"
+            </b-col>
+        </b-row>
+        <b-modal v-model="success_modal"
                  title="Success!" centered ok-only>
             <p>Hooray! Your booking is confirmed.</p>
             <p>You'll get a confirmation email, bring it and show
@@ -73,20 +82,29 @@ import VueMarkdown from 'vue-markdown';
 import RequireSignInForm from '@/components/RequireSignInForm.vue';
 import * as auth from '@/graphql/auth';
 import * as misc from '@/graphql/misc';
-import * as kv from '@/lib/keyVal';
 import * as format from '@/lib/format';
-import * as evhelpers from '@/lib/calendar_events';
 
 export default {
   data() {
     return {
-      calendar_event: {},
+      master: {},
       me: '',
       how_many: 1,
+      num_options: [
+        { value: 1, text: '1' },
+        { value: 2, text: '2' },
+        { value: 3, text: '3' },
+        { value: 4, text: '4' },
+        { value: 5, text: '5' },
+      ],
+      success_modal: false,
+      interested_email: '',
+      interested_success: false,
     };
   },
   mounted() {
     this.$root.$on('tk::event::book', this.book);
+    this.which_event = this.$route.query.id;
   },
   destroyed() {
     this.$root.$off('tk::event::book', this.book);
@@ -95,41 +113,51 @@ export default {
     member() {
       return this.me.is_member || this.me.is_free_member;
     },
-    date() {
-      return moment(this.calendar_event.start)
-        .format('dddd MMMM Do');
+    event_opts() {
+      return this.master.events.map((e) => {
+        // fixme: add all_day support
+        const start = moment(e.start).format('dddd MMMM Do h:mm a');
+        const end = moment(e.start).add(e.duration, 'hours').format('h:mm a');
+        return {
+          value: e.id,
+          text: `${start} - ${end}`,
+        };
+      });
     },
-    start_time() {
-      return moment(this.calendar_event.start)
-        .format('h:mm a');
-    },
-    end_time() {
-      return moment(this.calendar_event.start)
-        .add(this.calendar_event.duration, 'hours')
-        .format('h:mm a');
+    event() {
+      return this.master.events.find(e => e.id === this.which_event);
     },
     show_member_discount() {
       if (this.me &&
           (this.me.is_member || this.me.is_free_member) &&
-          this.calendar_event.ext_member_discount_code) {
+          this.event.ext_member_discount_code) {
         return true;
       }
       return false;
     },
   },
   apollo: {
-    calendar_event: {
-      query: misc.query.calendar_event,
+    master: {
+      query: misc.query.calendar_master,
+      update(data) {
+        if (!this.which_event && data.calendar_master.events.length) {
+          this.which_event = data.calendar_master.events[0].id;
+        }
+        return data.calendar_master;
+      },
       variables() {
         return {
-          id: this.$route.params.id,
+          slug: this.$route.params.slug,
         };
       },
     },
     me: {
       query: auth.query.me,
       update(data) {
-        if (data.me) return data.me;
+        if (data.me) {
+          this.interested_email = data.me.email;
+          return data.me;
+        }
         return null;
       },
     },
@@ -143,38 +171,38 @@ export default {
       return format.priceWhole(p);
     },
     book() {
-      const event = this.calendar_event;
       const qty = parseInt(this.how_many, 10);
       let discount = 0;
 
       // is this a free event?
       // fixme: track user going to this free event (!)
-      if (!event.price) {
+      if (!this.master.price) {
         window.fbq('track', 'AddToCart', { value: 0, currency: 'USD' });
-        this.$refs.bookingSuccessModalRef.show();
+        this.success_modal = true;
         return;
       }
 
       // current user is a member, and there is a discount available
-      if (this.member && (event.price !== event.member_price)) {
-        discount = event.price - event.member_price;
+      if (this.member && (this.master.price !== this.master.member_price)) {
+        discount = this.master.price - this.master.member_price;
       }
 
       window.fbq('track', 'AddToCart', {
-        value: (event.price - discount) / 100,
+        value: (this.master.price - discount) / 100,
         currency: 'USD',
       });
 
       const items = [{
-        id: `sku:${event.sku_id}`,
-        sku: event.sku_id,
+        id: `sku:${this.event.sku_id}`,
+        sku: this.event.sku_id,
         quantity: qty,
-        title: event.title,
-        amount_each: event.price,
+        title: this.master.title,
+        subtitle: moment(this.event.start).format('dddd MMMM Do h:mm a'),
+        amount_each: this.master.price,
       }];
       if (discount) {
         items.push({
-          id: `discount:${event.sku_id}`,
+          id: `discount:${this.event.sku_id}`,
           type: 'discount',
           quantity: qty,
           title: 'Member discount',
@@ -187,12 +215,19 @@ export default {
       this.$root.$on('tk::pay-modal::complete', this.payComplete);
     },
     payComplete() {
-      this.$refs.bookingSuccessModalRef.show();
+      this.success_modal = true;
+    },
+    async interested() {
+      const { data: { class_interest: ret } } = await this.$apollo.mutate({
+        mutation: misc.mutation.class_interest,
+        variables: { email: this.interested_email, master_id: this.master.id },
+      });
+      if (ret === 'OK') this.interested_success = true;
     },
   },
   metaInfo() {
     return {
-      title: this.calendar_event.title,
+      title: this.master.title,
     };
   },
 };
@@ -210,14 +245,14 @@ export default {
     }
 }
 .price {
-    font-weight: bold;
+    font-weight: 300;
 }
 .event-description {
     img { width: 100%; }
 }
 .booking_form {
-    input {
-        margin-right: .5em;
+    select {
+        margin: .5em .5em .5em 0;
         max-width: 4em;
     }
 }
