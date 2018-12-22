@@ -21,13 +21,13 @@
                                     <p>$150/month</p>
                                     <b-button
                                       variant="primary"
-                                      @click="signup(this.monthly)">Sign up</b-button>
+                                      @click="signup(monthly)">Sign up</b-button>
                                 </b-card>
                                 <b-card header="Pay Yearly">
                                     <p>$125/month</p>
                                     <b-button
                                       variant="primary"
-                                      @click="signup(this.yearly)">Sign up</b-button>
+                                      @click="signup(yearly)">Sign up</b-button>
                                 </b-card>
                             </b-card-group>
                         </RequireSignInForm>
