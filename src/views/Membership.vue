@@ -16,7 +16,23 @@
                             Thanks for being a member!
                         </div>
                         <RequireSignInForm v-else>
-                            <b-card-group>
+                            <b-card-group v-if="me.is_free_member">
+                                <b-card header="Pay Monthly">
+                                    <p><strike class="text-muted">$150/month</strike>
+                                        $125/month (Backer discount!)</p>
+                                    <b-button
+                                      variant="primary"
+                                      @click="signup(monthly, 'KS_CONVERT')">Sign up</b-button>
+                                </b-card>
+                                <b-card header="Pay Yearly">
+                                    <p><strike class="text-muted">$125/month</strike>
+                                        $108/month (Backer discount!)</p>
+                                    <b-button
+                                      variant="primary"
+                                      @click="signup(yearly, 'KS_CONVERT')">Sign up</b-button>
+                                </b-card>
+                            </b-card-group>
+                            <b-card-group v-else>
                                 <b-card header="Pay Monthly">
                                     <p>$150/month</p>
                                     <b-button
