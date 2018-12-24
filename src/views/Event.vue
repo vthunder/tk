@@ -216,7 +216,7 @@ export default {
         items.push({
           id: `discount:${this.event.sku_id}`,
           type: 'discount',
-          quantity: qty,
+          quantity: 1, // member only
           title: 'Member discount',
           amount_each: discount,
         });
