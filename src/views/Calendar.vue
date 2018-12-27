@@ -25,20 +25,14 @@ export default {
       return [
         {
           events: this
-            .calendar_events
-            .events
-            .map(evhelpers.mergeMaster(this.calendar_events.masters))
-            .map(e => ({ ...e, url: `/event/${e.id}` })),
+            .calendar_events.map(e => ({ ...e, url: `/event/${e.id}` })),
         },
       ];
     },
   },
   data() {
     return {
-      calendar_events: {
-        events: [],
-        masters: [],
-      },
+      calendar_events: [],
       config: {
         defaultView: 'month',
         header: {
