@@ -25,14 +25,22 @@
                 <div class="subtitle" v-if="data.item.subtitle">{{ data.item.subtitle }}</div>
             </template>
 
-            <template slot="price" slot-scope="data">
-                {{ ((data.item.type === 'discount')? '-' : '') + data.item.price }}
+            <template slot="quantity" slot-scope="data">
+                <div v-if="data.item.type !== 'discount'" class="quantity">
+                    <b-button @click.stop="minusItem(data.item.id)"
+                              size="sm" variant="secondary">
+                        <span class="fas fa-minus"></span>
+                    </b-button>
+                    <span class="quantity-text">{{ data.item.quantity }}</span>
+                    <b-button @click.stop="plusItem(data.item.id)"
+                              size="sm" variant="secondary">
+                        <span class="fas fa-plus"></span>
+                    </b-button>
+                </div>
             </template>
 
-            <template slot="delete" slot-scope="row">
-                <b-button @click.stop="deleteItem" variant="link" class="delete_item">
-                    <span class="fas fa-minus-circle"></span>
-                </b-button>
+            <template slot="price" slot-scope="data">
+                {{ data.item.price }}
             </template>
 
             <template slot="FOOT_title" slot-scope="data">Total</template>
@@ -43,6 +51,7 @@
 </template>
 
 <script>
+import * as _ from 'lodash';
 import * as auth from '@/graphql/auth';
 import * as customerQueries from '@/graphql/customer';
 import * as format from '@/lib/format';
@@ -59,8 +68,8 @@ export default {
       items: [],
       table_fields: [
         { key: 'title', label: 'Item' },
-        'quantity', 'price',
-        { key: 'delete', label: '' },
+        { key: 'quantity', class: 'text-center' },
+        'price',
       ],
       saveCard: true,
       working: false,
@@ -71,26 +80,23 @@ export default {
       if (!this.customer_payment_sources) return null;
       return this.customer_payment_sources.find(() => true);
     },
-    totalBeforeDiscountsRaw() {
+    totalBeforeDiscounts() {
       return this
         .items
         .filter(i => i.type !== 'discount')
         .reduce((acc, cur) => acc + cur.amount, 0);
     },
-    totalBeforeDiscounts() {
-      return format.priceCents(this.totalBeforeDiscountsRaw);
-    },
-    totalDiscountsRaw() {
+    totalDiscounts() {
       return this
         .items
         .filter(i => i.type === 'discount')
         .reduce((acc, cur) => acc + cur.amount, 0);
     },
-    totalDiscounts() {
-      return format.priceCents(this.totalDiscountsRaw);
+    total() {
+      return this.totalBeforeDiscounts - this.totalDiscounts;
     },
     totalPrice() {
-      return format.priceCents(this.totalBeforeDiscountsRaw - this.totalDiscountsRaw);
+      return format.priceCents(this.total);
     },
   },
   mounted() {
@@ -108,44 +114,123 @@ export default {
       this.working = false;
       this.$refs.payModal.show();
     },
+
+    _itemIndex(id) {
+      return this.items.map(c => (c.id)).indexOf(id);
+    },
+
     /*
      * items: array of objects containing:
-     *   id: String: unique ID; consists of colon-separated type string & type-specific ID
-     *       e.g.: sku:sku_DyIJDRjZCbcNmR
+     *   id: String: unique ID; consists of colon-separated type string &
+     *       type-specific ID e.g.: sku:sku_DyIJDRjZCbcNmR, discount:1
      *   type: String: type (same as in id)
-     *   sku: String: if type sku, the Stripe sku id
+     *   sku: String: Stripe sku id of the item
+     *   discount_for: Array: list of item ids the discount applies to
+     *   discount_per: String: 'order' (1x per order, across skus),
+     *                         'item' (1x per total qty)
      *   title: String
      *   subtitle: String
-     *   quantity: Int
+     *   quantity: Int (ignored for type discount)
      *   amount_each: Int: price each 1 qty in cts
      *
-     * these are computed internally, no need to pass them in:
+     * these are computed internally for each item:
      *   amount: total amount in cts for all of qty
      *   price: total price already formatted for display
+     *   quantity: (discount only)
      *
      * note: this method is not resilient to item amounts changing between each call
      */
     add(items) {
       items.forEach((newItem) => {
-        const idx = this.items.map(c => (c.id)).indexOf(newItem.id);
-        if (idx >= 0) {
+        let idx = this._itemIndex(newItem.id);
+
+        if (idx < 0) { // new item
+          idx = this.items.push({ ...newItem, amount: 0, price: '' }) - 1;
+        } else if (newItem.type !== 'discount') {
           this.items[idx].quantity += newItem.quantity;
-          this.items[idx].amount = this.items[idx].quantity * newItem.amount_each;
-          this.items[idx].price = format.priceCents(this.items[idx].amount);
         } else {
-          this.items.push({
-            ...newItem,
-            amount: newItem.amount_each * newItem.quantity,
-            price: format.priceCents(newItem.amount_each * newItem.quantity),
-          });
+          // adding discount that already exists; update its discount_for array
+          const forSkus = _.union(this.items[idx].discount_for, newItem.discount_for);
+          this.items[idx].discount_for = forSkus;
         }
+
+        // recompute amount and formatted price
+        this._recomputeAmount(idx);
+
+        // recalculate all discounts since they depend on items/quantities
+        this._recalculateDiscounts();
       });
     },
+
+    minusItem(id) {
+      const idx = this._itemIndex(id);
+      this.items[idx].quantity = this.items[idx].quantity - 1;
+      this._recomputeAmount(idx);
+      this._recalculateDiscounts();
+    },
+
+    plusItem(id) {
+      const idx = this._itemIndex(id);
+      this.items[idx].quantity = this.items[idx].quantity + 1;
+      this._recomputeAmount(idx);
+      this._recalculateDiscounts();
+    },
+
+    deleteItem(id) {
+      const idx = this._itemIndex(id);
+      this.items[idx].quantity = 0;
+      this._recomputeAmount(idx);
+      this._recalculateDiscounts();
+    },
+
+    _recomputeAmount(idx) {
+      this.items[idx].amount = this.items[idx].quantity * this.items[idx].amount_each;
+      this.items[idx].price = format.priceCents(this.items[idx].amount);
+      if (this.items[idx].type === 'discount') {
+        this.items[idx].price = `-${this.items[idx].price}`;
+      }
+    },
+
+    _recalculateDiscounts() {
+      this.items
+        .filter(i => i.type === 'discount')
+        .map(i => this._recalculateDiscount(i.id));
+    },
+
+    _recalculateDiscount(id) {
+      const idx = this._itemIndex(id);
+      const disc = this.items[idx];
+      if (disc.type !== 'discount') throw new Error('internal error recalculating discount');
+
+      const qty = disc.discount_for.reduce((acc, cur) => {
+        const forItem = this.items[this._itemIndex(cur)];
+        if (forItem) return acc + forItem.quantity;
+        return acc;
+      }, 0);
+
+      this.items[idx].discount_item_qty = qty;
+      if (disc.discount_per === 'order') {
+        this.items[idx].quantity = (qty > 0) ? 1 : 0;
+      } else {
+        this.items[idx].quantity = qty;
+      }
+
+      this._recomputeAmount(idx);
+    },
+
     async checkout() {
       this.working = true;
 
       // fixme: what to do if any items are not type sku?
-      const items = this.items.filter(i => i.type !== 'discount');
+      const items = this.items
+        .filter(i => i.type !== 'discount')
+        .filter(i => i.quantity > 0);
+
+      if (items.length === 0) {
+        this.working = false;
+        // eslint-disable-next-line
+        alert('Cart is empty');
+      }
 
       // Make sure a Stripe customer record exists for current user (if logged in)
       let customer;
@@ -259,6 +344,15 @@ export default {
 #cart-items {
     .subtitle {
         font-size: .875rem;
+    }
+
+    .quantity {
+        display: flex;
+        flex-direction: row;
+
+        .quantity-text {
+            width: 2em;
+        }
     }
 
     .total-footer {
