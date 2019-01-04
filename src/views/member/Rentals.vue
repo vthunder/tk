@@ -61,7 +61,7 @@ export default {
         sku: sku.id,
         quantity: qty,
         title: sku.attributes.title,
-        amount: sku.price * qty,
+        amount_each: sku.price * qty,
       }]);
       this.$root.$emit('tk::pay-modal::open');
       this.$root.$on('tk::pay-modal::complete', this.payComplete);

@@ -97,8 +97,10 @@ export default {
         items.push({
           id: `discount:${sku.id}`,
           type: 'discount',
+          discount_for: [`sku:${sku.id}`],
+          discount_per: 'item',
           quantity: qty,
-          title: 'Member discount',
+          title: 'Member Day Pass discount',
           amount_each: discount,
         });
       }
