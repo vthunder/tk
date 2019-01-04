@@ -109,6 +109,10 @@ export default {
         color: white;
     }
 
+    #nav_collapse > ul > li > a {
+        color: white;
+    }
+
     @media only screen and (max-width: 768px) {
         li > a.dropdown-toggle {
             display: none;
