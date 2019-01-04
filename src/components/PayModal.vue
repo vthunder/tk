@@ -17,8 +17,19 @@
             </p>
         </div>
 
-        <b-table id="cart-items" :items="items" :fields="table_fields"
+        <div v-if="!shownItems.length">
+            Cart is empty.
+        </div>
+        <b-table v-else id="cart-items" :items="shownItems" :fields="table_fields"
                  striped hover foot-clone>
+
+            <template slot="delete" slot-scope="data">
+                <b-button v-if="data.item.type !== 'discount'"
+                          @click.stop="deleteItem(data.item.id)"
+                          size="sm" variant="outline-secondary">
+                    <span class="fas fa-times"></span>
+                </b-button>
+            </template>
 
             <template slot="title" slot-scope="data">
                 {{ data.item.title }}
@@ -28,19 +39,15 @@
             <template slot="quantity" slot-scope="data">
                 <div v-if="data.item.type !== 'discount'" class="quantity">
                     <b-button @click.stop="minusItem(data.item.id)"
-                              size="sm" variant="secondary">
+                              size="sm" variant="outline-secondary">
                         <span class="fas fa-minus"></span>
                     </b-button>
                     <span class="quantity-text">{{ data.item.quantity }}</span>
                     <b-button @click.stop="plusItem(data.item.id)"
-                              size="sm" variant="secondary">
+                              size="sm" variant="outline-secondary">
                         <span class="fas fa-plus"></span>
                     </b-button>
                 </div>
-            </template>
-
-            <template slot="price" slot-scope="data">
-                {{ data.item.price }}
             </template>
 
             <template slot="FOOT_title" slot-scope="data">Total</template>
@@ -67,6 +74,7 @@ export default {
       alertMessage: 'Error!',
       items: [],
       table_fields: [
+        { key: 'delete', label: '' },
         { key: 'title', label: 'Item' },
         { key: 'quantity', class: 'text-center' },
         'price',
@@ -80,17 +88,20 @@ export default {
       if (!this.customer_payment_sources) return null;
       return this.customer_payment_sources.find(() => true);
     },
+    skuItems() {
+      return this.items.filter(i => i.type !== 'discount');
+    },
+    discountItems() {
+      return this.items.filter(i => i.type === 'discount');
+    },
+    shownItems() {
+      return this.items.filter(i => i.amount > 0);
+    },
     totalBeforeDiscounts() {
-      return this
-        .items
-        .filter(i => i.type !== 'discount')
-        .reduce((acc, cur) => acc + cur.amount, 0);
+      return this.skuItems.reduce((acc, cur) => acc + cur.amount, 0);
     },
     totalDiscounts() {
-      return this
-        .items
-        .filter(i => i.type === 'discount')
-        .reduce((acc, cur) => acc + cur.amount, 0);
+      return this.discountItems.reduce((acc, cur) => acc + cur.amount, 0);
     },
     total() {
       return this.totalBeforeDiscounts - this.totalDiscounts;
@@ -164,22 +175,20 @@ export default {
 
     minusItem(id) {
       const idx = this._itemIndex(id);
-      this.items[idx].quantity = this.items[idx].quantity - 1;
+      this.items[idx].quantity = Math.max(this.items[idx].quantity - 1, 1);
       this._recomputeAmount(idx);
       this._recalculateDiscounts();
     },
 
     plusItem(id) {
       const idx = this._itemIndex(id);
-      this.items[idx].quantity = this.items[idx].quantity + 1;
+      this.items[idx].quantity = Math.min(this.items[idx].quantity + 1, 10);
       this._recomputeAmount(idx);
       this._recalculateDiscounts();
     },
 
     deleteItem(id) {
-      const idx = this._itemIndex(id);
-      this.items[idx].quantity = 0;
-      this._recomputeAmount(idx);
+      this.items = this.items.filter(i => i.id !== id);
       this._recalculateDiscounts();
     },
 
@@ -202,19 +211,22 @@ export default {
       const disc = this.items[idx];
       if (disc.type !== 'discount') throw new Error('internal error recalculating discount');
 
-      const qty = disc.discount_for.reduce((acc, cur) => {
-        const forItem = this.items[this._itemIndex(cur)];
-        if (forItem) return acc + forItem.quantity;
-        return acc;
-      }, 0);
+      const forIdx = disc
+        .discount_for
+        .map(i => this._itemIndex(i))
+        .filter(i => this.items[i]);
 
-      this.items[idx].discount_item_qty = qty;
-      if (disc.discount_per === 'order') {
-        this.items[idx].quantity = (qty > 0) ? 1 : 0;
-      } else {
-        this.items[idx].quantity = qty;
+      const qty = forIdx.reduce((acc, cur) => acc + this.items[cur].quantity, 0);
+
+      if (!forIdx.length || qty === 0) {
+        // dangling discount; self destruct and return
+        // note: qty should never be 0 unless forIdx is empty
+        // fixme: might be unexpected for this method to remove items
+        this.items = this.items.filter(i => i.id !== id);
+        return;
       }
 
+      this.items[idx].quantity = (disc.discount_per === 'order') ? 1 : qty;
       this._recomputeAmount(idx);
     },
 
