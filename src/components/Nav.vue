@@ -92,9 +92,12 @@ export default {
         background-repeat: no-repeat;
         background-size: contain;
         height: 1.2rem;
-        width: 320px;
+        width: 250px;
 
-        @media (min-width: 576px) { height: 1.4rem; }
+        @media (min-width: 576px) {
+            height: 1.4rem;
+            width: 320px;
+        }
     }
 
     .signed-in-as {
