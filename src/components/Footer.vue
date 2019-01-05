@@ -27,15 +27,17 @@
                         <li><b-link :to="{ name: 'about' }">Equipment</b-link></li>
                         <li><b-link :to="{ name: 'calendar' }">Calendar</b-link></li>
                         <li><b-link :to="{ name: 'faq' }">FAQ</b-link></li>
+                        <li><b-link href="https://wiki.tinkerkitchen.org/">Wiki</b-link></li>
                         <li><b-link :to="{ name: 'press' }">Press</b-link></li>
                     </ul>
                 </b-col>
                 <b-col md="3">
                     <ul>
-                        <li><h5>Follow</h5></li>
+                        <li><h5>Follow & Connect</h5></li>
                         <li><b-link href="https://instagram.com/tinkerkitch/">Instagram</b-link></li>
                         <li><b-link href="https://twitter.com/tinkerkitch">Twitter</b-link></li>
                         <li><b-link href="https://www.facebook.com/tinkerkitchen">Facebook</b-link></li>
+                        <li><b-link href="https://spectrum.chat/tinker-kitchen">Community Forum</b-link></li>
                     </ul>
                 </b-col>
             </b-row>
