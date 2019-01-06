@@ -22,8 +22,10 @@ query CalendarEvent($id: Int!) {
     category
     price
     member_price
+    ext_book_text
     ext_book_url
     ext_member_discount_code
+    show_interested
     sku_id
   }
 }
@@ -43,8 +45,10 @@ query CalendarMaster($id: Int, $slug: String) {
     price
     member_price
     max_size
+    ext_book_text
     ext_book_url
     ext_member_discount_code
+    show_interested
     events {
       id
       start
