@@ -36,14 +36,12 @@
                             </div>
                         </div>
                         <div v-else>
-                            <RequireSignInForm next_action="tk::event::book">
-                                <b-form-select v-model="which_event" :options="event_opts" />
-                                <b-form class="booking_form" inline>
-                                    <b-form-select v-model="how_many" :options="num_options" />
-                                    <b-button variant="primary"
-                                              @click="book()">Add to Cart</b-button>
-                                </b-form>
-                            </RequireSignInForm>
+                            <b-form-select v-model="which_event" :options="event_opts" />
+                            <b-form class="booking_form" inline>
+                                <b-form-select v-model="how_many" :options="num_options" />
+                                <b-button variant="primary"
+                                          @click="book()">Add to Cart</b-button>
+                            </b-form>
                         </div>
                     </div>
                     <div v-if="interested_success" class="mt-2">
@@ -90,7 +88,6 @@
 <script>
 import moment from 'moment';
 import VueMarkdown from 'vue-markdown';
-import RequireSignInForm from '@/components/RequireSignInForm.vue';
 import * as auth from '@/graphql/auth';
 import * as misc from '@/graphql/misc';
 import * as format from '@/lib/format';
@@ -122,7 +119,7 @@ export default {
   },
   computed: {
     member() {
-      return this.me.is_member || this.me.is_free_member;
+      return this.me && (this.me.is_member || this.me.is_free_member);
     },
     event_opts() {
       return this.master.events.map((e) => {
@@ -175,7 +172,6 @@ export default {
     },
   },
   components: {
-    RequireSignInForm,
     VueMarkdown,
   },
   methods: {
