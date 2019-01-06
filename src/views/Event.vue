@@ -1,7 +1,7 @@
 <template>
     <div v-if="$apollo.loading" class="loading"><h3>Loading...</h3></div>
     <div v-else class="container section">
-        <b-link :to="{ name: 'classes' }">&lt; Back to class list</b-link>
+        <b-link :to="{ name: 'classes' }">&lt; Back to events list</b-link>
 
         <b-row class="mt-2">
             <b-col md="7">
@@ -30,7 +30,7 @@
                     <div v-if="master.events.length">
                         <div v-if="master.ext_book_url">
                             <b-button :href="master.ext_book_url"
-                                      variant="primary">Book this class</b-button>
+                                      variant="primary">{{ ext_book_text }}</b-button>
                             <div v-if="show_member_discount">
                                 Member discount code: {{ master.ext_member_discount_code }}
                             </div>
@@ -44,33 +44,35 @@
                             </b-form>
                         </div>
                     </div>
-                    <div v-if="interested_success" class="mt-2">
-                        <p>Thanks! We'll let you know when we schedule
-                        this class.</p>
-                    </div>
-                    <div v-else>
-                        <div v-if="master.events.length" class="mt-4">
-                            <h4>None of these dates work?</h4>
-                            <p>Sign up below and we'll let you know
-                                when we add new dates to the schedule!</p>
+                    <div v-if="master.show_interested">
+                        <div v-if="interested_success" class="mt-2">
+                            <p>Thanks! We'll let you know when we schedule
+                                this class.</p>
                         </div>
                         <div v-else>
-                            <h3>Interested?</h3>
-                            <p>Sign up below and we'll let you know
-                                when it's back on the schedule!</p>
+                            <div v-if="master.events.length" class="mt-4">
+                                <h4>None of these dates work?</h4>
+                                <p>Sign up below and we'll let you know
+                                    when we add new dates to the schedule!</p>
+                            </div>
+                            <div v-else>
+                                <h3>Interested?</h3>
+                                <p>Sign up below and we'll let you know
+                                    when it's back on the schedule!</p>
+                            </div>
+                            <b-form class="my-2" inline>
+                                <b-input v-model="interested_email"
+                                         type="email"
+                                         placeholder="email@example.com" />
+                                <b-button v-if="master.events.length"
+                                          @click.prevent="interested()"
+                                          class="ml-1">Let me know</b-button>
+                                <b-button v-else
+                                          variant="primary"
+                                          @click.prevent="interested()"
+                                          class="ml-1">Submit</b-button>
+                            </b-form>
                         </div>
-                        <b-form class="my-2" inline>
-                            <b-input v-model="interested_email"
-                                     type="email"
-                                     placeholder="email@example.com" />
-                            <b-button v-if="master.events.length"
-                                      @click.prevent="interested()"
-                                      class="ml-1">Let me know</b-button>
-                            <b-button v-else
-                                      variant="primary"
-                                      @click.prevent="interested()"
-                                      class="ml-1">Submit</b-button>
-                        </b-form>
                     </div>
                 </div>
             </b-col>
@@ -143,6 +145,9 @@ export default {
         return true;
       }
       return false;
+    },
+    ext_book_text() {
+      return this.master.ext_book_text || 'Book this class';
     },
   },
   apollo: {
