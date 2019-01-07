@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/views/Home.vue';
 import About from '@/views/About.vue';
+import Checkout from '@/views/Checkout.vue';
 import GettingThere from '@/views/GettingThere.vue';
 import TheMakerspace from '@/views/TheMakerspace.vue';
 import Calendar from '@/views/Calendar.vue';
@@ -59,6 +60,11 @@ export default new Router({
       path: '/calendar',
       name: 'calendar',
       component: Calendar,
+    },
+    {
+      path: '/checkout',
+      name: 'checkout',
+      component: Checkout,
     },
     {
       path: '/classes',
