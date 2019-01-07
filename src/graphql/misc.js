@@ -26,6 +26,8 @@ query CalendarEvent($id: Int!) {
     ext_book_url
     ext_member_discount_code
     show_interested
+    sidebar_pre_text
+    sidebar_post_text
     sku_id
   }
 }
@@ -49,6 +51,8 @@ query CalendarMaster($id: Int, $slug: String) {
     ext_book_url
     ext_member_discount_code
     show_interested
+    sidebar_pre_text
+    sidebar_post_text
     events {
       id
       start
