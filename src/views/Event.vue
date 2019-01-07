@@ -27,7 +27,8 @@
                             &nbsp;(members: {{ formatPrice(master.member_price) }})
                         </span>
                     </h4>
-                    <p v-if="master.sidebar_pre_text">{{ master.sidebar_pre_text }}</p>
+                    <vue-markdown v-if="master.sidebar_pre_text"
+                                  :source="master.sidebar_pre_text"></vue-markdown>
                     <div v-if="master.events.length">
                         <div v-if="master.ext_book_url">
                             <b-button :href="master.ext_book_url"
@@ -45,7 +46,9 @@
                             </b-form>
                         </div>
                     </div>
-                    <p v-if="master.sidebar_post_text" class="mt-2">{{ master.sidebar_post_text }}</p>
+                    <vue-markdown v-if="master.sidebar_post_text"
+                                  class="mt-3"
+                                  :source="master.sidebar_post_text"></vue-markdown>
                     <div v-if="master.show_interested">
                         <div v-if="interested_success" class="mt-2">
                             <p>Thanks! We'll let you know when we schedule
