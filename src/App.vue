@@ -4,7 +4,6 @@
         <router-view/>
         <AuthModal/>
         <WelcomeModal/>
-        <PayModal/>
         <Footer/>
     </div>
 </template>
@@ -14,7 +13,7 @@ import Nav from '@/components/Nav.vue';
 import Footer from '@/components/Footer.vue';
 import AuthModal from '@/components/AuthModal.vue';
 import WelcomeModal from '@/components/WelcomeModal.vue';
-import PayModal from '@/components/PayModal.vue';
+import CartBackend from '@/mixins/CartBackend';
 
 export default {
   components: {
@@ -22,8 +21,8 @@ export default {
     Footer,
     AuthModal,
     WelcomeModal,
-    PayModal,
   },
+  mixins: [CartBackend],
   metaInfo: {
     title: 'A Page',
     titleTemplate: '%s | Tinker Kitchen',

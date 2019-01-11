@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import VueStash from 'vue-stash';
 import Meta from 'vue-meta';
 import BootstrapVue from 'bootstrap-vue';
 import VueStripeCheckout from 'vue-stripe-checkout';
@@ -11,6 +12,7 @@ import router from './router';
 import { createProvider } from './vue-apollo';
 
 Vue.use(Meta);
+Vue.use(VueStash);
 Vue.use(Vue2Filters);
 Vue.use(BootstrapVue);
 Vue.use(VueStripeCheckout, {
@@ -37,4 +39,11 @@ new Vue({
   router,
   provide: createProvider({ wsEndpoint: null }).provide(),
   render: h => h(App),
+  data: {
+    store: {
+      cart: {
+        items: [],
+      },
+    },
+  },
 }).$mount('#app');

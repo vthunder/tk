@@ -117,6 +117,24 @@ query GiftCertificateBalance {
   gift_certificate_balance
 }
 `,
+  get_cart_coupon: gql`
+query GetCartCoupon($code: String!) {
+  get_cart_coupon(code: $code) {
+    id
+    code
+    amount_off
+    percent_off
+    duration
+    duration_in_months
+    max_redemptions
+    name
+    redeem_by
+    times_redeemed
+    valid
+    conditions
+  }
+}
+`,
 };
 
 export const mutation = {
