@@ -53,7 +53,7 @@
                                 this class.</p>
                         </div>
                         <div v-else>
-                            <div v-if="master.events.length" class="mt-4">
+                            <div v-if="event_opts.length" class="mt-4">
                                 <h4>None of these dates work?</h4>
                                 <p>Sign up below and we'll let you know
                                     when we add new dates to the schedule!</p>
