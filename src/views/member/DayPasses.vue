@@ -50,7 +50,6 @@ export default {
     return {
       me: {},
       user_passes: [],
-      dayPasses: [],
       day_pass_skus: {},
       how_many: 1,
     };
@@ -65,7 +64,7 @@ export default {
   },
   mounted() {
     this.$root.$on('tk::coupon-modal::complete', this.refresh);
-    this.$root.$on('tk::pay-modal::complete', this.refresh);
+    this.$root.$on('tk::checkout::complete', this.refresh);
   },
   methods: {
     refresh() {
@@ -101,8 +100,8 @@ export default {
         });
       }
 
-      this.$root.$emit('tk::pay-modal::add', items);
-      this.$root.$emit('tk::pay-modal::open');
+      this.$root.$emit('tk::cart::add', items);
+      this.$router.push({ name: 'cart' });
     },
   },
 };

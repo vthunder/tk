@@ -11,14 +11,19 @@
                     <p class="text-center">$35/day per person (members: only $25!)<br>
                     </p>
                 </b-col>
-                <b-col md="4">
+                <b-col md="8">
                     <RequireSignIn post_text="to purchase a day pass."
                                    :next_route="{ name: 'member-daypasses' }">
-                        <div class="text-center">
-                            <b-button :to="{ name: 'member-daypasses' }" variant="primary">
-                                Purchase day passes
-                            </b-button>
-                        </div>
+                        <b-card class="buy-card">
+                            <p>You have <span class="cur_daypasses">
+                                {{ passes.length }}</span>
+                                {{ passes.length | pluralize('pass', 'passes') }}.</p>
+                            <b-form class="daypass_form" inline>
+                                <b-form-select v-model="how_many" :options="num_options" />
+                                <b-button @click="buyDayPass"
+                                          variant="primary">Buy Day Passes</b-button>
+                            </b-form>
+                        </b-card>
                     </RequireSignIn>
                 </b-col>
             </b-row>
@@ -54,66 +59,103 @@
 
 <script>
 import RequireSignIn from '@/components/RequireSignIn.vue';
-import MailingListSignup from '@/components/MailingListSignup.vue';
-import { monthlyQuery, yearlyQuery } from '@/lib/plans';
 import * as auth from '@/graphql/auth';
+import * as products from '@/graphql/products';
 
 export default {
   data() {
     return {
       me: {},
-      monthly: {},
-      yearly: {},
+      day_pass_skus: {},
+      user_passes: [],
+      how_many: 1,
+      num_options: [
+        { value: 1, text: '1' },
+        { value: 2, text: '2' },
+        { value: 3, text: '3' },
+        { value: 4, text: '4' },
+        { value: 5, text: '5' },
+        { value: 6, text: '6' },
+        { value: 7, text: '7' },
+        { value: 8, text: '8' },
+        { value: 9, text: '9' },
+        { value: 10, text: '10' },
+      ],
     };
   },
   apollo: {
     me: auth.query.me,
-    monthly: monthlyQuery,
-    yearly: yearlyQuery,
+    day_pass_skus: products.query.day_pass_skus,
+    user_passes: products.query.user_passes,
   },
   computed: {
-    plans() {
-      return [this.monthly, this.yearly];
+    member() {
+      return this.me.is_member || this.me.is_free_member;
+    },
+    passes() {
+      return this.user_passes.filter(p => p.status === 'new');
+    },
+  },
+  mounted() {
+    this.$root.$on('tk::coupon-modal::complete', this.refresh);
+    this.$root.$on('tk::checkout::complete', this.refresh);
+  },
+  methods: {
+    refresh() {
+      this.$apollo.provider.defaultClient.cache.reset();
+      ['me', 'user_passes'].forEach((q) => {
+        this.$apollo.queries[q].refetch();
+      });
+      window.location.reload();
+    },
+    buyDayPass() {
+      const sku = this.day_pass_skus.nonmember_1;
+      const qty = parseInt(this.how_many, 10);
+      let discount = 0;
+      if (this.member) discount = 1000;
+
+      const items = [{
+        id: `sku:${sku.id}`,
+        sku: sku.id,
+        quantity: qty,
+        title: 'Tinker Kitchen Day Pass',
+        amount_each: sku.price,
+      }];
+
+      if (discount) {
+        items.push({
+          id: `discount:${sku.id}`,
+          type: 'discount',
+          discount_for: [`sku:${sku.id}`],
+          discount_per: 'item',
+          quantity: qty,
+          title: 'Member Day Pass discount',
+          amount_each: discount,
+        });
+      }
+
+      this.$root.$emit('tk::cart::add', items);
+      this.$router.push({ name: 'cart' });
+
     },
   },
   components: {
     RequireSignIn,
-    MailingListSignup,
   },
   metaInfo: {
-    title: 'Membership',
+    title: 'Day Passes',
   },
 };
 </script>
 
 <style lang="scss">
-.membership {
-    h6 {
-        font-weight: 600;
-    }
-
-    .feature-card {
-        position: relative;
-    }
-
-    .feature-icon {
-        position: absolute;
-        top: 0;
-        left: 15px;
-        height: 20px;
-        width: 20px;
-    }
-
-    .feature-icon-plus {
-        @extend .feature-icon;
-        font-size: 18px;
-    }
-
-    #register-form {
-        input {
-            display: inline;
-            width: unset;
-        }
+.buy-card {
+    .card-body {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        p { margin-bottom: 0; }
+        select { margin: 0 .5em 0 1em; }
     }
 }
 </style>
