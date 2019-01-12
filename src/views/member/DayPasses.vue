@@ -2,8 +2,8 @@
     <div v-if="$apollo.loading" class="loading"><h3>Loading...</h3></div>
     <div v-else class="container section">
         <StorePage>
-            <p>You have <span class="cur_daypasses">{{ user_passes.length }}</span>
-                {{ user_passes.length | pluralize('pass', 'passes') }}.</p>
+            <p>You have <span class="cur_daypasses">{{ passes.length }}</span>
+                {{ passes.length | pluralize('pass', 'passes') }}.</p>
             <p>To use a day pass, just give us your email when you
                 check-in and we'll deduct it from your account. To
                 share a day pass so a friend can use it on their own,
@@ -41,14 +41,7 @@ export default {
       },
     },
     day_pass_skus: products.query.day_pass_skus,
-    user_passes: {
-      query: products.query.user_passes,
-      variables: { type: 'day_pass' },
-      update(data) {
-        if (!data || !data.user_passes) return [];
-        return data.user_passes;
-      },
-    },
+    user_passes: products.query.user_passes,
   },
   components: {
     StorePage,
@@ -65,6 +58,9 @@ export default {
   computed: {
     member() {
       return this.me.is_member || this.me.is_free_member;
+    },
+    passes() {
+      return this.user_passes.filter(p => p.status === 'new');
     },
   },
   mounted() {

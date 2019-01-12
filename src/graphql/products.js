@@ -123,10 +123,11 @@ export const query = {
     }
   `,
   user_passes: gql`
-    query UserPasses($type: String!) {
+    query UserPasses($type: String) {
       user_passes(type: $type) {
         token
         type
+        status
       }
     }
   `,
