@@ -61,15 +61,15 @@
                         </b-col>
                     </b-row>
 
-                    <h2 class="text-center mt-4">Pricing</h2>
-                    <b-card-group deck>
-                        <b-card title="One Topic" class="text-center">$80/person</b-card>
-                        <b-card title="Two topics" class="text-center">$105/person</b-card>
-                    </b-card-group>
-                    <p class="text-center mt-2">Liquid nitrogen add-on: $15/person</p>
+                    <div class="pricing">
+                        <b-card-group deck class="mt-4">
+                            <b-card title="One Topic" class="text-center">$80/person</b-card>
+                            <b-card title="Two topics" class="text-center">$105/person</b-card>
+                        </b-card-group>
+                        <p class="text-center mt-2">Liquid nitrogen add-on: $15/person</p>
+                    </div>
 
-                    <h2 class="text-center">Other Info</h2>
-                    <ul>
+                    <ul class="mt-4">
                         <li>Events are usually 3 hours, but we can adapt to
                             your schedule! Let us know and we can
                             customize as needed.</li>
@@ -105,7 +105,7 @@
                         (not cooking).  Maximum 12 guests. Valid for 3
                         hours.</p>
                 </b-tab>
-                <b-tab title="Rental">
+                <b-tab title="Space Rental">
                     <b-card-group deck>
                         <b-card title="Partial space rental"
                                 sub-title="$75/hr + $50-100 cleaning" class="mt-2">
@@ -152,5 +152,11 @@ export default {
     width: 100%;
     border-radius: 4px;
     box-shadow: 1px 1px 2px #ccc;
+}
+.pricing {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    margin-top: 1em;
+    padding: .5em;
 }
 </style>
