@@ -78,11 +78,10 @@
                             problem! Just order something in (e.g., pizza)
                             and eat in our dining area.</li>
                         <li>Because we are a makerspace, our regular
-                            members may drop by during the event. If you’d
-                            like exclusive use of the space (and/or the
-                            ability to bring any alcohol), you can do a
-                            private event buy-out for an additional $475
-                            for 4 hours.</li>
+                            members may drop by during the event. If
+                            you’d like exclusive use of the space, you
+                            can do a private event buy-out for an
+                            additional $475 for 4 hours.</li>
                     </ul>
 
                     <h2 class="text-center">Ready to book?</h2>
