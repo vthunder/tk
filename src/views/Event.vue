@@ -27,7 +27,7 @@
                     </h4>
                     <vue-markdown v-if="master.sidebar_pre_text"
                                   :source="master.sidebar_pre_text"></vue-markdown>
-                    <div v-if="master.events.length">
+                    <div v-if="event_opts.length">
                         <div v-if="master.ext_book_url">
                             <b-button :href="master.ext_book_url"
                                       variant="primary">{{ ext_book_text }}</b-button>
@@ -127,15 +127,18 @@ export default {
       return this.me && (this.me.is_member || this.me.is_free_member);
     },
     event_opts() {
-      return this.master.events.map((e) => {
-        // fixme: add all_day support
-        const start = moment(e.start).format('dddd MMMM Do h:mm a');
-        const end = moment(e.start).add(e.duration, 'hours').format('h:mm a');
-        return {
-          value: e.id,
-          text: `${start} - ${end}`,
-        };
-      });
+      return this
+        .master.events
+        .filter(e => e.status === 'open')
+        .map((e) => {
+          // fixme: add all_day support
+          const start = moment(e.start).format('dddd MMMM Do h:mm a');
+          const end = moment(e.start).add(e.duration, 'hours').format('h:mm a');
+          return {
+            value: e.id,
+            text: `${start} - ${end}`,
+          };
+        });
     },
     event() {
       const id = parseInt(this.which_event, 10);

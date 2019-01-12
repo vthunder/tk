@@ -55,6 +55,7 @@ query CalendarMaster($id: Int, $slug: String) {
     sidebar_post_text
     events {
       id
+      status
       start
       duration
       all_day
