@@ -92,6 +92,10 @@
                 </b-col>
             </b-row>
         </div>
+        <b-modal id="success-modal" ref="successModalRef"
+                 title="Success!" centered ok-only>
+            <p>Hooray! Purchase successful.</p>
+        </b-modal>
     </b-container>
 </template>
 
@@ -266,7 +270,7 @@ export default {
           variables: { order: order.id, customer: customer.id },
         });
         this.clearCart();
-        this.$refs.payModal.hide();
+        this.$refs.successModalRef.show();
         this.$root.$emit('tk::checkout::complete');
         return;
       }
@@ -303,11 +307,8 @@ export default {
 
           this.clearCart();
 
-          this.$refs.payModal.hide();
+          this.$refs.successModalRef.show();
           this.$root.$emit('tk::checkout::complete');
-
-          // eslint-disable-next-line
-          alert('Purchase successful. Thanks!');
         },
       };
       if (this.me) payOpts.email = this.me.email;
