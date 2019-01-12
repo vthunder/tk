@@ -105,7 +105,7 @@ export default {
     },
 
     clearCoupon() {
-      this.cart.coupon = null;
+      this.$set(this.cart, 'coupon', null);
     },
 
     _itemIndex(id) {
