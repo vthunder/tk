@@ -55,7 +55,11 @@
                         <b-col class="text-right">{{ itemDiscountsPrice }}</b-col>
                     </b-row>
                     <b-row v-if="couponDiscount" class="mb-2">
-                        <b-col sm="8"><h5>Coupon ({{ couponName }}):</h5></b-col>
+                        <b-col sm="8">
+                            <h5>Coupon ({{ couponName }}):</h5>
+                            <b-link @click.stop="clearCoupon"
+                                    class="small">Remove coupon</b-link>
+                        </b-col>
                         <b-col class="text-right">{{ couponDiscountPrice }}</b-col>
                     </b-row>
                     <b-row class="mb-2">
@@ -195,11 +199,10 @@ export default {
     cart: 'cart',
   },
   mounted() {
-    this.$root.$on('tk::checkout::open', this.open);
     this.$root.$on('tk::checkout::subscribeCheckout', this.subscribeCheckout);
   },
   destroyed() {
-    this.$root.$off('tk::checkout::open', this.open);
+    this.$root.$off('tk::checkout::subscribeCheckout', this.subscribeCheckout);
   },
   methods: {
     minusItem(id) {
@@ -214,6 +217,9 @@ export default {
     clearCart() {
       this.$root.$emit('tk::cart::clear');
       this.onReset();
+    },
+    clearCoupon() {
+      this.$root.$emit('tk::cart::clearCoupon');
     },
     onReset() {
       this.showAlert = false;
