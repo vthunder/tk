@@ -1,8 +1,6 @@
 <template>
     <div v-if="$apollo.loading" class="loading"><h3>Loading...</h3></div>
     <div v-else class="container section">
-        <b-link :to="{ name: 'classes' }">&lt; Back to events list</b-link>
-
         <b-row class="mt-2">
             <b-col md="7">
                 <b-img v-if="master.image_header"
