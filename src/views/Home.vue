@@ -15,7 +15,7 @@
                     </div>
                 </b-col>
                 <b-col md="5" lg="4">
-                    <b-card bg-variant="dark" text-variant="white">
+                    <b-card class="main-nav" bg-variant="dark" text-variant="white">
                         <b-link :to="{ name: 'classes' }" class="card-link">
                             <div class="header-card">
                                 <img src="/images/15408755594_87a6c22584_o square.jpg"/>
@@ -179,17 +179,8 @@ h1.home-page {
         @media (min-width: 992px) { padding-top: 120px; }
     }
 
-    .header-cta {
-        border-radius: 5px;
-        font-family: museo;
-        font-weight: 300;
-        margin: 75px 5px 0;
-        padding: 10px;
-        width: 100%;
-        @media (min-width: 576px) {
-            font-size: .875rem;
-            width: 400px;
-        }
+    .main-nav {
+        .header-card { min-width: 289px; }
     }
 
     .fa-angle-double-down {
