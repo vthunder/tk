@@ -68,6 +68,7 @@ query CalendarEvents {
   calendar_events {
     id
     master_id
+    calendar_hide
     title
     slug
     image_header
@@ -88,6 +89,7 @@ query CalendarEventMasters {
   calendar_event_masters {
     id
     featured
+    calendar_hide
     title
     slug
     image_header

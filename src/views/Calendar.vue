@@ -25,6 +25,7 @@ export default {
         {
           events: this
             .calendar_events
+            .filter(e => !e.calendar_hide)
             .map((e) => {
               const evt = { ...e, url: `/event/${e.slug}?id=${e.id}` };
               if (e.category.match(/class/)) evt.color = '#CD5828';
