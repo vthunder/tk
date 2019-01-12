@@ -231,7 +231,7 @@ export default {
       }
 
       this.$root.$emit('tk::cart::add', items);
-      this.$root.$on('tk::cart::complete', this.payComplete);
+      this.$root.$on('tk::checkout::complete', this.payComplete);
       this.$router.push({ name: 'cart' });
     },
     payComplete() {
