@@ -11,7 +11,6 @@
                     <b-dd-item :to="{ name: 'member-account' }">Account</b-dd-item>
                     <b-dd-item :to="{ name: 'member-membership' }">Membership</b-dd-item>
                     <b-dd-item :to="{ name: 'member-daypasses' }">Day Passes</b-dd-item>
-                    <b-dd-item :to="{ name: 'member-rentals' }">Rentals</b-dd-item>
                     <b-dd-item :to="{ name: 'member-billing' }">Billing</b-dd-item>
                     <b-dd-item :to="{ name: 'member-coupon' }">Redeem Coupon</b-dd-item>
                     <b-dd-divider></b-dd-divider>

@@ -20,7 +20,6 @@ import AdminEvent from '@/views/admin/Event.vue';
 import MemberAccount from '@/views/member/Account.vue';
 import MemberMembership from '@/views/member/Membership.vue';
 import MemberDayPasses from '@/views/member/DayPasses.vue';
-import MemberRentals from '@/views/member/Rentals.vue';
 import MemberBilling from '@/views/member/Billing.vue';
 import MemberCoupon from '@/views/member/Coupon.vue';
 import AccountVerify from '@/views/member/Verify.vue';
@@ -126,11 +125,6 @@ export default new Router({
       path: '/account/daypasses',
       name: 'member-daypasses',
       component: MemberDayPasses,
-    },
-    {
-      path: '/account/rentals',
-      name: 'member-rentals',
-      component: MemberRentals,
     },
     {
       path: '/account/billing',

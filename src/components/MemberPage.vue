@@ -8,7 +8,6 @@
                             <b-nav-item :to="{ name: 'member-account' }">Account</b-nav-item>
                             <b-nav-item :to="{ name: 'member-membership' }">Membership</b-nav-item>
                             <b-nav-item :to="{ name: 'member-daypasses' }">Day Passes</b-nav-item>
-                            <b-nav-item :to="{ name: 'member-rentals' }">Rentals</b-nav-item>
                             <b-nav-item :to="{ name: 'member-billing' }">Billing</b-nav-item>
                             <b-nav-item :to="{ name: 'member-coupon' }">Coupon/Gift Cert.
                             </b-nav-item>
