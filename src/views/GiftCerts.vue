@@ -142,9 +142,9 @@ export default {
         amount_each: info.amount,
       }];
 
-      this.$root.$emit('tk::pay-modal::add', items);
-      this.$root.$emit('tk::pay-modal::open');
-      this.$root.$on('tk::pay-modal::complete', this.payComplete);
+      this.$root.$emit('tk::cart::add', items);
+      this.$root.$on('tk::checkout::complete', this.payComplete);
+      this.$router.push({ name: 'cart' });
     },
     payComplete() {
       this.$refs.successModalRef.show();

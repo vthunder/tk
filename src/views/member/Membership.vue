@@ -152,11 +152,11 @@ export default {
   },
   mounted() {
     this.$root.$on('tk::coupon-modal::complete', this.refresh);
-    this.$root.$on('tk::pay-modal::complete', this.refresh);
+    this.$root.$on('tk::checkout::complete', this.refresh);
   },
   methods: {
     checkout(plan, code) {
-      this.$root.$emit('tk::pay-modal::subscribeCheckout', { plan, code });
+      this.$root.$emit('tk::checkout::subscribeCheckout', { plan, code });
     },
     refresh() {
       ['me', 'customer_subscriptions'].forEach((q) => {

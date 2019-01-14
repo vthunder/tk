@@ -128,12 +128,12 @@ export default {
       this.$router.push({ name: 'member-membership' });
     },
     async successModalSignup(plan) {
-      this.$root.$emit('tk::pay-modal::subscribeCheckout', { plan, code: 'KS_CONVERT' });
+      this.$root.$emit('tk::checkout::subscribeCheckout', { plan, code: 'KS_CONVERT' });
       this.$apollo.provider.defaultClient.cache.reset();
-      this.$root.$on('tk::pay-modal::complete', this.subSuccess);
+      this.$root.$on('tk::checkout::complete', this.subSuccess);
     },
     subSuccess() {
-      this.$root.$off('tk::pay-modal::complete', this.subSuccess);
+      this.$root.$off('tk::checkout::complete', this.subSuccess);
       this.coupon = null;
       this.$refs.subSuccessModalRef.show();
       this.$router.push({ name: 'member-membership' });

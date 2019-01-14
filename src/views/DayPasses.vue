@@ -136,7 +136,6 @@ export default {
 
       this.$root.$emit('tk::cart::add', items);
       this.$router.push({ name: 'cart' });
-
     },
   },
   components: {

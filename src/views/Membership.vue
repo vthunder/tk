@@ -146,7 +146,7 @@ export default {
   },
   methods: {
     signup(plan, code) {
-      this.$root.$emit('tk::pay-modal::subscribeCheckout', { plan, code });
+      this.$root.$emit('tk::checkout::subscribeCheckout', { plan, code });
     },
   },
   metaInfo: {
