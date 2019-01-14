@@ -155,8 +155,24 @@ export default {
     this.$root.$on('tk::checkout::complete', this.refresh);
   },
   methods: {
-    checkout(plan, code) {
-      this.$root.$emit('tk::checkout::subscribeCheckout', { plan, code });
+    async checkout(plan, code) {
+      await this.$apollo.mutate({ mutation: customerQueries.mutation.get_or_create_customer });
+      this.$checkout.open({
+        description: plan.metadata.billing_description,
+        amount: (code === 'KS_CONVERT') ? plan.ks_amount : plan.amount,
+        email: this.me.email,
+        token: async (token) => {
+          await this.$apollo.mutate({
+            mutation: customerQueries.mutation.update_customer,
+            variables: { source: token.id },
+          });
+          await this.$apollo.mutate({
+            mutation: customerQueries.mutation.create_subscription,
+            variables: { plans: [plan.id], code },
+          });
+          this.$root.$emit('tk::checkout::complete');
+        },
+      });
     },
     refresh() {
       ['me', 'customer_subscriptions'].forEach((q) => {

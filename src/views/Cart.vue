@@ -314,6 +314,8 @@ export default {
       if (this.me) payOpts.email = this.me.email;
       this.$checkout.open(payOpts);
     },
+    // FIXME: doesn't work, because this component is no longer loaded all the time
+    // maybe make a special cart subscription item that will trigger this flow?
     async subscribeCheckout({ plan, code }) {
       await this.$apollo.mutate({ mutation: customerQueries.mutation.get_or_create_customer });
       this.$checkout.open({
