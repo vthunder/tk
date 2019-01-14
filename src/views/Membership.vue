@@ -125,6 +125,7 @@
 
 <script>
 import RequireSignInForm from '@/components/RequireSignInForm.vue';
+import * as customerQueries from '@/graphql/customer';
 import { monthlyQuery, yearlyQuery } from '@/lib/plans';
 import * as auth from '@/graphql/auth';
 
