@@ -1,0 +1,77 @@
+// Uncomment to enable debugging wireframes
+//@import "debug";
+
+// Typography
+
+html {
+    font-family: 'museo-sans-rounded';
+    font-size: .875rem; // 14px
+    font-weight: 300;
+    @media (min-width: 576px) { font-size: 1rem; }
+    @media (min-width: 768px) { font-size: 1rem; }
+    @media (min-width: 992px) { font-size: 1rem; }
+    @media (min-width: 1200px) { font-size: 1rem; }
+    @media (min-width: 1400px) { font-size: 1.1rem; }
+}
+
+p, span, div {
+    font-family: 'museo';
+}
+input, button {
+    font-family: 'museo-sans-rounded';
+}
+h1 {
+    font-family: 'museo';
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 2.5rem;
+    text-align: center;
+    @media (min-width: 768px) {
+        font-size: 2.5rem;
+        line-height: 3rem;
+    }
+}
+h2 {
+    font-family: 'museo-sans-rounded';
+    font-size: 1.5rem;
+    font-weight: 600;
+    @media (min-width: 768px) { font-size: 1.75rem; }
+}
+h3 {
+    font-family: 'museo';
+    font-size: 1.2rem;
+    font-weight: 600;
+    @media (min-width: 768px) { font-size: 1.4rem; }
+}
+h4 {
+    font-family: 'museo-sans-rounded';
+    font-size: 1.1rem;
+    font-weight: 600;
+    @media (min-width: 768px) { font-size: 1.2rem; }
+}
+h5 {
+    font-family: 'museo-sans-rounded';
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/*
+ *
+ */
+
+.section {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 15px;
+}
+.section h2:first-child {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.text-outline {
+    text-shadow: -1px -1px 0 #000,
+                 1px -1px 0 #000,
+                 -1px 1px 0 #000,
+                 1px 1px 0 #000;
+}
