@@ -97,7 +97,7 @@ function recomputeAmount(state, idx) {
 function recalculateDiscounts(state) {
   state.items
     .filter(i => i.type === 'discount')
-    .map(i => recalculateDiscount(state.items, i.id));
+    .map(i => recalculateDiscount(state, i.id));
 }
 
 function recalculateDiscount(state, id) {
@@ -121,5 +121,5 @@ function recalculateDiscount(state, id) {
   }
 
   state.items[idx].quantity = (disc.discount_per === 'order') ? 1 : qty;
-  recomputeAmount(state.items, idx);
+  recomputeAmount(state, idx);
 }
