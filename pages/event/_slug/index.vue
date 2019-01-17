@@ -2,14 +2,11 @@
   <div class="container section">
     <b-row class="mt-2">
       <b-col md="7">
-        <b-img
-          v-if="master.image_header"
-          :src="master.image_header" fluid />
-
+        <b-img v-if="master.image_header" :src="master.image_header" fluid />
         <h1 class="text-left">{{ master.title }}</h1>
-        <p class="event-description mt-4">
+        <div class="event-description mt-4">
           <vue-markdown :source="master.description" />
-        </p>
+        </div>
       </b-col>
       <b-col md="5" class="border-left">
         <h5 v-if="master.category && master.category === 'private'">
@@ -136,6 +133,17 @@
     },
     components: {
       VueMarkdown,
+    },
+    async asyncData({ app, route, store }) {
+      const { data } = await app.apolloProvider.defaultClient.query({
+        query: misc.query.calendar_master,
+        variables: {
+          slug: route.params.slug
+        },
+        update: data => data.calendar_master,
+      });
+      console.log(data.calendar_master);
+      return { master: data.calendar_master };
     },
     data() {
       return {
