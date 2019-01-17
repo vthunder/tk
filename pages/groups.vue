@@ -117,7 +117,7 @@
           <b-card-group deck>
             <b-card
               title="Partial space rental"
-              sub-title="$75/hr + $50-100 cleaning" class="mt-2">
+              sub-title="$75-140/hr + $50-100 cleaning" class="mt-2">
               <p>
                 Get access to our space for your team-building
                 activity, pop-up demo, class, or other
