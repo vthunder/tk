@@ -1,5 +1,5 @@
 <template>
-  <div v-if="me">
+  <div v-if="me.name">
     <slot/>
   </div>
   <div v-else :class="'need-auth need-auth-'+auth_class">
@@ -29,17 +29,11 @@
     },
     data() {
       return {
-        me: '',
+        me: {},
       };
     },
     apollo: {
-      me: {
-        query: auth.query.me,
-        update(data) {
-          if (data.me) return data.me;
-          return null;
-        },
-      },
+      me: auth.query.me
     },
     methods: {
       showModal() {
