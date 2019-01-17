@@ -46,6 +46,7 @@ module.exports = {
   plugins: [
     '~/plugins/vue2-filters',
     { src: '~/plugins/stripe-checkout', ssr: false },
+    { src: '~/plugins/vuex-persist.js', ssr: false }
   ],
 
   /*

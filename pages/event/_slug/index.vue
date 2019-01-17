@@ -178,8 +178,7 @@
         return this.master.events.find(e => e.id === id);
       },
       show_member_discount() {
-        if (this.me &&
-            (this.me.is_member || this.me.is_free_member) &&
+        if ((this.me.is_member || this.me.is_free_member) &&
             this.event.ext_member_discount_code) {
           return true;
         }

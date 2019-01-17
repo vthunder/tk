@@ -83,15 +83,16 @@
               </b-form>
             </b-col>
           </b-row>
+          <p v-if="default_card && !ignoreSavedCard" class="text-right">
+            Saved card: {{ default_card.brand }}
+            / {{ default_card.last4 }}
+            <b-link class="ml-1" @click="removeCard">use new</b-link>
+          </p>
           <b-row class="mb-2">
             <b-col class="text-right">
               <b-btn variant="primary" @click.stop="doCheckout()">Checkout</b-btn>
             </b-col>
           </b-row>
-          <p v-if="default_card" class="text-right">
-            Using saved card: {{ default_card.brand }}
-            ending in {{ default_card.last4 }}
-          </p>
         </b-col>
       </b-row>
     </div>
@@ -153,6 +154,7 @@
           amount: 0,
           email: '',
         },
+        ignoreSavedCard: false,
       };
     },
     computed: {
@@ -235,6 +237,11 @@
     },
     methods: {
       ...mapMutations('cart', ['minusItem', 'plusItem', 'deleteItem', 'clear', 'clearCoupon']),
+
+      removeCard() {
+        this.ignoreSavedCard = true;
+      },
+
       clearCart() {
         this.clear()
         this.onReset()
@@ -260,7 +267,7 @@
 
         // Make sure a Stripe customer record exists for current user (if logged in)
         let customer;
-        if (this.me) {
+        if (this.me.name) {
           const ret = await this.$apollo.mutate({
             mutation: customerQueries.mutation.get_or_create_customer,
           });
@@ -277,8 +284,8 @@
         });
 
         // If customer has a saved card ready to go, pay the order
-        // FIXME: allow user to use a diff card
-        if (customer && customer.sources && customer.sources.length) {
+        if (!this.ignoreSavedCard &&
+            customer && customer.sources && customer.sources.length) {
           await this.$apollo.mutate({
             mutation: customerQueries.mutation.pay_order,
             variables: { order: order.id, customer: customer.id },
@@ -296,7 +303,7 @@
 
         this.checkout.description = description;
         this.checkout.amount = order.amount;
-        if (this.me) this.checkout.email = this.me.email;
+        if (this.me.email) this.checkout.email = this.me.email;
 
         // hack hack hack - work around strange vue / vue-stripe-checkout bug
         await new Promise(resolve => setTimeout(resolve, 1));
@@ -306,7 +313,7 @@
         if (token) {
           const payVars = { order: order.id };
 
-          if (this.me) {
+          if (this.me.name) {
             if (this.saveCard) {
               await this.$apollo.mutate({
                 mutation: customerQueries.mutation.update_customer,

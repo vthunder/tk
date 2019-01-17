@@ -28,7 +28,8 @@
     "vue-full-calendar": "^2.7.0",
     "vue-markdown": "^2.2.4",
     "vue-stripe-checkout": "^1.2.3",
-    "vue2-filters": "^0.4.1"
+    "vue2-filters": "^0.4.1",
+    "vuex-persist": "^2.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
