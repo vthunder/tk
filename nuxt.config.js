@@ -71,7 +71,7 @@ module.exports = {
   sentry: {
     dsn: 'https://e1a5f7ca830c44aabe1a3f27401b8a99@sentry.io/1374131',
     config: {},
-  }
+  },
 
   /*
   ** Build configuration
