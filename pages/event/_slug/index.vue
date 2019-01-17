@@ -159,8 +159,7 @@
         return this.me && (this.me.is_member || this.me.is_free_member);
       },
       event_opts() {
-        return this
-          .master.events
+        return (this.master.events||[])
           .filter(e => e.status === 'open')
           .map((e) => {
             // fixme: add all_day support
