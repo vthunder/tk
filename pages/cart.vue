@@ -4,114 +4,118 @@
 
     <b-alert :show="showAlert" variant="danger">{{ alertMessage }}</b-alert>
 
-    <div v-if="working" class="center">
-      <span class="fas fa-spinner fa-7x"/>
-    </div>
-    <div v-else>
-      <div v-if="!shownItems.length">
-        <p>Cart is empty.</p>
-        <p><nuxt-link :to="{ name: 'index' }">Return to the homepage.</nuxt-link></p>
+    <no-ssr>
+      <div v-show="working" class="spinner">
+        <span class="fas fa-spinner fa-7x"/>
       </div>
-      <b-table
-        v-else id="cart-items"
-        :items="shownItems" :fields="table_fields"
-        striped hover>
+      <div v-show="!working">
+        <div v-show="!shownItems.length">
+          <p>Cart is empty.</p>
+          <p><nuxt-link :to="{ name: 'index' }">Return to the homepage.</nuxt-link></p>
+        </div>
+        <b-table
+          v-show="shownItems.length" id="cart-items"
+          :items="shownItems" :fields="table_fields"
+          striped hover>
 
-        <template slot="delete" slot-scope="data">
-          <b-button
-            v-if="data.item.type !== 'discount'"
-            size="sm" variant="outline-secondary"
-            @click.stop="deleteItem(data.item.id)">
-            <span class="fas fa-times"/>
-          </b-button>
-        </template>
-
-        <template slot="title" slot-scope="data">
-          {{ data.item.title }}
-          <div v-if="data.item.subtitle" class="subtitle">{{ data.item.subtitle }}</div>
-        </template>
-
-        <template slot="quantity" slot-scope="data">
-          <div v-if="data.item.type !== 'discount'" class="quantity">
+          <template slot="delete" slot-scope="data">
             <b-button
+              v-if="data.item.type !== 'discount'"
               size="sm" variant="outline-secondary"
-              @click.stop="minusItem(data.item.id)">
-              <span class="fas fa-minus"/>
+              @click.stop="deleteItem(data.item.id)">
+              <span class="fas fa-times"/>
             </b-button>
-            <span class="quantity-text">{{ data.item.quantity }}</span>
-            <b-button
-              size="sm" variant="outline-secondary"
-              @click.stop="plusItem(data.item.id)">
-              <span class="fas fa-plus"/>
-            </b-button>
-          </div>
-        </template>
-      </b-table>
+          </template>
 
-      <b-row v-if="total" align-h="end">
-        <b-col md="6" lg="4">
-          <b-row v-if="subtotal !== total" class="mb-2">
-            <b-col><h5>Subtotal:</h5></b-col>
-            <b-col class="text-right">{{ subtotalPrice }}</b-col>
-          </b-row>
-          <b-row v-if="itemDiscounts" class="mb-2">
-            <b-col sm="8"><h5>Member discounts:</h5></b-col>
-            <b-col class="text-right">{{ itemDiscountsPrice }}</b-col>
-          </b-row>
-          <b-row v-if="couponDiscount" class="mb-2">
-            <b-col sm="8">
-              <h5>Coupon ({{ couponName }}):</h5>
-              <b-link class="small" @click.stop="clearCoupon">Remove coupon</b-link>
-            </b-col>
-            <b-col class="text-right">{{ couponDiscountPrice }}</b-col>
-          </b-row>
-          <b-row class="mb-2">
-            <b-col><h5>Total:</h5></b-col>
-            <b-col class="text-right">{{ totalPrice }}</b-col>
-          </b-row>
-          <b-row class="mb-2">
-            <b-col>
-              <b-form @submit.prevent="applyCoupon()">
-                <b-input-group prepend="Coupon code" size="sm">
-                  <b-form-input v-model="coupon_input"/>
-                  <b-input-group-append>
-                    <b-btn variant="secondary" @click.stop="applyCoupon()">
-                      Apply
-                    </b-btn>
-                  </b-input-group-append>
-                </b-input-group>
-              </b-form>
-            </b-col>
-          </b-row>
-          <p v-if="default_card && !ignoreSavedCard" class="text-right">
-            Saved card: {{ default_card.brand }}
-            / {{ default_card.last4 }}
-            <b-link class="ml-1" @click="removeCard">use new</b-link>
-          </p>
-          <b-row class="mb-2">
-            <b-col class="text-right">
-              <b-btn variant="primary" @click.stop="doCheckout()">Checkout</b-btn>
-            </b-col>
-          </b-row>
-        </b-col>
-      </b-row>
-    </div>
-    <b-modal
-      id="success-modal" ref="successModalRef"
-      title="Success!" centered ok-only>
-      <p>Hooray! Purchase successful.</p>
-    </b-modal>
-    <vue-stripe-checkout
-      ref="checkoutRef"
-      :name="checkout.name"
-      :image="checkout.image"
-      :locale="checkout.locale"
-      :currency="checkout.currency"
-      :allow-remember-me="checkout.allowRememberMe"
-      :zip-code="checkout.zipCode"
-      :description="checkout.description"
-      :amount="checkout.amount"
-      :email="checkout.email" />
+          <template slot="title" slot-scope="data">
+            {{ data.item.title }}
+            <div v-if="data.item.subtitle" class="subtitle">{{ data.item.subtitle }}</div>
+          </template>
+
+          <template slot="quantity" slot-scope="data">
+            <div v-if="data.item.type !== 'discount'" class="quantity">
+              <b-button
+                size="sm" variant="outline-secondary"
+                @click.stop="minusItem(data.item.id)">
+                <span class="fas fa-minus"/>
+              </b-button>
+              <span class="quantity-text">{{ data.item.quantity }}</span>
+              <b-button
+                size="sm" variant="outline-secondary"
+                @click.stop="plusItem(data.item.id)">
+                <span class="fas fa-plus"/>
+              </b-button>
+            </div>
+          </template>
+        </b-table>
+
+        <b-row v-if="total" align-h="end">
+          <b-col md="6" lg="4">
+            <b-row v-if="subtotal !== total" class="mb-2">
+              <b-col><h5>Subtotal:</h5></b-col>
+              <b-col class="text-right">{{ subtotalPrice }}</b-col>
+            </b-row>
+            <b-row v-if="itemDiscounts" class="mb-2">
+              <b-col sm="8"><h5>Member discounts:</h5></b-col>
+              <b-col class="text-right">{{ itemDiscountsPrice }}</b-col>
+            </b-row>
+            <b-row v-if="couponDiscount" class="mb-2">
+              <b-col sm="8">
+                <h5>Coupon ({{ couponName }}):</h5>
+                <b-link class="small" @click.stop="clearCoupon">Remove coupon</b-link>
+              </b-col>
+              <b-col class="text-right">{{ couponDiscountPrice }}</b-col>
+            </b-row>
+            <b-row class="mb-2">
+              <b-col><h5>Total:</h5></b-col>
+              <b-col class="text-right">{{ totalPrice }}</b-col>
+            </b-row>
+            <b-row class="mb-2">
+              <b-col>
+                <b-form @submit.prevent="applyCoupon()">
+                  <b-input-group prepend="Coupon code" size="sm">
+                    <b-form-input v-model="coupon_input"/>
+                    <b-input-group-append>
+                      <b-btn variant="secondary" @click.stop="applyCoupon()">
+                        Apply
+                      </b-btn>
+                    </b-input-group-append>
+                  </b-input-group>
+                </b-form>
+              </b-col>
+            </b-row>
+            <p v-if="default_card && !ignoreSavedCard" class="text-right">
+              Saved card: {{ default_card.brand }}
+              / {{ default_card.last4 }}
+              <b-link class="ml-1" @click="removeCard">use new</b-link>
+            </p>
+            <b-row class="mb-2">
+              <b-col class="text-right">
+                <b-btn variant="primary" @click.stop="doCheckout()">Checkout</b-btn>
+              </b-col>
+            </b-row>
+          </b-col>
+        </b-row>
+      </div>
+      <b-modal
+        id="success-modal" ref="successModalRef"
+        title="Success!" centered ok-only>
+        <p>Hooray! Purchase successful.</p>
+      </b-modal>
+      <vue-stripe-checkout
+        ref="checkoutRef"
+        :name="checkout.name"
+        :image="checkout.image"
+        :locale="checkout.locale"
+        :currency="checkout.currency"
+        :allow-remember-me="checkout.allowRememberMe"
+        :zip-code="checkout.zipCode"
+        :description="checkout.description"
+        :amount="checkout.amount"
+        :email="checkout.email"
+        @canceled="checkoutCanceled"
+      />
+    </no-ssr>
   </b-container>
 </template>
 
@@ -232,6 +236,10 @@
     },
     methods: {
       ...mapMutations('cart', ['minusItem', 'plusItem', 'deleteItem', 'clear', 'clearCoupon']),
+
+      checkoutCanceled() {
+        this.working = false;
+      },
 
       removeCard() {
         this.ignoreSavedCard = true;
@@ -373,13 +381,22 @@
 </script>
 
 <style lang="scss">
-  @keyframes spin {
-    100% { transform: rotate(360deg); }
+  .spinner {
+    display: flex;
+    height: 40vh;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+    .fa-spinner {
+      animation: spin 2s linear infinite;
+      margin: 0 auto;
+    }
   }
-  .fa-spinner {
-    animation: spin 2s linear infinite;
-    margin: 0 auto;
-  }
+
   #cart-items {
     .subtitle {
       font-size: .875rem;
