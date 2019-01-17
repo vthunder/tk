@@ -106,6 +106,7 @@
       classes() {
         return this
           .calendar_events
+          .filter(e => this.categories.includes(e.category))
           .filter(e => !this.catFilter.length || this.catFilter.includes(e.category))
           .filter(e => !e.calendar_hide)
           .filter(e => moment(e.start).isAfter())
@@ -123,6 +124,7 @@
           .calendar_event_masters
           .filter(e => e.featured)
           .filter(e => !e.calendar_hide)
+          .filter(e => this.categories.includes(e.category))
           .filter(e => !this.catFilter.length || this.catFilter.includes(e.category))
           .filter(e => !this.classes.filter(c => c.master_id === e.id).length)
           .map(e => ({
