@@ -138,7 +138,7 @@
     },
     methods: {
       ellipsis(string, max = 110) {
-        if (string.length > max) {
+        if (string && string.length > max) {
           return `${string.substring(0, max)} [...]`;
         }
         return string;
