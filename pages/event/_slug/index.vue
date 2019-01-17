@@ -1,6 +1,5 @@
 <template>
-  <div v-if="$apollo.loading" class="loading"><h3>Loading...</h3></div>
-  <div v-else class="container section">
+  <div class="container section">
     <b-row class="mt-2">
       <b-col md="7">
         <b-img
