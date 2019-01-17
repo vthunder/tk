@@ -52,12 +52,13 @@ module.exports = {
   /*
   ** Nuxt.js modules
   */
-  modules: [,
+  modules: [
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     '@nuxtjs/apollo',
     '@nuxtjs/dotenv',
     ['@nuxtjs/google-analytics', { id: 'UA-12301-2' }],
+    '@nuxtjs/sentry',
   ],
 
   'google-analytics': {
@@ -66,6 +67,11 @@ module.exports = {
       sendHitTask: process.env.VUE_APP_ENV === 'production',
     },
   },
+
+  sentry: {
+    dsn: 'https://e1a5f7ca830c44aabe1a3f27401b8a99@sentry.io/1374131',
+    config: {},
+  }
 
   /*
   ** Build configuration
