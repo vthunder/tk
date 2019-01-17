@@ -142,7 +142,6 @@
         },
         update: data => data.calendar_master,
       });
-      console.log(data.calendar_master);
       return { master: data.calendar_master };
     },
     data() {
