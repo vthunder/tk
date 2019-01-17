@@ -98,6 +98,7 @@
 </template>
 
 <script>
+  import { mapMutations } from 'vuex'
   import moment from 'moment';
   import VueMarkdown from 'vue-markdown';
   import * as auth from '@/graphql/auth';
@@ -196,6 +197,8 @@
       this.$root.$off('tk::event::book', this.book);
     },
     methods: {
+      ...mapMutations('cart', ['add']),
+
       formatPrice(p) {
         return format.priceWhole(p);
       },
@@ -240,7 +243,7 @@
           });
         }
 
-        this.$root.$emit('tk::cart::add', items);
+        this.add(items);
         this.$root.$on('tk::checkout::complete', this.payComplete);
         this.$router.push({ name: 'cart' });
       },
