@@ -109,7 +109,6 @@
       :currency="checkout.currency"
       :allow-remember-me="checkout.allowRememberMe"
       :zip-code="checkout.zipCode"
-      :panel-label="checkoutButtonLabel"
       :description="checkout.description"
       :amount="checkout.amount"
       :email="checkout.email" />
@@ -162,10 +161,6 @@
         items: state => state.items,
         coupon: state => state.coupon,
       }),
-
-      checkoutButtonLabel() {
-        return `Pay ${this.totalPrice}`;
-      },
 
       couponName() {
         if (this.coupon.name) return this.coupon.name;
