@@ -61,6 +61,14 @@ query CalendarMaster($id: Int, $slug: String) {
       all_day
       sku_id
     }
+    next_event {
+      id
+      status
+      start
+      duration
+      all_day
+      sku_id
+    }
   }
 }
 `,
@@ -103,6 +111,22 @@ query CalendarEventMasters {
     max_size
     ext_book_url
     ext_member_discount_code
+    events {
+      id
+      status
+      start
+      duration
+      all_day
+      sku_id
+    }
+    next_event {
+      id
+      status
+      start
+      duration
+      all_day
+      sku_id
+    }
   }
 }
 `,

@@ -14,8 +14,11 @@
       </b-col>
     </b-row>
 
-    <p v-if="!(classes.length && masters.length)">
+    <p v-if="!(classes.length || masters.length)">
       No matching events.
+    </p>
+    <p v-else-if="!classes.length">
+      No upcoming events.
     </p>
 
     <b-row class="justify-content-center">
@@ -103,36 +106,34 @@
       };
     },
     computed: {
-      classes() {
+      category_events() {
         return this
-          .calendar_events
+          .calendar_event_masters
+          .filter(e => !e.calendar_hide)
           .filter(e => this.categories.includes(e.category))
           .filter(e => !this.catFilter.length || this.catFilter.includes(e.category))
-          .filter(e => !e.calendar_hide)
-          .filter(e => moment(e.start).isAfter())
-          .sort((a, b) => (moment(a.start).isAfter(moment(b.start)) ? 1 : -1))
           .map(e => ({
             ...e,
             short_description: this.ellipsis(e.description, 110),
-            date: moment(e.start).format('dddd, MMMM Do YYYY, h a'),
             disp_price: format.priceWhole(e.price),
             disp_member_price: format.priceWhole(e.member_price),
           }));
       },
-      masters() {
-        return this
-          .calendar_event_masters
-          .filter(e => e.featured)
-          .filter(e => !e.calendar_hide)
-          .filter(e => this.categories.includes(e.category))
-          .filter(e => !this.catFilter.length || this.catFilter.includes(e.category))
-          .filter(e => !this.classes.filter(c => c.master_id === e.id).length)
+      classes() {
+        return this.category_events
+          .filter(e => e.next_event.start)
+          .sort((a, b) => (
+            moment(a.next_event.start)
+              .isAfter(moment(b.next_event.start)) ? 1 : -1))
           .map(e => ({
             ...e,
-            short_description: this.ellipsis(e.description, 110),
-            disp_price: format.priceWhole(e.price),
-            disp_member_price: format.priceWhole(e.member_price),
+            date: moment(e.next_event.start).format('dddd, MMMM Do YYYY, h a'),
           }));
+      },
+      masters() {
+        return this.category_events
+          .filter(e => !this.classes.filter(c => c.master_id === e.id).length)
+          .filter(e => e.featured);
       },
     },
     methods: {
