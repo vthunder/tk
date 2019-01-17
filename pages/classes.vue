@@ -26,7 +26,7 @@
         <b-row>
           <b-col v-for="event in classes" :key="event.id" md="6">
             <nuxt-link
-              :to="{ name: 'event-slug', params: { slug: event.slug }, query: { id: event.id } }"
+              :to="{ name: 'event-slug', params: { slug: event.slug }, query: { id: event.next_event.id } }"
               class="card-link">
               <b-card
                 :title="event.title"
