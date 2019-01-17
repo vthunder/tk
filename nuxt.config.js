@@ -94,11 +94,7 @@ module.exports = {
     authenticationType: 'Bearer', // optional, default: 'Bearer'
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://localhost:3333/api',
-        wsEndpoint: null,
-      },
-      test: {
-        httpEndpoint: 'http://localhost:3333/api',
+        httpEndpoint: process.env.VUE_APP_GRAPHQL_HTTP,
         wsEndpoint: null,
       },
     }
