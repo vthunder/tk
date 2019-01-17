@@ -107,6 +107,7 @@
         return this
           .calendar_events
           .filter(e => !this.catFilter.length || this.catFilter.includes(e.category))
+          .filter(e => !e.calendar_hide)
           .filter(e => moment(e.start).isAfter())
           .sort((a, b) => (moment(a.start).isAfter(moment(b.start)) ? 1 : -1))
           .map(e => ({
@@ -121,6 +122,7 @@
         return this
           .calendar_event_masters
           .filter(e => e.featured)
+          .filter(e => !e.calendar_hide)
           .filter(e => !this.catFilter.length || this.catFilter.includes(e.category))
           .filter(e => !this.classes.filter(c => c.master_id === e.id).length)
           .map(e => ({
