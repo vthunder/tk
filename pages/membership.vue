@@ -173,16 +173,17 @@
         },
       };
     },
+    computed: {
+      checkoutButtonLabel() {
+        return `Subscribe (monthly)`;
+      },
+    },
     apollo: {
       me: auth.query.me,
       monthly: monthlyQuery,
       yearly: yearlyQuery,
     },
     methods: {
-      checkoutButtonLabel() {
-        return `Subscribe (monthly)`;
-      },
-
       async signup(plan, code) {
         await this.$apollo.mutate({ mutation: customerQueries.mutation.get_or_create_customer });
         this.checkout.description = plan.metadata.billing_description;
