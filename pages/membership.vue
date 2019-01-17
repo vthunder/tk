@@ -138,7 +138,7 @@
       :currency="checkout.currency"
       :allow-remember-me="checkout.allowRememberMe"
       :zip-code="checkout.zipCode"
-      :panel-label="checkoutButtonLabel"
+      :panel-label="checkoutButton"
       :description="checkout.description"
       :amount="checkout.amount"
       :email="checkout.email" />
@@ -150,6 +150,7 @@
   import * as customerQueries from '@/graphql/customer';
   import { monthlyQuery, yearlyQuery } from '@/lib/plans';
   import * as auth from '@/graphql/auth';
+  import * as format from '@/lib/format';
 
   export default {
     components: {
@@ -174,8 +175,10 @@
       };
     },
     computed: {
-      checkoutButtonLabel() {
-        return `Subscribe (monthly)`;
+      checkoutButton() {
+        const plan = (this.checkout.amount <= 15000) ? 'month' : 'year';
+        const price = format.priceWhole(this.checkout.amount);
+        return `Subscribe (${price}/${plan})`;
       },
     },
     apollo: {
@@ -189,6 +192,10 @@
         this.checkout.description = plan.metadata.billing_description;
         this.checkout.amount = (code === 'KS_CONVERT') ? plan.ks_amount : plan.amount;
         this.checkout.email = this.me.email;
+
+        // hack hack hack - work around strange vue / vue-stripe-checkout bug
+        await new Promise(resolve => setTimeout(resolve, 1));
+
         const { token, args } = await this.$refs.checkoutRef.open();
 
         if (token) {

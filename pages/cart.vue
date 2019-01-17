@@ -298,6 +298,9 @@
         this.checkout.amount = order.amount;
         if (this.me) this.checkout.email = this.me.email;
 
+        // hack hack hack - work around strange vue / vue-stripe-checkout bug
+        await new Promise(resolve => setTimeout(resolve, 1));
+
         const { token, args } = await this.$refs.checkoutRef.open();
 
         if (token) {
