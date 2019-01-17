@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import * as format from '@/lib/format';
 
 export const state = () => ({
