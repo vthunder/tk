@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="footer">
     <b-container fluid class="ml-signup mt-4 py-4">
       <b-row class="justify-content-center">
         <b-col md="10">
