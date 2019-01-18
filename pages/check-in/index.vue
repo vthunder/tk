@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="top-half">
-      <div class="logo"><img src="/images/logo - orange - url.png"></div>
+      <div class="logo"><img src="/images/Logo - orange - url.png"></div>
       <no-ssr>
         <qrcode-stream :camera="{ facingMode: 'user' }" @decode="onDecode"/>
       </no-ssr>
