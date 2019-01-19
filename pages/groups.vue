@@ -114,6 +114,17 @@
             dining (not cooking).</p>
         </b-tab>
         <b-tab title="Space Rental">
+          <b-row>
+            <b-col sm="4">
+              <img class="space-img" src="/images/Space photos/IMG_2581.jpg">
+            </b-col>
+            <b-col sm="4">
+              <img class="space-img" src="/images/Space photos/IMG_2576.jpg">
+            </b-col>
+            <b-col sm="4">
+              <img class="space-img" src="/images/Space photos/IMG_2573.jpg">
+            </b-col>
+          </b-row>
           <b-card-group deck>
             <b-card
               title="Partial space rental"
@@ -186,5 +197,8 @@
     border-radius: 4px;
     margin-top: 1em;
     padding: .5em;
+  }
+  .space-img {
+    width: 100%;
   }
 </style>
