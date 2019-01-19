@@ -13,8 +13,7 @@
           certificate coupon you can print, or we can send it
           directly to the recipient if you prefer.</p>
 
-        <p v-if="me">We'll use the email you signed in with.</p>
-        <p v-else>
+        <p v-if="!me.name">
           We'll get your email during
           checkout. Make sure you type it in correctly!</p>
 
@@ -100,6 +99,7 @@
     },
     data() {
       return {
+        me: {},
         count: {
           gc35: 1,
           gc80: 1,
@@ -115,22 +115,22 @@
         ],
         info: {
           gc35: {
-            sku: process.env.VUE_APP_SKU_GIFT_CERT_35,
+            sku: process.env.SKU_GIFT_CERT_35,
             title: 'Gift Certificate ($35)',
             amount: 3500,
           },
           gc80: {
-            sku: process.env.VUE_APP_SKU_GIFT_CERT_80,
+            sku: process.env.SKU_GIFT_CERT_80,
             title: 'Gift Certificate ($80)',
             amount: 8000,
           },
           gc150: {
-            sku: process.env.VUE_APP_SKU_GIFT_CERT_150,
+            sku: process.env.SKU_GIFT_CERT_150,
             title: 'Gift Certificate ($150)',
             amount: 15000,
           },
           gc1500: {
-            sku: process.env.VUE_APP_SKU_GIFT_CERT_1500,
+            sku: process.env.SKU_GIFT_CERT_1500,
             title: 'Gift Certificate ($1500)',
             amount: 150000,
           },

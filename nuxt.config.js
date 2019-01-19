@@ -4,6 +4,13 @@ require('dotenv').config()
 module.exports = {
   mode: 'universal',
 
+  env: {
+    SKU_GIFT_CERT_35: process.env.SKU_GIFT_CERT_35,
+    SKU_GIFT_CERT_80: process.env.SKU_GIFT_CERT_80,
+    SKU_GIFT_CERT_150: process.env.SKU_GIFT_CERT_150,
+    SKU_GIFT_CERT_1500: process.env.SKU_GIFT_CERT_1500,
+  },
+
   /*
   ** Headers of the page
   */
@@ -64,12 +71,12 @@ module.exports = {
   'google-analytics': {
     id: 'UA-54365170-1',
     debug: {
-      sendHitTask: process.env.VUE_APP_ENV === 'production',
+      sendHitTask: process.env.APP_ENV === 'production',
     },
   },
 
   sentry: {
-    dsn: 'https://e1a5f7ca830c44aabe1a3f27401b8a99@sentry.io/1374131',
+    dsn: process.env.SENTRY_DSN,
     config: {},
   },
 
@@ -101,8 +108,8 @@ module.exports = {
     authenticationType: 'Bearer', // optional, default: 'Bearer'
     clientConfigs: {
       default: {
-        httpEndpoint: process.env.VUE_APP_GRAPHQL_HTTP,
-        wsEndpoint: null,
+        httpEndpoint: process.env.GRAPHQL_HTTP,
+        wsEndpoint: process.env.GRAPHQL_WS || null,
       },
     }
   },
