@@ -8,7 +8,7 @@
       team offsite, dinner party, or even a larger celebration.</p>
 
     <b-card no-body>
-      <b-tabs card>
+      <b-tabs v-model="tabIndex" card>
         <b-tab title="Team Building" active>
           <p>
             Looking for a fun cooking-themed team offsite
@@ -155,6 +155,18 @@
 
 <script>
   export default {
+    data() {
+      return {
+        tabIndex: 0,
+      };
+    },
+    mounted() {
+      if (this.$route.hash.match(/(Dinner%20)?Party/)) {
+        this.tabIndex = 1;
+      } else if (this.$route.hash.match(/(Space%20)?Rental/)) {
+        this.tabIndex = 2;
+      }
+    },
     head() {
       return {
         title: 'Groups & Events',
