@@ -133,7 +133,7 @@
     },
     data() {
       return {
-        me: null,
+        me: {},
         customer_payment_sources: null,
         coupon_input: '',
         showAlert: false,
