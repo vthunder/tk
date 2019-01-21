@@ -3,22 +3,18 @@
     <b-row class="justify-content-center">
       <b-col lg="9">
         <!-- eslint-disable-next-line -->
-        <FullCalendar :eventSources="events" :config="config" />
+        <full-calendar :eventSources="events" :config="config" />
       </b-col>
     </b-row>
   </div>
 </template>
 
 <script>
-  import { FullCalendar } from 'vue-full-calendar';
   import * as misc from '@/graphql/misc';
 
   export default {
     apollo: {
       calendar_events: misc.query.calendar_events,
-    },
-    components: {
-      FullCalendar,
     },
     data() {
       return {
