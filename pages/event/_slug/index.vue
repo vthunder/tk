@@ -24,6 +24,7 @@
           </h4>
           <vue-markdown v-if="master.sidebar_pre_text" :source="master.sidebar_pre_text" />
           <div v-if="event_opts.length">
+            <b-form-select v-model="which_event" :options="event_opts" />
             <div v-if="master.ext_book_url">
               <b-button
                 :href="master.ext_book_url"
@@ -33,7 +34,6 @@
               </div>
             </div>
             <div v-else>
-              <b-form-select v-model="which_event" :options="event_opts" />
               <b-form class="booking_form" inline>
                 <b-form-select v-model="how_many" :options="num_options" />
                 <b-button variant="primary" @click="book()">Add to Cart</b-button>
