@@ -56,14 +56,14 @@
         query: products.query.user_passes,
         variables: { type: 'class' },
         update(data) {
-          return data.user_passes;
+          return data.user_passes || [];
         },
       },
       day_passes: {
         query: products.query.user_passes,
         variables: { type: 'day_pass' },
         update(data) {
-          return data.user_passes;
+          return data.user_passes || [];
         },
       },
     },
