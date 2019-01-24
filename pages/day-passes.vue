@@ -100,19 +100,10 @@
       },
     },
     mounted() {
-      this.$root.$on('tk::coupon-modal::complete', this.refresh);
-      this.$root.$on('tk::checkout::complete', this.refresh);
     },
     methods: {
       ...mapMutations('cart', ['add']),
 
-      refresh() {
-        this.$apollo.provider.defaultClient.cache.reset();
-        ['me', 'user_passes'].forEach((q) => {
-          this.$apollo.queries[q].refetch();
-        });
-        window.location.reload();
-      },
       buyDayPass() {
         const sku = this.day_pass_skus.nonmember_1;
         const qty = parseInt(this.how_many, 10);
