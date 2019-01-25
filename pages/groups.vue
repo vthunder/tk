@@ -96,23 +96,6 @@
             hello@tinkerkitchen.org so we can
             schedule. Can't wait to cook with you!</p>
         </b-tab>
-        <b-tab title="Dinner Party">
-          <p>Available to members only:</p>
-          <p>
-            Tinker Kitchen is the perfect space for your
-            dinner party!</p>
-          <p>
-            As a member, you can always bring a +1 with you
-            to cook anytime. Additional people cooking
-            (3+) are just $25 each. But what if you want
-            to cook up a storm and have some friends join
-            you for dinner? The answer: dinner party
-            passes!</p>
-          <p>
-            You can invite up to 10 additional guests to have dinner
-            for <strong>just $10 each</strong>. Guests limited to
-            dining (not cooking).</p>
-        </b-tab>
         <b-tab title="Space Rental">
           <b-row>
             <b-col sm="4">

@@ -82,7 +82,7 @@
           </div>
           <div class="mb-4 pl-5 col-sm-6 col-md-4">
             <span class="oi oi-people feature-icon"/>
-            <h6 class="mb-2">Guests welcome</h6>
+            <h6 class="mb-2">Plus-ones welcome</h6>
             <p>
               Free entry for one guest anytime you
               come. Because cooking together is twice the fun.</p>
