@@ -25,6 +25,7 @@
     "lodash": "^4.17.11",
     "moment": "^2.23.0",
     "nuxt": "^2.0.0",
+    "nuxt-start": "^2.3.4",
     "open-iconic": "^1.1.1",
     "vue-full-calendar": "^2.7.0",
     "vue-markdown": "^2.2.4",

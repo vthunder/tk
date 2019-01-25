@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "tk-frontend",
-      "script": "./node_modules/.bin/nuxt",
+      "script": "./node_modules/.bin/nuxt-start",
       "cwd": "deployments/current",
       "exec_mode": "cluster_mode",
       "instances": 2,
