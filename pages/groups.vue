@@ -155,10 +155,8 @@
       };
     },
     mounted() {
-      if (this.$route.hash.match(/(Dinner%20)?Party/)) {
+      if (this.$route.hash.match(/(Space%20)?Rental/)) {
         this.tabIndex = 1;
-      } else if (this.$route.hash.match(/(Space%20)?Rental/)) {
-        this.tabIndex = 2;
       }
     },
     head() {
