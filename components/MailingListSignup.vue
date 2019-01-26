@@ -6,7 +6,7 @@
     <b-alert :show="failure" variant="danger">
       {{ failureMsg }}
     </b-alert>
-    <b-form v-if="showForm" @submit="onSubmit" @reset="onReset">
+    <b-form v-if="showForm" @submit.prevent="onSubmit" @reset="onReset">
       <div class="cta-text">{{ cta }}</div>
       <b-form-group label="Email" label-sr-only label-for="ml-email-field">
         <b-input-group>
@@ -37,7 +37,7 @@
     },
     data() {
       return {
-        me: null,
+        me: {},
         success: false,
         successMsg: 'Thanks! Check your email to confirm your subscription.',
         failure: false,
@@ -49,13 +49,7 @@
       };
     },
     apollo: {
-      me: {
-        query: auth.query.me,
-        update(data) {
-          if (data.me) return data.me;
-          return null;
-        },
-      },
+      me: auth.query.me,
     },
     methods: {
       onSubmit() {
