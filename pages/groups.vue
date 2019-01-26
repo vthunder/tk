@@ -134,6 +134,29 @@
                 needed. 2 weeks advance booking required.</p>
             </b-card>
           </b-card-group>
+          <b-card class="mt-2">
+            <b-row>
+              <b-col sm="6">
+                <h4 class="text-center">What's included</h4>
+                <ul>
+                  <li>
+                    Full kitchen access (see our <a href="/about#equipment">equipment list</a>)
+                  </li>
+                  <li>Dining access</li>
+                  <li>Projector & whiteboards</li>
+                  <li>Excellent WiFi</li>
+                </ul>
+              </b-col>
+              <b-col sm="6">
+                <h4 class="text-center">Capacity</h4>
+                <ul>
+                  <li>40 seated (for a talk)</li>
+                  <li>20-25 seated with tables</li>
+                  <li>20-30 in the kitchen (depending on the activity)</li>
+                </ul>
+              </b-col>
+            </b-row>
+          </b-card>
         </b-tab>
       </b-tabs>
     </b-card>
