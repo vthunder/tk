@@ -235,7 +235,8 @@
       },
     },
     methods: {
-      ...mapMutations('cart', ['minusItem', 'plusItem', 'deleteItem', 'clear', 'clearCoupon']),
+      ...mapMutations('cart', ['minusItem', 'plusItem', 'deleteItem', 'clear',
+                               'setCoupon', 'clearCoupon']),
 
       checkoutCanceled() {
         this.working = false;
@@ -368,7 +369,7 @@
           query: misc.query.get_cart_coupon,
           variables: { code: this.coupon_input },
         });
-        // this.$root.$emit('tk::cart::setCoupon', ret);
+        this.setCoupon(ret);
         this.coupon_input = '';
       },
     },
