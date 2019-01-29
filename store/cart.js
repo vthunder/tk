@@ -13,8 +13,9 @@ export const mutations = {
    *       type-specific ID e.g.: sku:sku_DyIJDRjZCbcNmR, discount:1
    *   type: String: type (same as in id)
    *   sku: String: Stripe sku id of the item
+   *   plan: String: Stripe plan id of the item
    *   discount_for: Array: list of item ids the discount applies to
-   *   discount_per: String: 'order' (1x per order, across skus),
+   *   discount_per: String: 'order' (1x per order, across skus/items),
    *                         'item' (1x per total qty)
    *   title: String
    *   subtitle: String
@@ -38,8 +39,8 @@ export const mutations = {
         state.items[idx].quantity += newItem.quantity;
       } else {
         // adding discount that already exists; update its discount_for array
-        const forSkus = _.union(state.items[idx].discount_for, newItem.discount_for);
-        state.items[idx].discount_for = forSkus;
+        const forItems = _.union(state.items[idx].discount_for, newItem.discount_for);
+        state.items[idx].discount_for = forItems;
       }
 
       // recompute amount and formatted price
