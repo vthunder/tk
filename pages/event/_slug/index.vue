@@ -234,6 +234,7 @@
 
         const items = [{
           id: `sku:${this.event.sku_id}`,
+          type: 'sku',
           sku: this.event.sku_id,
           quantity: qty,
           title: this.master.title,
