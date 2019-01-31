@@ -37,11 +37,11 @@
     },
     methods: {
       showModal() {
-        if (this.prop.next_route) {
-          localStorage.nextRoute = JSON.stringify(this.prop.next_route);
+        if (this.next_route) {
+          localStorage.nextRoute = JSON.stringify(this.next_route);
         }
-        if (this.prop.next_action) {
-          localStorage.nextAction = this.prop.next_action;
+        if (this.next_action) {
+          localStorage.nextAction = this.next_action;
         }
         this.$root.$emit('bv::show::modal', 'auth-modal');
       },
