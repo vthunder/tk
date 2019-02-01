@@ -30,7 +30,6 @@
           views: {
             month: {
               timeFormat: 'h(:mm)t',
-              hiddenDays: [2],
             },
           },
           themeSystem: 'bootstrap4',
