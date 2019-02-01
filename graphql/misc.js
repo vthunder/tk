@@ -198,4 +198,9 @@ mutation ClassInterest($email: String!, $master_id: Int!) {
   class_interest(email: $email, master_id: $master_id)
 }
 `,
+  check_in_qr_scan: gql`
+mutation CheckInQrScan($qr_data: String!) {
+  check_in_qr_scan(qr_data: $qr_data)
+}
+`,
 };
