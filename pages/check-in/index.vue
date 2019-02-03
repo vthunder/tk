@@ -2,38 +2,58 @@
   <div>
     <div class="top-half">
       <div class="logo"><img src="/images/Logo - orange - url.png"></div>
-      <no-ssr>
-        <qrcode-stream :camera="{ facingMode: 'user' }" @decode="onDecode"/>
-      </no-ssr>
       <div class="check-in-button">
         <b-btn :to="{ name: 'check-in-2' }">Tap to check in &gt;</b-btn>
       </div>
     </div>
     <div class="bottom-half">
-      <h4 class="text-center mt-4 pt-4">{{ qrData }}</h4>
-      <nuxt-link :to="{ name: 'check-in-returning' }" class="been-here-link">
-        Been here before?
-      </nuxt-link>
+      <b-link class="qr-link" href="#" @click="getQrScan">I just scanned a QR code</b-link>
     </div>
   </div>
 </template>
 
 <script>
-  const QrcodeStream =
-    process.client ? require('vue-qrcode-reader').QrcodeStream : undefined;
-
+  import gql from 'graphql-tag';
+  import { mapState, mapMutations } from 'vuex'
+  import * as misc from '@/graphql/misc';
   export default {
     components: {
-      QrcodeStream,
     },
     data() {
       return {
-        qrData: '',
+        latest_qr_scan_info: {},
       };
     },
+    apollo: {
+      $subscribe: {
+        new_qr_scan: {
+          query: misc.subscription.new_qr_scan,
+          result(data) {
+            this.latest_qr_scan_info = data.data.new_qr_scan;
+            this.qrScan(data.data.new_qr_scan);
+          },
+        },
+      },
+    },
+    computed: {
+      ...mapState('checkin', {
+        qrData: state => state.qrData,
+      }),
+    },
+    mounted() {
+      this.clearQrData();
+    },
     methods: {
-      onDecode(str) {
-        this.qrData = str;
+      ...mapMutations('checkin', ['setQrData', 'clearQrData']),
+
+      async getQrScan() {
+        const ret = await this.$apollo.query({ query: misc.query.get_latest_qr_scan });
+        this.qrScan(ret.data.get_latest_qr_scan);
+      },
+
+      qrScan(qrData) {
+        this.setQrData(qrData);
+        this.$router.push({ name: 'check-in-2'});
       },
     },
   };
@@ -88,7 +108,7 @@
     background-color: #ddd;
     height: 40%;
 
-    .been-here-link {
+    .qr-link {
       position: absolute;
       bottom: 2em;
       left: 0;

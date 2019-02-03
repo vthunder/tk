@@ -162,6 +162,17 @@ query GetCartCoupon($code: String!) {
   }
 }
 `,
+  get_latest_qr_scan: gql`
+query getLatestQrScan {
+  get_latest_qr_scan {
+    type
+    name
+    email
+    status
+    agreed_terms
+  }
+}
+`,
 };
 
 export const mutation = {
@@ -203,4 +214,18 @@ mutation CheckInQrScan($qr_data: String!) {
   check_in_qr_scan(qr_data: $qr_data)
 }
 `,
+};
+
+export const subscription = {
+  new_qr_scan: gql`
+subscription newQrScan {
+  new_qr_scan {
+    type
+    name
+    email
+    status
+    agreed_terms
+  }
+}
+`
 };

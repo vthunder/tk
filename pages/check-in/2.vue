@@ -7,11 +7,11 @@
 
     <div class="center-form">
       <h2>Full name</h2>
-      <b-form-input/>
+      <b-form-input v-model="name" />
       <h2 class="mt-4">Email address</h2>
-      <b-form-input/>
+      <b-form-input v-model="email" />
       <h2 class="mt-4">I am a...</h2>
-      <b-select/>
+      <b-select v-model="userType" :options="userTypeOpts" />
       <h2 class="mt-4">
         <b-form-checkbox id="mladd" v-model="mladd" class="ml-add">
           Add me to the TK mailing list
@@ -26,11 +26,33 @@
 </template>
 
 <script>
+  import { mapState, mapMutations } from 'vuex'
   export default {
     data() {
       return {
         mladd: false,
+        name: '',
+        email: '',
+        userType: '',
+        userTypeOpts: [
+          { value: 'guest', text: 'Guest'},
+          { value: 'member', text: 'Member'},
+        ],
       };
+    },
+    computed: {
+      ...mapState('checkin', {
+        qrData: state => state.qrData,
+      }),
+    },
+    mounted() {
+      if (this.qrData) {
+        this.name = qrData.name;
+        this.email = qrData.email;
+      }
+    },
+    methods: {
+      ...mapMutations('checkin', ['clearQrData']),
     },
   };
 </script>
