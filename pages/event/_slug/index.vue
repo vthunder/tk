@@ -179,6 +179,7 @@
       },
       event_opts() {
         return (this.master.events||[])
+          .filter(e => e.status !== 'closed')
           .map((e) => {
             // fixme: add all_day support
             const start = moment(e.start).format('dddd MMMM Do h:mm a');
