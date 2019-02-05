@@ -34,10 +34,13 @@
               </div>
             </div>
             <div v-else>
-              <b-form class="booking_form" inline>
+              <b-form v-if="event.status === 'open'" class="booking_form" inline>
                 <b-form-select v-model="how_many" :options="num_options" />
                 <b-button variant="primary" @click="book()">Add to Cart</b-button>
               </b-form>
+              <div v-if="event.status === 'soldout'">
+                <h4 class="mt-3">Sorry, this date is sold out!</h4>
+              </div>
             </div>
           </div>
           <vue-markdown
@@ -52,10 +55,18 @@
             </div>
             <div v-else>
               <div v-if="event_opts.length" class="mt-4">
-                <h4>None of these dates work?</h4>
-                <p>
-                  Sign up below and we'll let you know
-                  when we add new dates to the schedule!</p>
+                <div v-if="event.status === 'soldout'">
+                  <p>
+                    Choose a different date, or sign up below and
+                    we'll let you know when we add new dates to the
+                    schedule.</p>
+                </div>
+                <div v-else>
+                  <h4>None of these dates work?</h4>
+                  <p>
+                    Sign up below and we'll let you know
+                    when we add new dates to the schedule!</p>
+                </div>
               </div>
               <div v-else>
                 <h3>Interested?</h3>
@@ -159,6 +170,7 @@
         success_modal: false,
         interested_email: '',
         interested_success: false,
+        which_event: 0,
       };
     },
     computed: {
@@ -167,7 +179,6 @@
       },
       event_opts() {
         return (this.master.events||[])
-          .filter(e => e.status === 'open')
           .map((e) => {
             // fixme: add all_day support
             const start = moment(e.start).format('dddd MMMM Do h:mm a');
