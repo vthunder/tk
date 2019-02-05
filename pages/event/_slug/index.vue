@@ -119,9 +119,8 @@
         update(data) {
           if (!this.which_event &&
               data.calendar_master &&
-              data.calendar_master.events &&
-              data.calendar_master.events.length) {
-            this.which_event = data.calendar_master.events[0].id;
+              data.calendar_master.next_event) {
+            this.which_event = data.calendar_master.next_event.id;
           }
           return data.calendar_master;
         },
@@ -170,7 +169,7 @@
         success_modal: false,
         interested_email: '',
         interested_success: false,
-        which_event: 0,
+        which_event: null,
       };
     },
     computed: {
@@ -206,7 +205,6 @@
       },
     },
     mounted() {
-      this.$root.$on('tk::event::book', this.book);
       this.which_event = this.$route.query.id;
     },
     destroyed() {
