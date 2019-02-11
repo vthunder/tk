@@ -2,11 +2,6 @@
   <b-container>
     <h1 class="mt-4">Group Events</h1>
 
-    <p>
-      There are several ways to have a group activity at Tinker
-      Kitchen! We're a perfect space for a small cooking-themed
-      team offsite, dinner party, or even a larger celebration.</p>
-
     <b-card no-body>
       <b-tabs v-model="tabIndex" card>
         <b-tab title="Team Building" active>
@@ -83,11 +78,9 @@
               problem! Just order something in (e.g., pizza)
               and eat in our dining area.</li>
             <li>
-              Because we are a makerspace, our regular
-              members may drop by during the event. If
-              you’d like exclusive use of the space, you
-              can do a private event buy-out for an
-              additional $475 for 4 hours.</li>
+              Events larger than 20 people are booked as private
+              events at no extra cost. Smaller events can be made
+              private for an additional buy-out cost.</li>
           </ul>
 
           <h2 class="text-center">Ready to book?</h2>
@@ -108,6 +101,88 @@
               <img class="space-img" src="/images/Space photos/IMG_2573.jpg">
             </b-col>
           </b-row>
+          <b-row align-h="center" class="mt-3">
+            <b-col sm="10">
+              <p>
+                Our space is great for:
+              </p>
+              <ul>
+                <li>Cooking classes</li>
+                <li>Private dinners</li>
+                <li>Cooking-centric team building events</li>
+                <li>Food photo shoots</li>
+              </ul>
+              <p>
+                Our space is like a kitchen playground. We have an
+                enormous kitchen in an open-plan space with every
+                piece of equipment you could imagine, plus plenty of
+                space to eat and hang out.
+              </p>
+              <p>
+                You'll have a wide choice of possible activities, with
+                multiple ovens, including a German-made "combi oven"
+                with built-in humidity/steam control, commercial
+                deep-fryer, and even a real wok range. We also have a
+                commercial pasta extruder, ice cream machines
+                (several!), chocolate-making tools, and even coffee
+                roasters and an espresso machine.
+              </p>
+              <p>
+                Our 1700sqft open-concept space has tall ceilings and
+                lots of natural light, making it very spacious and
+                comfortable. And we've designed it to be easy to
+                re-arrange for different needs—whether you're looking
+                to have a chef come in and do a demonstration, a team
+                cooking competition, a photo shoot, or something
+                completely different.
+              </p>
+            </b-col>
+          </b-row>
+
+          <b-row align-h="center" class="mt-3">
+            <b-col sm="10">
+              <h2 class="text-center">Included in your booking</h2>
+              <b-row>
+                <b-col sm="6">
+                  <ul>
+                    <li>Projector</li>
+                    <li>Whiteboards</li>
+                    <li>Excellent WiFi</li>
+                    <li>Dining area access</li>
+                    <li>Tables & Chairs</li>
+                  </ul>
+                </b-col>
+                <b-col sm="6">
+                  <ul>
+                    <li>
+                      Full kitchen access (<a href="/about#equipment">equipment list</a>)
+                      <ul>
+                        <li>4 commercial ovens (including a combi oven)</li>
+                        <li>Restaurant-grade pasta extruder</li>
+                        <li>Ice cream machines</li>
+                        <li>A Thermomix multi-cooker</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </b-col>
+              </b-row>
+            </b-col>
+          </b-row>
+          <b-row align-h="center" class="mt-3">
+            <b-col sm="10">
+              <h2 align="center">Capacity</h2>
+              <p>
+                Our space is 1700 sqft in total, and designed to
+                easily adapted to support different uses.
+              </p>
+              <ul>
+                <li>40 seated (for a talk)</li>
+                <li>20-25 seated with tables</li>
+                <li>20-35 in the kitchen (depending on the activity)</li>
+              </ul>
+            </b-col>
+          </b-row>
+          <h2 align="center">Rental Options</h2>
           <b-card-group deck>
             <b-card
               title="Partial space rental"
@@ -134,29 +209,6 @@
                 needed. 2 weeks advance booking required.</p>
             </b-card>
           </b-card-group>
-          <b-card class="mt-2">
-            <b-row>
-              <b-col sm="6">
-                <h4 class="text-center">What's included</h4>
-                <ul>
-                  <li>
-                    Full kitchen access (see our <a href="/about#equipment">equipment list</a>)
-                  </li>
-                  <li>Dining access</li>
-                  <li>Projector & whiteboards</li>
-                  <li>Excellent WiFi</li>
-                </ul>
-              </b-col>
-              <b-col sm="6">
-                <h4 class="text-center">Capacity</h4>
-                <ul>
-                  <li>40 seated (for a talk)</li>
-                  <li>20-25 seated with tables</li>
-                  <li>20-30 in the kitchen (depending on the activity)</li>
-                </ul>
-              </b-col>
-            </b-row>
-          </b-card>
         </b-tab>
       </b-tabs>
     </b-card>
