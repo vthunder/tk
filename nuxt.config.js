@@ -67,7 +67,16 @@ module.exports = {
     '@nuxtjs/dotenv',
     ['@nuxtjs/google-analytics', { id: 'UA-12301-2' }],
     '@nuxtjs/sentry',
+    '@nuxtjs/axios',
   ],
+
+  axios: {
+    proxy: true,
+  },
+
+  proxy: {
+    '/prod/': 'https://tinkerkitchen.org',
+  },
 
   'google-analytics': {
     id: 'UA-54365170-1',
