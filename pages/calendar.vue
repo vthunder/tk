@@ -4,6 +4,9 @@
       <b-col lg="9">
         <!-- eslint-disable-next-line -->
         <full-calendar :eventSources="events" :config="config" />
+        <b-card>
+          <div>Standard opening hours: 10am-9pm Wed-Mon (closed Tue)</div>
+        </b-card>
       </b-col>
     </b-row>
   </div>
@@ -20,6 +23,11 @@
       return {
         calendar_events: [],
         config: {
+          businessHours: {
+            dow: [ 0, 1, 3, 4, 5, 6 ], // days of week. (0=Sunday)
+            start: '10:00', // 10am start time
+            end: '21:00', // 9pm end time
+          },
           defaultView: 'month',
           header: {
             left: 'title',
