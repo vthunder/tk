@@ -64,7 +64,7 @@
               <b-card title="One Topic" class="text-center">$80/person</b-card>
               <b-card title="Two topics" class="text-center">$105/person</b-card>
             </b-card-group>
-            <p class="text-center mt-2">Liquid nitrogen add-on: $15/person</p>
+            <p class="text-center mt-2">Liquid nitrogen add-on: $15/person ($150 min)</p>
           </div>
 
           <ul class="mt-4">
