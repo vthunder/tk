@@ -181,6 +181,11 @@ mutation CreateCalendarEvent($event_data: EventInput!) {
   create_calendar_event(event_data: $event_data)
 }
 `,
+  create_calendar_hold: gql`
+mutation CreateCalendarHold($event_data: HoldInput!) {
+  create_calendar_hold(event_data: $event_data)
+}
+`,
   mailing_list_signup: gql`
 mutation MailingListSignup($name: String, $email: String!) {
   mailing_list_signup(name: $name, email: $email)
