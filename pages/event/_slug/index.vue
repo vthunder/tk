@@ -181,8 +181,8 @@
           .filter(e => e.status !== 'closed')
           .map((e) => {
             // fixme: add all_day support
-            const start = moment(e.start).format('dddd MMMM Do h:mm a');
-            const end = moment(e.start).add(e.duration, 'hours').format('h:mm a');
+            const start = moment.utc(e.start).format('dddd MMMM Do h:mm a');
+            const end = moment.utc(e.start).add(e.duration, 'hours').format('h:mm a');
             return {
               value: e.id,
               text: `${start} - ${end}`,
@@ -191,7 +191,8 @@
       },
       event() {
         const id = parseInt(this.which_event, 10);
-        return this.master.events.find(e => e.id === id);
+        const event = this.master.events.find(e => e.id === id);
+        return event || {};
       },
       show_member_discount() {
         if ((this.me.is_member || this.me.is_free_member) &&
@@ -248,7 +249,7 @@
           sku: this.event.sku_id,
           quantity: qty,
           title: this.master.title,
-          subtitle: moment(this.event.start).format('dddd MMMM Do h:mm a'),
+          subtitle: moment.utc(this.event.start).format('dddd MMMM Do h:mm a'),
           amount_each: this.master.price,
         }];
         if (discount) {
@@ -277,7 +278,7 @@
         if (ret === 'OK') this.interested_success = true;
       },
     },
-    metaInfo() {
+    head() {
       return {
         title: this.master.title,
       };
