@@ -123,11 +123,11 @@
         return this.category_events
           .filter(e => e.next_event.start)
           .sort((a, b) => (
-            moment(a.next_event.start)
-              .isAfter(moment(b.next_event.start)) ? 1 : -1))
+            moment.utc(a.next_event.start)
+              .isAfter(moment.utc(b.next_event.start)) ? 1 : -1))
           .map(e => ({
             ...e,
-            date: moment(e.next_event.start).format('dddd, MMMM Do YYYY, h a'),
+            date: moment.utc(e.next_event.start).format('dddd, MMMM Do YYYY, h a'),
           }));
       },
       masters() {
