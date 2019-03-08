@@ -7,6 +7,7 @@ query Me {
     name
     email
     is_member
+    is_member_eq
     is_free_member
     free_member_until
     free_membership_type
