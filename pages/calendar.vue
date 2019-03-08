@@ -78,6 +78,10 @@
               class="mt-2" horizontal>
               <b-input v-model="email" />
             </b-form-group>
+            <p>
+              Read our <b-link href="https://docs.google.com/document/d/15X3lgjmMvnN2IFoZKrFGEmceOEtd2QMTakMIg2-cK9k/edit#">Teacher Manual</b-link> for all our policies and info
+              on teaching classes at Tinker Kitchen.
+            </p>
           </b-tab>
           <b-tab title="Private Event">
             <b-form-group label="Date & Time" horizontal>
