@@ -49,7 +49,7 @@
               Party size: {{ diningGuests + kitchenGuests + 1 }} (including you +1).
               Cost: {{ dinnerPartyEstimateStr }}
             </div>
-            <h5 v-if="!me.is_member_eq" class="mt-2 text-center">
+            <h5 v-if="!me || !me.is_member_eq" class="mt-2 text-center">
               Dinner parties are a member perk! <nuxt-link :to="{ name: 'membership' }">
               Become a member</nuxt-link> to reserve one.
             </h5>
