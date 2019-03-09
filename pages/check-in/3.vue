@@ -1,29 +1,52 @@
 <template>
-  <div class="form">
+  <b-container>
     <div class="top-buttons">
       <b-btn :to="{ name: 'check-in' }">&lt;</b-btn>
     </div>
 
-    <div class="center-form">
-      <vue-markdown :source="agreement" />
-    </div>
+    <b-row align-h="center">
+      <b-col sm="10">
+        <iframe
+          :src="'/vendor/pdfjs/web/viewer.html?file=/files/' + terms[current] + '#scrollTop=0'"
+          class="tos-viewer" />
+      </b-col>
+    </b-row>
 
-    <div class="next-button">
-      <b-btn :to="{ name: 'check-in-done' }">I Agree</b-btn>
+    <div class="agree-button">
+      <b-btn @click="agree()">I Agree</b-btn>
     </div>
-  </div>
+  </b-container>
 </template>
 
 <script>
-  import VueMarkdown from 'vue-markdown';
+  import { mapState, mapMutations } from 'vuex'
+  import MdViewer from '@/components/MdViewer.vue';
+
   export default {
     components: {
-      VueMarkdown,
+      MdViewer,
     },
     data() {
       return {
-        agreement: '# Hello',
+        current: 0,
+        terms: [
+          'Liability_Waiver_and_Media_Release_2018_11_10.pdf',
+          'Kitchentown Tasting Event Agreement - rbc 2019-03-04.pdf',
+        ],
       };
+    },
+    methods: {
+      ...mapMutations('checkin', ['setAgreedToTerms']),
+
+      agree() {
+        this.setAgreedToTerms(this.terms[this.current]);
+        if (this.terms[this.current+1]) {
+          this.current = this.current + 1;
+          window.scrollTo(0, 0);
+        } else {
+          this.$router.push({ name: 'check-in-done' });
+        }
+      },
     },
   };
 </script>
@@ -33,6 +56,14 @@
   #router-view {
     height: 100vh;
     padding: 0 !important;
+    margin-top: 1em;
+  }
+
+  .tos-viewer {
+    border: 1px solid black;
+    margin: 1em 0;
+    min-height: 65vh;
+    width: 100%;
   }
 
   .btn {
@@ -44,51 +75,8 @@
     font-weight: 600;
   }
 
-  .form {
-    position: relative;
-    top: 0;
-    height: 100%;
+  .agree-button {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-
-    .top-buttons {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      position: absolute;
-      top: 0;
-      padding: 2em;
-      width: 100%;
-    }
-
-    .center-form {
-      max-width: 50em;
-      * { width: 100%; }
-      .ml-add {
-        font-family: 'Museo sans rounded';
-        padding-left: 1.75rem;
-        .custom-control-label::before {
-          left: -1.75rem;
-          height: 1.5rem;
-          width: 1.5rem;
-        }
-        .custom-control-label::after {
-          left: -1.75rem;
-          height: 1.5rem;
-          width: 1.5rem;
-        }
-      }
-    }
-
-    .next-button {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      position: absolute;
-      bottom: 2em;
-      width: 100%;
-    }
   }
 </style>

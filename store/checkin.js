@@ -6,7 +6,7 @@ export const state = () => ({
     name: null,
     email: null,
     addToMailingList: null,
-    agreedToTerms: null,
+    agreedToTerms: {},
   },
 })
 
@@ -26,15 +26,15 @@ export const mutations = {
   setAddToMailingList(state, bool) {
     state.userData.addToMailingList = bool;
   },
-  setAgreedToTerms(state) {
-    state.userData.agreedToTerms = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+  setAgreedToTerms(state, terms) {
+    state.userData.agreedToTerms[terms] = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
   },
   clearUserData(state) {
     state.userData = {
       name: null,
       email: null,
       addToMailingList: null,
-      agreedToTerms: null,
+      agreedToTerms: {},
     };
   },
 }
