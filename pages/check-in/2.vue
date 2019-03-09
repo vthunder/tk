@@ -10,8 +10,10 @@
       <b-form-input v-model="name" />
       <h2 class="mt-4">Email address</h2>
       <b-form-input v-model="email" />
+      <!--
       <h2 class="mt-4">I am a...</h2>
       <b-select v-model="userType" :options="userTypeOpts" />
+       -->
       <h2 class="mt-4">
         <b-form-checkbox id="mladd" v-model="mladd" class="ml-add">
           Add me to the TK mailing list
@@ -20,7 +22,7 @@
     </div>
 
     <div class="next-button">
-      <b-btn :to="{ name: 'check-in-3' }">Next &gt;</b-btn>
+      <b-btn @click="next">Next &gt;</b-btn>
     </div>
   </div>
 </template>
@@ -43,16 +45,26 @@
     computed: {
       ...mapState('checkin', {
         qrData: state => state.qrData,
+        userData: state => state.userData,
       }),
     },
     mounted() {
-      if (this.qrData) {
-        this.name = qrData.name;
-        this.email = qrData.email;
-      }
+      this.clearUserData();
+      // if (this.qrData) {
+      //   this.name = qrData.name;
+      //   this.email = qrData.email;
+      // }
     },
     methods: {
-      ...mapMutations('checkin', ['clearQrData']),
+      ...mapMutations('checkin', ['clearQrData', 'setName', 'setEmail',
+                                  'setAddToMailingList', 'clearUserData']),
+
+      next() {
+        this.setName(this.name);
+        this.setEmail(this.email);
+        this.setAddToMailingList(this.mladd);
+        this.$router.push({ name: 'check-in-3' });
+      },
     },
   };
 </script>
