@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="bottom-half">
-      <b-link class="qr-link" href="#" @click="getQrScan">I just scanned a QR code</b-link>
+      <!-- <b-link class="qr-link" href="#" @click="getQrScan">I just scanned a QR code</b-link> -->
     </div>
   </div>
 </template>
