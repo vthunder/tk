@@ -13,6 +13,7 @@ query Me {
     free_membership_type
     has_stripe_customer
     has_previous_stripe_ids
+    in_mailing_list
   }
 }
 `,

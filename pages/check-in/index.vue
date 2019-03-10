@@ -44,6 +44,11 @@
         this.$router.push({ name: 'check-in-2'});
       },
     },
+    head() {
+      return {
+        title: 'Check in',
+      };
+    },
   };
 </script>
 

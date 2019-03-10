@@ -1,5 +1,6 @@
 <template>
-  <div class="form">
+  <div v-if="loading" />
+  <div v-else class="form">
     <div class="top-buttons">
       <b-btn :to="{ name: 'check-in' }">&lt;</b-btn>
       <b-btn :to="{ name: 'check-in-3' }">&gt;</b-btn>
@@ -29,10 +30,14 @@
 
 <script>
   import { mapState, mapMutations } from 'vuex'
+  import * as auth from '@/graphql/auth';
+
   export default {
     data() {
       return {
+        loading: true,
         mladd: false,
+        mlshow: true,
         name: '',
         email: '',
         userType: '',
@@ -48,8 +53,16 @@
         userData: state => state.userData,
       }),
     },
-    mounted() {
+    async mounted() {
       this.clearUserData();
+      const ret = await this.$apollo.query({ query: auth.query.me })
+      if (ret && ret.data && ret.data.me) {
+        this.name = ret.data.me.name;
+        this.email = ret.data.me.email;
+        this.mladd = ret.data.me.in_mailing_list;
+        this.mlshow = false;
+      }
+      this.loading = false;
       // if (this.qrData) {
       //   this.name = qrData.name;
       //   this.email = qrData.email;
@@ -65,6 +78,11 @@
         this.setAddToMailingList(this.mladd);
         this.$router.push({ name: 'check-in-3' });
       },
+    },
+    head() {
+      return {
+        title: 'Check in',
+      };
     },
   };
 </script>
