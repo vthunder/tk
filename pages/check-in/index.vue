@@ -21,19 +21,7 @@
     },
     data() {
       return {
-        latest_qr_scan_info: {},
       };
-    },
-    apollo: {
-      $subscribe: {
-        new_qr_scan: {
-          query: misc.subscription.new_qr_scan,
-          result(data) {
-            this.latest_qr_scan_info = data.data.new_qr_scan;
-            this.qrScan(data.data.new_qr_scan);
-          },
-        },
-      },
     },
     computed: {
       ...mapState('checkin', {
