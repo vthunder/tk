@@ -173,6 +173,11 @@ query getLatestQrScan {
   }
 }
 `,
+  get_legal_terms: gql`
+query getLegalTerms($name: String!, $email: String!) {
+  get_legal_terms(name: $name, email: $email)
+}
+`,
 };
 
 export const mutation = {
