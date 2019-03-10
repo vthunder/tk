@@ -9,7 +9,7 @@
       <h2>Full name</h2>
       <b-form-input v-model="name" />
       <h2 class="mt-4">Email address</h2>
-      <b-form-input v-model="email" />
+      <b-form-input v-model="email" type="email" />
       <!--
       <h2 class="mt-4">I am a...</h2>
       <b-select v-model="userType" :options="userTypeOpts" />
@@ -22,7 +22,7 @@
     </div>
 
     <div class="next-button">
-      <b-btn @click="next">Next &gt;</b-btn>
+      <b-btn :disabled="!name || !email" @click="next">Next &gt;</b-btn>
     </div>
   </div>
 </template>

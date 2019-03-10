@@ -1,6 +1,8 @@
 <template>
   <div class="form">
-    <div class="center-form"/>
+    <div class="center-form">
+      <h2>Thanks for checking in! You're all set.</h2>
+    </div>
     <div class="next-button">
       <b-btn :to="{ name: 'check-in' }">Done</b-btn>
     </div>
