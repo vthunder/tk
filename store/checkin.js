@@ -27,7 +27,7 @@ export const mutations = {
     state.userData.addToMailingList = bool;
   },
   setAgreedToTerms(state, terms) {
-    state.userData.agreedToTerms[terms] = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
+    state.userData.agreedToTerms[terms] = moment().utc().format("YYYY-MM-DD HH:mm:ss");
   },
   clearUserData(state) {
     state.userData = {
