@@ -1,5 +1,6 @@
 <template>
-  <b-container>
+  <b-container v-if="loading" />
+  <b-container v-else>
     <div class="top-buttons">
       <b-btn :to="{ name: 'check-in' }">&lt;</b-btn>
     </div>
@@ -21,6 +22,7 @@
 <script>
   import { mapState, mapMutations } from 'vuex'
   import MdViewer from '@/components/MdViewer.vue';
+  import * as misc from '@/graphql/misc';
 
   export default {
     components: {
@@ -28,22 +30,51 @@
     },
     data() {
       return {
+        loading: true,
         current: 0,
         terms: [
           'Liability_Waiver_and_Media_Release_2018_11_10.pdf',
-          'Kitchentown Tasting Event Agreement - rbc 2019-03-04.pdf',
         ],
       };
+    },
+    computed: {
+      ...mapState('checkin', {
+        userData: state => state.userData,
+      }),
+    },
+    async mounted() {
+      const ret = await this.$apollo.query({
+        query: misc.query.get_legal_terms,
+        variables: { name: this.userData.name, email: this.userData.email },
+      });
+      this.terms = ret.data.get_legal_terms;
+      if (!this.terms.length) {
+        this.$router.push({ name: 'check-in-done' });
+      } else {
+        this.loading = false;
+      }
     },
     methods: {
       ...mapMutations('checkin', ['setAgreedToTerms']),
 
-      agree() {
+      async agree() {
         this.setAgreedToTerms(this.terms[this.current]);
         if (this.terms[this.current+1]) {
           this.current = this.current + 1;
           window.scrollTo(0, 0);
         } else {
+          const ret = await this.$apollo.mutate({
+            mutation: misc.mutation.checkin,
+            variables: {
+              data: {
+                name: this.userData.name,
+                email: this.userData.email,
+                subscribe_to_list: this.userData.addToMailingList,
+                agreed_terms: Object.entries(this.userData.agreedToTerms)
+                                    .map(e => ({ terms_name: e[0], agreed_timestamp: e[1] })),
+              },
+            },
+          });
           this.$router.push({ name: 'check-in-done' });
         }
       },
