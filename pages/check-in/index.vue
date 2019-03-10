@@ -70,9 +70,11 @@
       display: flex;
       flex-direction: row;
       justify-content: center;
-      width: 100%;
 
-      img { width: 25%; }
+      img {
+        height: 40vh;
+        object-fit: contain;
+      }
     }
 
     .qrcode-stream__camera {
