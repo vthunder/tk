@@ -122,11 +122,14 @@
   import * as misc from '@/graphql/misc';
   import * as format from '@/lib/format';
 
+  function eventEnd(event) {
+    return moment(event.start).add(event.duration, 'hours');
+  }
   function overlap(period1, period2) {
-    let p1 = { start: moment.utc(period1.start), end: moment.utc(period1.end) },
-        p2 = { start: moment.utc(period2.start), end: moment.utc(period2.end) };
-    console.log(`comparing ${p1.start} and ${p2.start}`);
-    if (p1.start.isBetween(p2.start, p2.end) || p1.end.isBetween(p2.start, p2.end) ||
+    let p1 = { start: moment(period1.start), end: eventEnd(period1) },
+        p2 = { start: moment(period2.start), end: eventEnd(period2) };
+    if (p1.start.isSame(p2.start) ||
+        p1.start.isBetween(p2.start, p2.end) || p1.end.isBetween(p2.start, p2.end) ||
         p2.start.isBetween(p1.start, p1.end) || p2.end.isBetween(p1.start, p1.end)) {
       return true;
     }
@@ -205,27 +208,28 @@
       },
       bookingEvents() {
         if (!this.bookingDate) return [];
-        let date = this.bookingDate.startOf('day');
+        const dayStart = moment(this.bookingDate).startOf('day');
+        const dayEnd = moment(this.bookingDate).endOf('day');
         return this
           .calendar_events
-          .filter(e => date.isSameOrAfter(moment.utc(e.start).startOf('day')))
-          .filter(e => date.isSameOrBefore(moment.utc(e.end).endOf('day')))
+          .filter((e) => {
+            if (moment(e.start).isBetween(dayStart, dayEnd)) return true;
+            if (moment(e.start).add(e.duration, 'hours')
+                               .isBetween(dayStart, dayEnd)) return true;
+          })
       },
       bookingBusy() {
         if (!this.bookingDate) return {};
-        let date = this.bookingDate.startOf('day');
+        let date = moment(this.bookingDate);
+
         let busy = {};
         let busyTest = [
-          { period: 'morning',
-            start: date, end: moment(date).add('10', 'hours') },
-          { period: 'lunch',
-            start: moment(date).add('10', 'hours'), end: moment(date).add('15', 'hours') },
-          { period: 'dinner',
-            start: moment(date).add('15', 'hours'), end: moment(date).add('23', 'hours') },
+          { period: 'morning', start: moment(date), duration: 10 },
+          { period: 'lunch', start: moment(date).add('10', 'hours'), duration: 5 },
+          { period: 'dinner', start: moment(date).add('15', 'hours'), duration: 9 },
         ];
         this.bookingEvents.forEach((e) => {
           busyTest.forEach((t) => {
-            console.log(`testing: ${t.start}`);
             if (overlap(e, t)) busy[t.period] = true;
           });
         });
@@ -290,7 +294,7 @@
     },
     methods: {
       dayClick(date, event) {
-        this.bookingDate = date;
+        this.bookingDate = moment(date.format('YYYY-MM-DD'));
         this.$refs.bookModal.show();
       },
       async requestBooking() {
