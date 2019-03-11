@@ -20,6 +20,61 @@
       @ok="requestBooking" @hide="resetBooking">
       <b-card no-body>
         <b-tabs ref="bookModalTabs" v-model="tabIndex" card>
+          <b-tab title="Private Event">
+            <b-form-group label="Date & Time" horizontal>
+              <div class="mt-2">{{ bookingDateStr }}</div>
+              <b-form-radio-group
+                v-model="selectedBookingTime"
+                :options="bookingTimeOptions"
+                button-variant="outline-secondary"
+                buttons
+              /> (select one)
+            </b-form-group>
+            <b-form-group
+              label="Name:"
+              label-cols-sm="8"
+              label-align-sm="right"
+              class="mt-2" horizontal>
+              <b-input v-model="name" />
+            </b-form-group>
+            <b-form-group
+              label="Email:"
+              label-cols-sm="8"
+              label-align-sm="right"
+              class="mt-2" horizontal>
+              <b-input v-model="email" />
+            </b-form-group>
+            <div v-if="privateEventEstimate">Price: {{ privateEventEstimateStr }}</div>
+          </b-tab>
+          <b-tab title="Teach a Class">
+            <b-form-group label="Date & Time" horizontal>
+              <div class="mt-2">{{ bookingDateStr }}</div>
+              <b-form-radio-group
+                v-model="selectedBookingTime"
+                :options="bookingTimeOptions"
+                button-variant="outline-secondary"
+                buttons
+              /> (select one)
+            </b-form-group>
+            <b-form-group
+              label="Name:"
+              label-cols-sm="8"
+              label-align-sm="right"
+              class="mt-2" horizontal>
+              <b-input v-model="name" />
+            </b-form-group>
+            <b-form-group
+              label="Email:"
+              label-cols-sm="8"
+              label-align-sm="right"
+              class="mt-2" horizontal>
+              <b-input v-model="email" />
+            </b-form-group>
+            <p>
+              Read our <b-link href="https://docs.google.com/document/d/15X3lgjmMvnN2IFoZKrFGEmceOEtd2QMTakMIg2-cK9k/edit#">Teacher Manual</b-link> for all our policies and info
+              on teaching classes at Tinker Kitchen.
+            </p>
+          </b-tab>
           <b-tab title="Dinner Party" active>
             <b-form-group label="Date & Time" horizontal>
               <div class="mt-2">{{ bookingDateStr }}</div>
@@ -53,61 +108,6 @@
               Dinner parties are a member perk! <nuxt-link :to="{ name: 'membership' }">
               Become a member</nuxt-link> to reserve one.
             </h5>
-          </b-tab>
-          <b-tab title="Class">
-            <b-form-group label="Date & Time" horizontal>
-              <div class="mt-2">{{ bookingDateStr }}</div>
-              <b-form-radio-group
-                v-model="selectedBookingTime"
-                :options="bookingTimeOptions"
-                button-variant="outline-secondary"
-                buttons
-              /> (select one)
-            </b-form-group>
-            <b-form-group
-              label="Name:"
-              label-cols-sm="8"
-              label-align-sm="right"
-              class="mt-2" horizontal>
-              <b-input v-model="name" />
-            </b-form-group>
-            <b-form-group
-              label="Email:"
-              label-cols-sm="8"
-              label-align-sm="right"
-              class="mt-2" horizontal>
-              <b-input v-model="email" />
-            </b-form-group>
-            <p>
-              Read our <b-link href="https://docs.google.com/document/d/15X3lgjmMvnN2IFoZKrFGEmceOEtd2QMTakMIg2-cK9k/edit#">Teacher Manual</b-link> for all our policies and info
-              on teaching classes at Tinker Kitchen.
-            </p>
-          </b-tab>
-          <b-tab title="Private Event">
-            <b-form-group label="Date & Time" horizontal>
-              <div class="mt-2">{{ bookingDateStr }}</div>
-              <b-form-radio-group
-                v-model="selectedBookingTime"
-                :options="bookingTimeOptions"
-                button-variant="outline-secondary"
-                buttons
-              /> (select one)
-            </b-form-group>
-            <b-form-group
-              label="Name:"
-              label-cols-sm="8"
-              label-align-sm="right"
-              class="mt-2" horizontal>
-              <b-input v-model="name" />
-            </b-form-group>
-            <b-form-group
-              label="Email:"
-              label-cols-sm="8"
-              label-align-sm="right"
-              class="mt-2" horizontal>
-              <b-input v-model="email" />
-            </b-form-group>
-            <div v-if="privateEventEstimate">Price: {{ privateEventEstimateStr }}</div>
           </b-tab>
         </b-tabs>
       </b-card>
@@ -237,7 +237,7 @@
       },
       bookingTimeOptions() {
         return [
-          { text: 'Brunch (10am-3pm)', value: 'lunch' },
+          { text: 'Lunch (10am-3pm)', value: 'lunch' },
           { text: 'Dinner (4pm-9pm)', value: 'dinner' },
         ].map((o) => {
           if (this.bookingBusy[o.value]) return { ...o, disabled: true };
@@ -280,13 +280,15 @@
         if (!this.mounted) return null;
         const tabs = this.$refs.bookModalTabs,
               tabName = tabs.tabs[this.tabIndex].title;
-        if (tabName === 'Class') return 'class';
+        console.log(tabName);
+        if (tabName === 'Teach a Class') return 'class';
         if (tabName === 'Private Event') return 'private';
         return 'dinnerparty';
       },
       modalOkDisabled() {
         if (this.tabCategory === 'dinnerparty') return !this.me.is_member_eq;
-        return false;
+        if (this.selectedBookingTime && this.name && this.email) return false;
+        return true;
       },
     },
     mounted() {
@@ -343,5 +345,9 @@ Please contact us at hello@tinkerkitchen.org.`);
   @import 'fullcalendar/dist/fullcalendar.css';
   #calendar {
     width: 100%;
+  }
+  .btn-primary.disabled {
+    background-color: #6c757d;
+    border-color: #6c757d;
   }
 </style>
