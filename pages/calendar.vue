@@ -88,14 +88,14 @@
             </b-form-group>
             <h5>Number of guests</h5>
             <b-form-group
-              label="Dining only:"
+              label="Dining ($10):"
               label-cols-sm="8"
               label-align-sm="right"
               class="mt-2" horizontal>
               <b-select v-model="diningGuests" :options="diningGuestOptions" />
             </b-form-group>
             <b-form-group
-              label="Cooking day passes:"
+              label="Cooking/Dining ($25):"
               label-cols-sm="8"
               label-align-sm="right"
               class="mt-2" horizontal>
