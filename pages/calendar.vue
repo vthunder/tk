@@ -6,7 +6,8 @@
           <full-calendar :event-sources="events" :config="config" @day-click="dayClick" />
         </no-ssr>
         <b-card>
-          <div>Open: 10am-9pm Wed-Mon (closed Tue)</div>
+          <h5>Click on a date to make a reservation.</h5>
+          <div>Open Hours: 10am-9pm Wed-Mon (closed Tue)</div>
         </b-card>
       </b-col>
     </b-row>
@@ -20,7 +21,7 @@
       @ok="requestBooking" @hide="resetBooking">
       <b-card no-body>
         <b-tabs ref="bookModalTabs" v-model="tabIndex" card>
-          <b-tab title="Private Event">
+          <b-tab title="Private Event" active>
             <b-form-group label="Date & Time" horizontal>
               <div class="mt-2">{{ bookingDateStr }}</div>
               <b-form-radio-group
@@ -75,7 +76,7 @@
               on teaching classes at Tinker Kitchen.
             </p>
           </b-tab>
-          <b-tab title="Dinner Party" active>
+          <b-tab title="Dinner Party">
             <b-form-group label="Date & Time" horizontal>
               <div class="mt-2">{{ bookingDateStr }}</div>
               <b-form-radio-group
@@ -286,6 +287,7 @@
         return 'dinnerparty';
       },
       modalOkDisabled() {
+        if (this.bookingDate && this.bookingDate.isBefore(moment())) return true;
         if (this.tabCategory === 'dinnerparty') return !this.me.is_member_eq;
         if (this.selectedBookingTime && this.name && this.email) return false;
         return true;
