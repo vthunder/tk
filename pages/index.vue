@@ -3,11 +3,6 @@
     <div class="jumbotron">
       <b-row>
         <b-col md="7" lg="8">
-          <b-container fluid class="top-banner">
-            Gift certificates now available!
-            <b-button :to="{ name: 'gift-certificates' }"
-                      size="sm" variant="primary">Get one now →</b-button>
-          </b-container>
           <div class="hero container justify-content-center">
             <h1 class="home-page">Tinker Kitchen</h1>
             <h3>A cooking makerspace in San Francisco<br>
@@ -70,23 +65,37 @@
             long list of equipment</nuxt-link>.
           </p>
           <p>
-            Tinker Kitchen is not a place to cook food for
-            sale. We're not a restaurant, either. But if
-            you're looking to get into the food business, we
-            can be your launching pad! Learn about
+            Tinker Kitchen is not a cafe or restaurant. But if you're
+            looking to get into the food business, we can be your
+            launching pad! Learn about
             <nuxt-link :to="{ name: 'commercial' }">commercial use</nuxt-link> of
             our kitchen.
           </p>
         </b-col>
       </b-row>
-    </b-container>
-
-    <b-container>
-      <b-row class="justify-content-center">
-        <b-col md="8">
-          <b-nav fill/>
+      <b-row class="my-2">
+        <b-col sm="4">
+          <a href="/images/Space photos/IMG_2581.jpg">
+            <img class="space-img" src="/images/Space photos/IMG_2581.jpg">
+          </a>
+        </b-col>
+        <b-col sm="4">
+          <a href="/images/Space photos/IMG_2576.jpg">
+            <img class="space-img" src="/images/Space photos/IMG_2576.jpg">
+          </a>
+        </b-col>
+        <b-col sm="4">
+          <a href="/images/Space photos/IMG_2573.jpg">
+            <img class="space-img" src="/images/Space photos/IMG_2573.jpg">
+          </a>
         </b-col>
       </b-row>
+      <div class="text-center mt-4">
+        Give the gift of cooking with a
+        <nuxt-link :to="{ name: 'gift-certificates' }">
+          Tinker Kitchen gift certificate
+        </nuxt-link>!
+      </div>
     </b-container>
   </div>
 </template>
@@ -159,22 +168,9 @@ h1.home-page {
     @media (min-width: 992px) { min-height: 560px; }
     @media (min-width: 1200px) { min-height: 600px; }
 
-    .top-banner {
-        display: flex;
-        justify-content: space-between;
-        background-color: #f8f9fa;
-        margin-bottom: 20px;
-        padding: 1em;
-        border-radius: 5px;
-        border: 1px solid #343a40;
-        font-size: 1.25rem;
-
-        .btn { margin-left: 1em; }
-    }
-
     .hero {
         color: white;
-        padding-top: 80px;
+        padding-top: 100px;
         text-align: center;
         @media (min-width: 992px) { padding-top: 120px; }
     }
@@ -210,13 +206,17 @@ h1.home-page {
     button:hover {
         background-color: #cc4600;
     }
-}
+  }
 
-#what-is-tk {
+  #what-is-tk {
     img { width: 100%; }
-}
+  }
 
-.what-can-you-do-section {
+  .space-img {
+    width: 100%;
+  }
+
+  .what-can-you-do-section {
     .card-img-top {
         @media (min-width: 768px) { height: 120px; }
         @media (min-width: 996px) { height: 180px; }
