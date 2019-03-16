@@ -92,13 +92,19 @@
         <b-tab title="Space Rental">
           <b-row>
             <b-col sm="4">
-              <img class="space-img" src="/images/Space photos/IMG_2581.jpg">
+              <a href="/images/Space photos/IMG_2581.jpg">
+                <img class="space-img" src="/images/Space photos/IMG_2581.jpg">
+              </a>
             </b-col>
             <b-col sm="4">
-              <img class="space-img" src="/images/Space photos/IMG_2576.jpg">
+              <a href="/images/Space photos/IMG_2576.jpg">
+                <img class="space-img" src="/images/Space photos/IMG_2576.jpg">
+              </a>
             </b-col>
             <b-col sm="4">
-              <img class="space-img" src="/images/Space photos/IMG_2573.jpg">
+              <a href="/images/Space photos/IMG_2573.jpg">
+                <img class="space-img" src="/images/Space photos/IMG_2573.jpg">
+              </a>
             </b-col>
           </b-row>
           <b-row align-h="center" class="mt-3">
