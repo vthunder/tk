@@ -113,7 +113,6 @@ export default {
     },
   },
   mounted() {
-    this.$ga.require('GTM-MG2TDXS');
     window.addEventListener('scroll', this.updateScroll);
   },
   methods: {
@@ -172,7 +171,7 @@ h1.home-page {
         color: white;
         padding-top: 100px;
         text-align: center;
-        @media (min-width: 992px) { padding-top: 120px; }
+        @media (min-width: 992px) { padding-top: 150px; }
     }
 
     .main-nav {

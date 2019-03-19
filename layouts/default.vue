@@ -21,6 +21,9 @@
       AuthModal,
       WelcomeModal,
     },
+    mounted() {
+      this.$ga.require('GTM-MG2TDXS');
+    },
   };
 </script>
 
