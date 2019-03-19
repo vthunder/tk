@@ -295,8 +295,8 @@
             variables: { order: order.id, customer: customer.id },
           });
           this.clearCart();
-          this.$refs.successModalRef.show();
           this.$root.$emit('tk::checkout::complete');
+          this.$router.push({ name: 'thanks' });
           return;
         }
 
@@ -338,8 +338,8 @@
 
           this.clearCart();
 
-          this.$refs.successModalRef.show();
           this.$root.$emit('tk::checkout::complete');
+          this.$router.push({ name: 'thanks' });
         }
       },
       // FIXME: doesn't work, because this component is no longer loaded all the time
