@@ -71,6 +71,13 @@
               class="mt-2" horizontal>
               <b-input v-model="email" />
             </b-form-group>
+            <b-form-group
+              label="Class info:<br>(topic, price, etc)"
+              label-cols-sm="8"
+              label-align-sm="right"
+              class="mt-2" horizontal>
+              <b-form-textarea v-model="classInfo" rows="3" />
+            </b-form-group>
             <p>
               Read our <b-link href="https://docs.google.com/document/d/15X3lgjmMvnN2IFoZKrFGEmceOEtd2QMTakMIg2-cK9k/edit#">Teacher Manual</b-link> for all our policies and info
               on teaching classes at Tinker Kitchen.
@@ -169,6 +176,7 @@
         tabIndex: 0,
         name: null,
         email: null,
+        classInfo: null,
         bookingDate: null,
         diningGuests: null,
         kitchenGuests: 1,
@@ -314,6 +322,7 @@
             size: parseInt(this.diningGuests, 10) + parseInt(this.kitchenGuests, 10),
             name: this.name,
             email: this.email,
+            class_info: this.classInfo,
           }},
         });
         if (ret && ret.data && ret.data.create_calendar_hold === 'OK') {
