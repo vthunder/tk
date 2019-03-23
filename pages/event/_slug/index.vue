@@ -9,9 +9,13 @@
         </div>
       </b-col>
       <b-col md="5" class="border-left">
-        <h5 v-if="master.category && master.category === 'private'">
-          <strong>Private event.</strong>
-        </h5>
+        <div v-if="master.category && master.category === 'private'">
+          <h3>Private event</h3>
+          <p>
+            <strong>{{ private_date }}</strong><br>
+            {{ private_start }} - {{ private_end }}
+          </p>
+        </div>
         <div v-else>
           <h4 v-if="master.price === 0" class="price">Price: Free!</h4>
           <!-- null / otherwise falsy, hide price altogether -->
@@ -173,6 +177,15 @@
       };
     },
     computed: {
+      private_date() {
+        return moment.utc(this.event.start).format('dddd MMMM Do');
+      },
+      private_start() {
+        return moment.utc(this.event.start).format('h:mm a');
+      },
+      private_end() {
+        return moment.utc(this.event.start).add(this.event.duration, 'hours').format('h:mm a');
+      },
       member() {
         return this.me && (this.me.is_member || this.me.is_free_member);
       },
