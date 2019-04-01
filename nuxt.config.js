@@ -55,6 +55,7 @@ module.exports = {
     { src: '~/plugins/stripe-checkout', ssr: false },
     { src: '~/plugins/vuex-persist', ssr: false },
     { src: '~/plugins/full-calendar', ssr: false },
+    { src: '~plugins/ga.js', ssr: false },
   ],
 
   /*
@@ -65,7 +66,6 @@ module.exports = {
     'bootstrap-vue/nuxt',
     '@nuxtjs/apollo',
     '@nuxtjs/dotenv',
-    ['@nuxtjs/google-analytics', { id: 'UA-12301-2' }],
     '@nuxtjs/sentry',
     '@nuxtjs/axios',
   ],
@@ -76,13 +76,6 @@ module.exports = {
 
   proxy: {
     '/prod/': 'https://tinkerkitchen.org',
-  },
-
-  'google-analytics': {
-    id: 'UA-54365170-1',
-    debug: {
-      sendHitTask: process.env.APP_ENV === 'production',
-    },
   },
 
   sentry: {
