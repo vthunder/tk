@@ -25,6 +25,8 @@
 </script>
 
 <style lang="scss">
+  .async-hide { opacity: 0 !important}
+
   #app .navbar + div {
     @media (min-width: 768px) { padding-top: 56px; }
     @media (min-width: 992px) { padding-top: 56px; }
