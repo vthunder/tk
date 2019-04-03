@@ -1,6 +1,12 @@
 const pkg = require('./package')
 require('dotenv').config()
 
+const polyfillFeatures = [
+  'fetch',
+  'Object.entries',
+  'IntersectionObserver',
+].join('%2C');
+
 module.exports = {
   mode: 'universal',
 
@@ -30,7 +36,8 @@ module.exports = {
         crossorigin: 'anonymous' },
     ],
     script: [
-      { src: '/fbpixel.js' }
+      { src: '/fbpixel.js' },
+      { src: `https://polyfill.io/v3/polyfill.min.js?features=${polyfillFeatures}`, body: true },
     ],
   },
 
@@ -68,6 +75,7 @@ module.exports = {
     '@nuxtjs/dotenv',
     '@nuxtjs/sentry',
     '@nuxtjs/axios',
+    'nuxt-google-optimize',
   ],
 
   axios: {
