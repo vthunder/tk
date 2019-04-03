@@ -1,4 +1,4 @@
-import VuexPersistence from 'vuex-persist'
+var VuexPersistence = require('vuex-persist/dist/umd/index.js').VuexPersistence;
 
 export default ({store}) => {
   window.onNuxtReady(() => {

@@ -31,7 +31,6 @@ module.exports = {
     ],
     script: [
       { src: '/fbpixel.js' },
-      { src: 'https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/7.2.5/polyfill.min.js' },
     ],
   },
 
@@ -106,8 +105,6 @@ module.exports = {
       }
     },
   },
-
-  transpileDependencies: ['vuex-persist'],
 
   apollo: {
     includeNodeModules: true, // optional, default: false (this includes graphql-tag for node_modules folder)
