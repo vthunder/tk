@@ -12,7 +12,7 @@ export default ({ app }) => {
 
   // Set the current page
   ga('create', 'UA-54365170-1', 'auto');
-  ga('require', 'GTM-MG2TDXS');
+  // ga('require', 'GTM-MG2TDXS');
 
   // Every time the route changes (fired on initialization too)
   app.router.afterEach((to, from) => {
