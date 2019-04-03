@@ -107,6 +107,8 @@ module.exports = {
     },
   },
 
+  transpileDependencies: ['vuex-persist'],
+
   apollo: {
     includeNodeModules: true, // optional, default: false (this includes graphql-tag for node_modules folder)
     authenticationType: 'Bearer', // optional, default: 'Bearer'
