@@ -2,6 +2,7 @@ const pkg = require('./package')
 require('dotenv').config()
 
 const polyfillFeatures = [
+  'es6',
   'fetch',
   'Object.entries',
   'IntersectionObserver',
@@ -69,7 +70,6 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     '@nuxtjs/apollo',
     '@nuxtjs/dotenv',
