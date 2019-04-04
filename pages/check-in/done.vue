@@ -1,24 +1,79 @@
 <template>
-  <div class="form">
-    <div class="center-form">
-      <h2>Thanks for checking in! You're all set.</h2>
-    </div>
-    <div class="next-button">
-      <b-btn :to="{ name: 'check-in' }">Done</b-btn>
-    </div>
-  </div>
+  <b-container class="thanks-form">
+    <b-row align-h="center">
+      <b-col sm="8" class="thanks-content">
+        <h2 class="thanks-msg">Thanks for checking in!</h2>
+        <b-card v-if="showSub" bg-variant="dark" text-variant="white" class="subscribe-card">
+          <h2>Stay in touch</h2>
+          <div class="ml-btn">
+            <b-btn v-if="subSuccess === null" variant="primary" @click="subscribe">
+              Get TK news via email
+            </b-btn>
+            <div v-else-if="subFailure">
+              Oops... something went wrong. Please let TK staff know!
+            </div>
+            <div v-else>
+              Success! Thanks for subscribing :-)
+            </div>
+          </div>
+        </b-card>
+        <div class="next-button">
+          <b-btn :to="{ name: 'check-in' }">Reset Form</b-btn>
+        </div>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
   import VueMarkdown from 'vue-markdown';
+  import { mapState } from 'vuex'
+  import * as misc from '@/graphql/misc';
+
   export default {
     components: {
       VueMarkdown,
     },
     data() {
       return {
-        agreement: '# Hello',
+        subSuccess: null,
+        subFailure: false,
+        successMsg: '',
       };
+    },
+    computed: {
+      ...mapState('checkin', {
+        userData: state => state.userData,
+      }),
+      showSub() {
+        return true;
+      },
+    },
+    methods: {
+      subscribe() {
+        this.subSuccess = null;
+        this.subFailure = false;
+
+        this.$apollo.mutate({
+          mutation: misc.mutation.mailing_list_signup,
+          variables: {
+            name: this.userData.name,
+            email: this.userData.email,
+            list: 'Tinker Kitchen Newsletter',
+          },
+        }).then(() => {
+          this.subSuccess = true;
+        }).catch(({ graphQLErrors: [{ message }] }) => {
+          switch (message) {
+            case 'Member Exists':
+              this.successMsg = 'Success! But... it seems you were already subscribed.';
+              this.subSuccess = true;
+              break;
+            default:
+              this.failure = true;
+          }
+        });
+      },
     },
   };
 </script>
@@ -28,6 +83,20 @@
   #router-view {
     height: 100vh;
     padding: 0 !important;
+  }
+
+  .thanks-form {
+    .row {
+      height: 100%;
+
+      .thanks-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin: 10% 0;
+        .ml-btn, .next-button { text-align: center; }
+      }
+    }
   }
 
   .btn {
@@ -41,12 +110,9 @@
 
   .form {
     position: relative;
-    top: 0;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 
     .top-buttons {
       display: flex;
@@ -60,6 +126,7 @@
 
     .center-form {
       max-width: 50em;
+      padding-top: 8em;
       * { width: 100%; }
       .ml-add {
         font-family: 'Museo sans rounded';

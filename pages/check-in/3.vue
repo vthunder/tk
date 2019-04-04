@@ -71,7 +71,6 @@
               data: {
                 name: this.userData.name,
                 email: this.userData.email,
-                subscribe_to_list: this.userData.addToMailingList,
                 agreed_terms: Object.entries(this.userData.agreedToTerms)
                                     .map(e => ({ terms_name: e[0], agreed_timestamp: e[1] })),
               },

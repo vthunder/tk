@@ -3,7 +3,7 @@
   <div v-else class="form">
     <div class="top-buttons">
       <b-btn :to="{ name: 'check-in' }">&lt;</b-btn>
-      <b-btn :disabled="readyNext" :to="{ name: 'check-in-3' }">&gt;</b-btn>
+      <b-btn :disabled="readyNext" @click="next">&gt;</b-btn>
     </div>
 
     <div class="center-form">
@@ -15,11 +15,6 @@
       <h2 class="mt-4">I am a...</h2>
       <b-select v-model="userType" :options="userTypeOpts" />
        -->
-      <h2 class="mt-4">
-        <b-form-checkbox id="mladd" v-model="mladd" class="ml-add">
-          Add me to the TK mailing list
-        </b-form-checkbox>
-      </h2>
     </div>
 
     <div class="next-button">
@@ -36,8 +31,6 @@
     data() {
       return {
         loading: true,
-        mladd: false,
-        mlshow: true,
         name: '',
         email: '',
         userType: '',
@@ -63,8 +56,6 @@
       if (ret && ret.data && ret.data.me) {
         this.name = ret.data.me.name;
         this.email = ret.data.me.email;
-        this.mladd = ret.data.me.in_mailing_list;
-        this.mlshow = false;
       }
       this.loading = false;
       // if (this.qrData) {
@@ -74,12 +65,11 @@
     },
     methods: {
       ...mapMutations('checkin', ['clearQrData', 'setName', 'setEmail',
-                                  'setAddToMailingList', 'clearUserData']),
+                                  'clearUserData']),
 
       next() {
         this.setName(this.name);
         this.setEmail(this.email);
-        this.setAddToMailingList(this.mladd);
         this.$router.push({ name: 'check-in-3' });
       },
     },
@@ -127,20 +117,6 @@
       padding-top: 8em;
       max-width: 50em;
       * { width: 100%; }
-      .ml-add {
-        font-family: 'museo-sans-rounded';
-        padding-left: 1.75rem;
-        .custom-control-label::before {
-          left: -1.75rem;
-          height: 1.5rem;
-          width: 1.5rem;
-        }
-        .custom-control-label::after {
-          left: -1.75rem;
-          height: 1.5rem;
-          width: 1.5rem;
-        }
-      }
     }
 
     .next-button {
