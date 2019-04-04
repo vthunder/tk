@@ -43,11 +43,13 @@
       }),
     },
     async mounted() {
-      const ret = await this.$apollo.query({
-        query: misc.query.get_legal_terms,
-        variables: { name: this.userData.name, email: this.userData.email },
-      });
-      this.terms = ret.data.get_legal_terms;
+      try {
+        const ret = await this.$apollo.query({
+          query: misc.query.get_legal_terms,
+          variables: { name: this.userData.name, email: this.userData.email },
+        });
+        if (ret.data.get_legal_terms) this.terms = ret.data.get_legal_terms;
+      } catch (e) {}
       if (!this.terms.length) {
         this.$router.push({ name: 'check-in-done' });
       } else {

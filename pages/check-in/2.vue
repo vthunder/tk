@@ -3,7 +3,7 @@
   <div v-else class="form">
     <div class="top-buttons">
       <b-btn :to="{ name: 'check-in' }">&lt;</b-btn>
-      <b-btn :to="{ name: 'check-in-3' }">&gt;</b-btn>
+      <b-btn :disabled="readyNext" :to="{ name: 'check-in-3' }">&gt;</b-btn>
     </div>
 
     <div class="center-form">
@@ -23,7 +23,7 @@
     </div>
 
     <div class="next-button">
-      <b-btn :disabled="!name || !email" @click="next">Next &gt;</b-btn>
+      <b-btn :disabled="readyNext" @click="next">Next &gt;</b-btn>
     </div>
   </div>
 </template>
@@ -52,6 +52,10 @@
         qrData: state => state.qrData,
         userData: state => state.userData,
       }),
+      readyNext() {
+        if (this.name && this.email) return false;
+        return true;
+      },
     },
     async mounted() {
       this.clearUserData();
@@ -105,12 +109,9 @@
 
   .form {
     position: relative;
-    top: 0;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 
     .top-buttons {
       display: flex;
@@ -123,10 +124,11 @@
     }
 
     .center-form {
+      padding-top: 8em;
       max-width: 50em;
       * { width: 100%; }
       .ml-add {
-        font-family: 'Museo sans rounded';
+        font-family: 'museo-sans-rounded';
         padding-left: 1.75rem;
         .custom-control-label::before {
           left: -1.75rem;
