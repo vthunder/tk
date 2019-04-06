@@ -47,11 +47,18 @@
             Clean, organize, and help with events as necessary, by
             directing other staff or doing the work in their absence
           </li>
+          <li>
+            Manage and grow teacher network to create a vibrant set of
+            classes and activities: recruit teachers, help train them
+            in our SOPs, answer any questions and help them with
+            scheduling
+          </li>
         </ul>
 
         <h3>Skills</h3>
 
         <ul>
+          <li>Highly organized and detail-oriented</li>
           <li>Passion for food and cooking</li>
           <li>Good teaching skills and ability to explain cooking concepts</li>
           <li>
@@ -95,6 +102,11 @@
           src: '//www.google.com/maps/embed/v1/place?q=' +
                'place_id:ChIJu3WgID9-j4ARp-tuXllo1y8&key=AIzaSyBY6GbaztLA3fPKcxuK1JTOlzvGkJJ-DzI',
         },
+      };
+    },
+    head() {
+      return {
+        title: 'Operations Manager',
       };
     },
   };
