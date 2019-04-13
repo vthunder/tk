@@ -56,6 +56,7 @@ module.exports = {
     { src: '~/plugins/vuex-persist', ssr: false },
     { src: '~/plugins/full-calendar', ssr: false },
     { src: '~plugins/ga.js', ssr: false },
+    { src: '~plugins/drift.js', ssr: false },
   ],
 
   /*
