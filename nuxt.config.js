@@ -1,6 +1,10 @@
 const pkg = require('./package')
 require('dotenv').config()
 
+const POLYFILL_FEATURES = [
+  'Object.entries',
+].join('%2C');
+
 module.exports = {
   mode: 'universal',
 
@@ -30,6 +34,7 @@ module.exports = {
         crossorigin: 'anonymous' },
     ],
     script: [
+      { src: `https://polyfill.io/v3/polyfill.min.js?features=${POLYFILL_FEATURES}`, body: true },
       { src: '/fbpixel.js' },
     ],
   },
