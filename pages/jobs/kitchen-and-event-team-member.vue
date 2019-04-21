@@ -12,17 +12,20 @@
         </p>
 
         <p>
-          We're looking for part-time event staff to help with events
-          and classes. You'll help with food prep, assist our
-          customers with cooking activities, perform cooking
-          demonstrations, and help clean up.
-        </p>
-        <p>
-          You don't need any specific knowledge, but you do need to have a
-          general passion for cooking. And since you'll be interacting
-          with our customers you'll need to be personable, polite, and
-          able to think on your feet to keep events and activities running
+          We're looking for part-time staff to help us grow our
+          business to the next level. You'll help with food prep,
+          assist our customers with cooking activities, perform
+          cooking demonstrations, and help the place clean and working
           smoothly.
+        </p>
+
+        <p>
+          Tinker Kitchen is not a restaurant, but it helps to be
+          familiar with commercial kitchen operations. You also need
+          to have a passion for cooking and for teaching others. And
+          since you'll be interacting with our customers you'll need
+          to be personable, polite, and able to think on your feet to
+          keep events and activities running smoothly.
         </p>
 
         <h2>Job Responsibilities</h2>
@@ -92,6 +95,11 @@
           src: '//www.google.com/maps/embed/v1/place?q=' +
                'place_id:ChIJu3WgID9-j4ARp-tuXllo1y8&key=AIzaSyBY6GbaztLA3fPKcxuK1JTOlzvGkJJ-DzI',
         },
+      };
+    },
+    head() {
+      return {
+        title: 'Kitchen & Event Team Member',
       };
     },
   };
