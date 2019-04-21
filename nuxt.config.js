@@ -35,7 +35,6 @@ module.exports = {
     ],
     script: [
       { src: `https://polyfill.io/v3/polyfill.min.js?features=${POLYFILL_FEATURES}`, body: true },
-      { src: '/fbpixel.js' },
     ],
   },
 
@@ -74,10 +73,17 @@ module.exports = {
     '@nuxtjs/sentry',
     '@nuxtjs/axios',
     'nuxt-google-optimize',
+    'nuxt-facebook-pixel-module',
   ],
 
   axios: {
     proxy: true,
+  },
+
+  facebook: {
+    track: 'PageView',
+    pixelId: '225268454866988',
+    disabled: false,
   },
 
   proxy: {
