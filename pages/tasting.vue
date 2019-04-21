@@ -6,7 +6,7 @@
   export default {
     layout: 'bare',
     mounted() {
-      document.location = 'https://ybljsozu.paperform.co/';
+      document.location = 'https://qmyr6ow1.paperform.co/';
     },
   };
 </script>
