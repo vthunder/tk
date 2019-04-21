@@ -237,9 +237,7 @@
         // is this a free event?
         // fixme: track user going to this free event (!)
         if (!this.master.price) {
-          if (window.fbq) {
-            window.fbq('track', 'AddToCart', { value: 0, currency: 'USD' });
-          }
+          this.$fb.track('AddToCart', { value: 0, currency: 'USD' });
           this.success_modal = true;
           return;
         }
@@ -249,12 +247,10 @@
           discount = this.master.price - this.master.member_price;
         }
 
-        if (window.fbq) {
-          window.fbq('track', 'AddToCart', {
-            value: (this.master.price - discount) / 100,
-            currency: 'USD',
-          });
-        }
+        this.$fb.track('AddToCart', {
+          value: (this.master.price - discount) / 100,
+          currency: 'USD',
+        });
 
         const items = [{
           id: `sku:${this.event.sku_id}`,

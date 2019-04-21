@@ -146,7 +146,7 @@
         const info = this.info[item];
         const qty = parseInt(this.count[item], 10);
 
-        window.fbq('track', 'AddToCart', {
+        this.$fb.track('AddToCart', {
           value: info.amount / 100,
           currency: 'USD',
         });
