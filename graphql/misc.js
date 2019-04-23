@@ -178,6 +178,19 @@ query getLegalTerms($name: String!, $email: String!) {
   get_legal_terms(name: $name, email: $email)
 }
 `,
+  tasting_info: gql`
+query tastingInfo($date: String!, $station: Int!) {
+  tasting_info(date: $date, station: $station) {
+    station
+    generic_name
+    survey_url
+    products {
+      product_code
+      product_name
+    }
+  }
+}
+`,
 };
 
 export const mutation = {
