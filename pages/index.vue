@@ -32,7 +32,7 @@
             <nuxt-link :to="{ name: 'groups' }" class="card-link">
               <div class="header-card">
                 <img src="/images/44511992_194691154803338_393358455199342745_n.jpg">
-                <h4>Host an event →</h4>
+                <h4>Team building events →</h4>
               </div>
             </nuxt-link>
           </b-card>
