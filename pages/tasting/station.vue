@@ -9,7 +9,7 @@
     async mounted() {
       const { data: { tasting_info: info } } = await this.$apollo.query({
         query: misc.query.tasting_info,
-        variables: { date: 'demo', station: 0 },
+        variables: { date: 'station', station: 0 },
       });
       document.location = info.survey_url;
     },
