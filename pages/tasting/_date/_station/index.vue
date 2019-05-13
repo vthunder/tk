@@ -19,7 +19,8 @@
             .map((p, i) => `product${i+1}=${parseInt(p.product_code, 10)}`).join('&');
       const prodlen = `&products=${info.products.length}`;
       const station = `&station=${this.$route.params.station}`;
-      document.location = `${info.survey_url}${products}${prodlen}${station}`;
+      const name = `&name=${encodeURIComponent(info.generic_name)}`;
+      document.location = `${info.survey_url}${products}${prodlen}${station}${name}`;
     },
   };
 </script>
