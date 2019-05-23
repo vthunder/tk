@@ -1,21 +1,11 @@
 <template>
   <div id="app">
     <router-view id="router-view" />
-    <AuthModal/>
-    <WelcomeModal/>
   </div>
 </template>
 
 <script>
-  import AuthModal from '@/components/AuthModal.vue';
-  import WelcomeModal from '@/components/WelcomeModal.vue';
-
-  export default {
-    components: {
-      AuthModal,
-      WelcomeModal,
-    },
-  };
+  export default {};
 </script>
 
 <style lang="scss">

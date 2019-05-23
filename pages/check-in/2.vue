@@ -28,6 +28,7 @@
   import * as auth from '@/graphql/auth';
 
   export default {
+    layout: 'bare',
     data() {
       return {
         loading: true,
@@ -42,7 +43,6 @@
     },
     computed: {
       ...mapState('checkin', {
-        qrData: state => state.qrData,
         userData: state => state.userData,
       }),
       readyNext() {
@@ -58,14 +58,9 @@
         this.email = ret.data.me.email;
       }
       this.loading = false;
-      // if (this.qrData) {
-      //   this.name = qrData.name;
-      //   this.email = qrData.email;
-      // }
     },
     methods: {
-      ...mapMutations('checkin', ['clearQrData', 'setName', 'setEmail',
-                                  'clearUserData']),
+      ...mapMutations('checkin', ['setName', 'setEmail']),
 
       next() {
         this.setName(this.name);

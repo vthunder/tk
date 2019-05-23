@@ -6,45 +6,13 @@
         <b-btn :to="{ name: 'check-in-2' }">Tap to check in &gt;</b-btn>
       </div>
     </div>
-    <div class="bottom-half">
-      <!-- <b-link class="qr-link" href="#" @click="getQrScan">I just scanned a QR code</b-link> -->
-    </div>
+    <div class="bottom-half"/>
   </div>
 </template>
 
 <script>
-  import gql from 'graphql-tag';
-  import { mapState, mapMutations } from 'vuex'
-  import * as misc from '@/graphql/misc';
   export default {
     layout: 'bare',
-    components: {
-    },
-    data() {
-      return {
-      };
-    },
-    computed: {
-      ...mapState('checkin', {
-        qrData: state => state.qrData,
-      }),
-    },
-    mounted() {
-      this.clearQrData();
-    },
-    methods: {
-      ...mapMutations('checkin', ['setQrData', 'clearQrData']),
-
-      async getQrScan() {
-        const ret = await this.$apollo.query({ query: misc.query.get_latest_qr_scan });
-        this.qrScan(ret.data.get_latest_qr_scan);
-      },
-
-      qrScan(qrData) {
-        this.setQrData(qrData);
-        this.$router.push({ name: 'check-in-2'});
-      },
-    },
     head() {
       return {
         title: 'Check in',
@@ -54,7 +22,6 @@
 </script>
 
 <style lang="scss">
-  nav.navbar, .footer { display: none !important; }
   #router-view {
     height: 100vh;
     padding: 0 !important;

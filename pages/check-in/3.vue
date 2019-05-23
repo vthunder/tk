@@ -25,6 +25,7 @@
   import * as misc from '@/graphql/misc';
 
   export default {
+    layout: 'bare',
     components: {
       MdViewer,
     },
