@@ -14,6 +14,10 @@
   import AuthModal from '@/components/AuthModal.vue';
   import WelcomeModal from '@/components/WelcomeModal.vue';
 
+  if (process.client && process.env.NODE_ENV === 'production') {
+    require('@/static/js/drift.js');
+  }
+
   export default {
     components: {
       Nav,
