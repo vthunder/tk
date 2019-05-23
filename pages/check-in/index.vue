@@ -17,7 +17,7 @@
   import { mapState, mapMutations } from 'vuex'
   import * as misc from '@/graphql/misc';
   export default {
-    layout: 'nodrift',
+    layout: 'bare',
     components: {
     },
     data() {
