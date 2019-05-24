@@ -60,7 +60,7 @@
       this.loading = false;
     },
     methods: {
-      ...mapMutations('checkin', ['setName', 'setEmail']),
+      ...mapMutations('checkin', ['setName', 'setEmail', 'clearUserData']),
 
       next() {
         this.setName(this.name);
