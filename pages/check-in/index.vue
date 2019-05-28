@@ -6,7 +6,9 @@
         <b-btn :to="{ name: 'check-in-2' }">Tap to check in &gt;</b-btn>
       </div>
     </div>
-    <div class="bottom-half"/>
+    <div class="bottom-half">
+      <img class="qr-code" src="/images/Check in QR code.png">
+    </div>
   </div>
 </template>
 
@@ -79,13 +81,11 @@
     background-color: #ddd;
     height: 40%;
 
-    .qr-link {
+    .qr-code {
       position: absolute;
       bottom: 2em;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      font-size: 1.25rem;
+      left: 2em;
+      width: 6em;
     }
   }
 </style>
