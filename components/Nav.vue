@@ -4,9 +4,6 @@
     <b-navbar-brand :to="{ name: 'index' }"/>
     <span/>
 
-    <b-nav-item v-b-modal.auth-modal v-if="!me.name">
-      <span class="signin-link">Sign in <i class="fas fa-sign-in-alt"/></span>
-    </b-nav-item>
     <b-collapse id="nav_collapse" is-nav>
       <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown v-if="me.name" :text="me.name" right>
@@ -19,6 +16,9 @@
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
+    <b-nav-item v-b-modal.auth-modal v-if="!me.name">
+      <span class="signin-link">Sign in <i class="fas fa-sign-in-alt"/></span>
+    </b-nav-item>
   </b-navbar>
 </template>
 
