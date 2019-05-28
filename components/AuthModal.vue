@@ -66,7 +66,7 @@ import * as auth from '@/graphql/auth';
 export default {
   data() {
     return {
-      activeMode: 'register',
+      activeMode: 'signin',
       alertMessage: 'Invalid username/password',
       form: {
         name: '',
