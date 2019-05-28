@@ -12,7 +12,7 @@
 
 <script>
   export default {
-    layout: 'bare',
+    layout: 'nodrift',
     head() {
       return {
         title: 'Check in',
@@ -22,6 +22,14 @@
 </script>
 
 <style lang="scss">
+  #app .navbar {
+    background-color: inherit;
+    box-shadow: none;
+    .navbar-brand { display: none; }
+    .nav-item { display: block; }
+    .signin-link { color: black; }
+  }
+
   #router-view {
     height: 100vh;
     padding: 0 !important;
