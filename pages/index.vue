@@ -101,11 +101,23 @@
 </template>
 
 <script>
+  import * as auth from '../graphql/auth';
+
 export default {
   data() {
     return {
+      me: {},
       subpage: false,
     };
+  },
+  apollo: {
+    me: {
+      query: auth.query.me,
+      update(data) {
+        if (data && data.me) return data.me;
+        return {};
+      },
+    },
   },
   watch: {
     subpage(newValue) {
@@ -114,6 +126,9 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.updateScroll);
+    if (this.me.is_member) {
+      // redirect to member page
+    }
   },
   methods: {
     updateScroll() {
