@@ -279,7 +279,7 @@
         const day = moment(this.bookingDate).day();
         if (day === 0 || day === 6) return 95000; // Sat, Sun
         if (!this.selectedBookingTime) return 0;
-        if (this.selectedBookingTime === 'lunch') return '65000';
+        if (this.selectedBookingTime === 'lunch') return '95000';
         return 95000;
       },
       privateEventEstimateStr() {
