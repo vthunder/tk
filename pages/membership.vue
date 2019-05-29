@@ -14,14 +14,17 @@
         <b-col md="6">
           <div class="text-center">
             <div v-if="me.is_member">
-              Thanks for being a member!
+              <b-card>
+                Thanks for being a member!
+              </b-card>
             </div>
-            <RequireSignInForm v-else>
+            <div v-else>
               <b-card-group v-if="me.is_free_member">
                 <b-card header="Pay Monthly">
                   <p><strike class="text-muted">$150/month</strike>
                     $125/month (Backer discount!)</p>
                   <b-button
+                    v-if="me.name"
                     variant="primary"
                     @click="signup(monthly, 'KS_CONVERT')">Sign up</b-button>
                 </b-card>
@@ -29,6 +32,7 @@
                   <p><strike class="text-muted">$125/month</strike>
                     $108/month (Backer discount!)</p>
                   <b-button
+                    v-if="me.name"
                     variant="primary"
                     @click="signup(yearly, 'KS_CONVERT')">Sign up</b-button>
                 </b-card>
@@ -37,17 +41,29 @@
                 <b-card header="Pay Monthly">
                   <p>$150/month</p>
                   <b-button
+                    v-if="me.name"
                     variant="primary"
                     @click="signup(monthly)">Sign up</b-button>
                 </b-card>
                 <b-card header="Pay Yearly">
                   <p>$125/month</p>
                   <b-button
+                    v-if="me.name"
                     variant="primary"
                     @click="signup(yearly)">Sign up</b-button>
                 </b-card>
               </b-card-group>
-            </RequireSignInForm>
+              <br>
+              <b-card-group>
+                <b-card header="Register to get started">
+                  <AuthForm :next_route="next_route" :next_action="next_action" />
+                  <b-button
+                    v-if="me.name"
+                    variant="primary"
+                    @click="signup(yearly)">Sign up</b-button>
+                </b-card>
+              </b-card-group>
+            </div>
           </div>
         </b-col>
       </b-row>
@@ -146,7 +162,7 @@
 </template>
 
 <script>
-  import RequireSignInForm from '@/components/RequireSignInForm.vue';
+  import AuthForm from '~/components/AuthForm.vue';
   import * as customerQueries from '@/graphql/customer';
   import { monthlyQuery, yearlyQuery } from '@/lib/plans';
   import * as auth from '@/graphql/auth';
@@ -154,7 +170,7 @@
 
   export default {
     components: {
-      RequireSignInForm,
+      AuthForm,
     },
     data() {
       return {
