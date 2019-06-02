@@ -73,7 +73,7 @@
       <div class="justify-content-center">
         <div class="row">
           <div class="feature-card mb-4 pl-5 col-sm-6 col-md-4">
-            <span class="oi oi-calendar feature-icon"/>
+            <span class="fas fa-calendar-check feature-icon"/>
             <h6 class="mb-2">Flexible schedule</h6>
             <p>
               We're a makerspace! Drop by anytime to use
@@ -81,7 +81,7 @@
               during special events).</p>
           </div>
           <div class="mb-4 pl-5 col-sm-6 col-md-4">
-            <span class="oi oi-task feature-icon"/>
+            <span class="fas fa-tasks feature-icon"/>
             <h6 class="mb-2">All-equipment access</h6>
             <p>
               Access to all of our equipment included, there
@@ -89,7 +89,7 @@
               how to use it, too!</p>
           </div>
           <div class="mb-4 pl-5 col-sm-6 col-md-4">
-            <span class="oi oi-fire feature-icon"/>
+            <span class="fas fa-fire feature-icon"/>
             <h6 class="mb-2">Culinary clubs</h6>
             <p>
               Join one of our culinary clubs that meet
@@ -97,14 +97,14 @@
               some new friends and learn something new.</p>
           </div>
           <div class="mb-4 pl-5 col-sm-6 col-md-4">
-            <span class="oi oi-people feature-icon"/>
+            <span class="fas fa-user-friends feature-icon"/>
             <h6 class="mb-2">Plus-ones welcome</h6>
             <p>
               Free entry for one guest anytime you
               come. Because cooking together is twice the fun.</p>
           </div>
           <div class="mb-4 pl-5 col-sm-6 col-md-4">
-            <span class="oi oi-box feature-icon"/>
+            <span class="fas fa-box feature-icon"/>
             <h6 class="mb-2">Host a dinner party</h6>
             <p>
               Invite additional guests for dinner (not
@@ -113,7 +113,7 @@
               guests, 3 hours.</p>
           </div>
           <div class="mb-4 pl-5 col-sm-6 col-md-4">
-            <span class="oi oi-beaker feature-icon"/>
+            <span class="fas fa-flask feature-icon"/>
             <h6 class="mb-2">Special events</h6>
             <p>
               Get invites for special member-only events
@@ -121,14 +121,14 @@
               speakers, and more.</p>
           </div>
           <div class="mb-4 pl-5 col-sm-6 col-md-4">
-            <span class="oi oi-droplet feature-icon"/>
+            <span class="fas fa-tint feature-icon"/>
             <h6 class="mb-2">Dishwashing help</h6>
             <p>
               We're always around to lend a hand to make cleanup
               a breeze.</p>
           </div>
           <div class="mb-4 pl-5 col-sm-6 col-md-4">
-            <span class="oi oi-cart feature-icon-plus"/>
+            <span class="fas fa-shopping-cart feature-icon-plus"/>
             <h6 class="mb-2">Discounts and freebies</h6>
             <p>
               Get discounts on classes, specialized
@@ -136,7 +136,7 @@
               guests, and more.</p>
           </div>
           <div class="mb-4 pl-5 col-sm-6 col-md-4">
-            <span class="oi oi-thumb-up feature-icon-plus"/>
+            <span class="fas fa-thumbs-up feature-icon-plus"/>
             <h6 class="mb-2">Logistics help</h6>
             <p>
               We&#x27;ll receive your monthly CSA or
