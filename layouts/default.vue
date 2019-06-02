@@ -9,6 +9,7 @@
 </template>
 
 <script>
+  import { mapState, mapMutations } from 'vuex'
   import Nav from '@/components/Nav.vue';
   import Footer from '@/components/Footer.vue';
   import AuthModal from '@/components/AuthModal.vue';
@@ -21,10 +22,30 @@
       AuthModal,
       WelcomeModal,
     },
+    computed: mapState('layout', ['show', 'load']),
+    watch: {
+      $route() {
+        this.resetDefaults();
+      }
+    },
+    beforeMount() {
+      this.resetDefaults();
+    },
     mounted() {
-      if (process.client && process.env.NODE_ENV === 'production') {
+      if (this.load.drift) {
         require('@/static/js/drift.js');
       }
+    },
+    methods: {
+      ...mapMutations('layout', ['set_show', 'set_hide', 'set_load', 'set_noload']),
+      resetDefaults() {
+        this.set_show('signIn');
+        if (process.client && process.env.NODE_ENV === 'production') {
+          this.set_load('drift');
+        } else {
+          this.set_noload('drift');
+        }
+      },
     },
   };
 </script>

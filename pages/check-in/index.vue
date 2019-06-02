@@ -7,14 +7,28 @@
       </div>
     </div>
     <div class="bottom-half">
-      <img class="qr-code" src="/images/Check in QR code.png">
+      <img v-if="kiosk" class="qr-code" src="/images/Check in QR code.png">
     </div>
   </div>
 </template>
 
 <script>
+  import { mapState, mapMutations } from 'vuex'
   export default {
-    layout: 'nodrift',
+    data() {
+      return {
+        kiosk: this.$route.query.kiosk? true : false,
+      };
+    },
+    mounted() {
+      this.set_noload('drift');
+      if (this.kiosk) {
+        this.set_hide('signIn');
+      } else {
+        this.set_show('signIn');
+      }
+    },
+    methods: mapMutations('layout', ['set_show', 'set_hide', 'set_load', 'set_noload']),
     head() {
       return {
         title: 'Check in',
@@ -29,7 +43,7 @@
     box-shadow: none;
     .navbar-brand { display: none; }
     .nav-item { display: block; }
-    .signin-link { color: black; }
+    .signin-link, .signin-name a { color: black; }
   }
 
   #router-view {
