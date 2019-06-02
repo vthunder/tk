@@ -32,7 +32,7 @@ module.exports = {
     ],
     script: [
       { src: `https://polyfill.io/v3/polyfill.min.js?features=${POLYFILL_FEATURES}`, body: true },
-      { src: 'https://kit.fontawesome.com/527515d23c.js', body: true },,
+      { src: 'https://kit.fontawesome.com/527515d23c.js', body: true },
     ],
   },
 
