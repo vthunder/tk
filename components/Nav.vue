@@ -6,7 +6,8 @@
 
     <b-collapse id="nav_collapse" is-nav>
       <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown v-if="me.name && show.signIn" :text="me.name" class="signin-name" right>
+        <b-nav-item-dropdown v-if="me.name && show.signIn && !kiosk"
+                             :text="me.name" class="signin-name" right>
           <b-nav-text class="signed-in-as">Signed in as: {{ me.name }}</b-nav-text>
           <b-dd-item :to="{ name: 'account-account' }">Account</b-dd-item>
           <b-dd-item :to="{ name: 'account-billing' }">Billing</b-dd-item>
@@ -16,7 +17,7 @@
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
-    <b-nav-item v-b-modal.auth-modal v-if="!me.name && show.signIn">
+    <b-nav-item v-b-modal.auth-modal v-if="!me.name && show.signIn && !kiosk">
       <span class="signin-link">Sign in <i class="fas fa-sign-in-alt"/></span>
     </b-nav-item>
   </b-navbar>
@@ -33,6 +34,7 @@
     data() {
       return {
         me: '',
+        kiosk: this.$route.query.kiosk? true : false,
       };
     },
     apollo: {
