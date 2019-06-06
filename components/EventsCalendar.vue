@@ -6,8 +6,17 @@
           <full-calendar :event-sources="events" :config="config" @day-click="dayClick" />
         </no-ssr>
         <b-card>
-          <h5>Click on a date to make a reservation.</h5>
-          <div>Open Hours: 10am-9pm Wed-Mon (closed Tue)</div>
+          <b-row align-v="center">
+            <b-col sm="6">
+              <h5>Click on a date to make a reservation.</h5>
+              <div>Open Hours: 10am-9pm Wed-Mon (closed Tue)</div>
+            </b-col>
+            <b-col sm="6" class="text-right">
+              Add to your calendar:
+              <b-btn href="/ical" class="mr-2">iCal (all events)</b-btn>
+              <b-btn href="/ical/closed">iCal (TK closed)</b-btn>
+            </b-col>
+          </b-row>
         </b-card>
       </b-col>
     </b-row>
