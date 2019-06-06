@@ -191,6 +191,11 @@ query tastingInfo($date: String!, $station: Int!) {
   }
 }
 `,
+  mailing_list_check: gql`
+query mailingListCheck($email: String!, $list: String) {
+  mailing_list_check(email: $email, list: $list)
+}
+`,
 };
 
 export const mutation = {

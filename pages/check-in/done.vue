@@ -2,23 +2,13 @@
   <b-container class="thanks-form">
     <b-row align-h="center">
       <b-col sm="8" class="thanks-content">
-        <h2 class="thanks-msg">Thanks for checking in!</h2>
-        <b-card v-if="showSub" bg-variant="dark" text-variant="white" class="subscribe-card">
-          <h2>Stay in touch</h2>
-          <div class="ml-btn">
-            <b-btn v-if="subSuccess === null" variant="primary" @click="subscribe">
-              Get TK news via email
-            </b-btn>
-            <div v-else-if="subFailure">
-              Oops... something went wrong. Please let TK staff know!
-            </div>
-            <div v-else>
-              Success! Thanks for subscribing :-)
-            </div>
-          </div>
-        </b-card>
-        <div class="next-button">
-          <b-btn :to="{ name: 'check-in' }">Reset Form</b-btn>
+        <h2>Thanks for checking in!</h2>
+        <div v-if="subscribed === false" class="next-button">
+          <b-btn variant="primary" @click="subscribe">Subscribe to Our Email List</b-btn>
+          <b-btn :to="{ name: 'check-in' }">No Thanks</b-btn>
+        </div>
+        <div v-else-if="subscribed" class="next-button">
+          <b-btn :to="{ name: 'check-in' }">Done</b-btn>
         </div>
       </b-col>
     </b-row>
@@ -37,6 +27,7 @@
     },
     data() {
       return {
+        subscribed: null,
         subSuccess: null,
         subFailure: false,
         successMsg: '',
@@ -47,7 +38,24 @@
         userData: state => state.userData,
       }),
       showSub() {
-        return true;
+        return this.subscribed === false;
+      },
+    },
+    watch: {
+      'userData.email': {
+        async handler(newVal) {
+          if (newVal) {
+            const ret = await this.$apollo.query({
+              query: misc.query.mailing_list_check,
+              variables: {
+                email: this.userData.email,
+              }
+            });
+            if (ret && ret.data) {
+              this.subscribed = ret.data.mailing_list_check;
+            }
+          }
+        },
       },
     },
     methods: {
@@ -63,7 +71,7 @@
             list: 'Tinker Kitchen Newsletter',
           },
         }).then(() => {
-          this.subSuccess = true;
+          this.$router.push({ name: 'check-in' });
         }).catch(({ graphQLErrors: [{ message }] }) => {
           switch (message) {
             case 'Member Exists':
@@ -73,6 +81,8 @@
             default:
               this.failure = true;
           }
+          // fixme: should we show an error?
+          this.$router.push({ name: 'check-in' });
         });
       },
     },
