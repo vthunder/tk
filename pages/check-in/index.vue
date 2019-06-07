@@ -41,6 +41,7 @@
     },
     mounted() {
       this.set_noload('drift');
+      this.set_hide('footer');
       if (this.kiosk) {
         this.set_hide('signIn');
       } else {

@@ -1,6 +1,7 @@
 export const state = () => ({
   show: {
     signIn: true,
+    footer: true,
   },
   load: {
     drift: true,

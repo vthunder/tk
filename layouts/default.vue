@@ -4,7 +4,7 @@
     <router-view id="router-view" />
     <AuthModal/>
     <WelcomeModal/>
-    <Footer/>
+    <Footer v-if="show.footer" />
   </div>
 </template>
 
