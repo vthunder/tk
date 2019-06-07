@@ -2,8 +2,18 @@
   <div>
     <div class="top-half">
       <div class="logo"><img src="/images/Logo - orange - url.png"></div>
-      <div class="check-in-button">
-        <b-btn :to="{ name: 'check-in-2' }">Tap to check in &gt;</b-btn>
+      <div v-if="me.name">
+        <div class="check-in-button">
+          <b-btn @click="goto3">Check in as {{ me.name }}</b-btn>
+          <p class="im-not-me">
+            <b-link :to="{ name: 'check-in-2' }" class="ml-2 pb-1">I'm not Dan</b-link>
+          </p>
+        </div>
+      </div>
+      <div v-else>
+        <div class="check-in-button">
+          <b-btn :to="{ name: 'check-in-2' }">Tap to check in &gt;</b-btn>
+        </div>
       </div>
     </div>
     <div class="bottom-half">
@@ -14,11 +24,17 @@
 
 <script>
   import { mapState, mapMutations } from 'vuex'
+  import * as auth from '@/graphql/auth';
+
   export default {
     data() {
       return {
+        me: null,
         kiosk: this.$route.query.kiosk? true : false,
       };
+    },
+    apollo: {
+      me: auth.query.me,
     },
     mounted() {
       this.set_noload('drift');
@@ -28,11 +44,21 @@
         this.set_show('signIn');
       }
     },
-    methods: mapMutations('layout', ['set_show', 'set_hide', 'set_load', 'set_noload']),
-    head() {
-      return {
-        title: 'Check in',
-      };
+    methods: {
+      ...mapMutations('layout', ['set_show', 'set_hide', 'set_load', 'set_noload']),
+      ...mapMutations('checkin', ['setName', 'setEmail', 'clearUserData']),
+
+      goto3() {
+        this.setName(this.me.name);
+        this.setEmail(this.me.email);
+        this.$router.push({ name: 'check-in-3' });
+      },
+
+      head() {
+        return {
+          title: 'Check in',
+        };
+      },
     },
   };
 </script>
@@ -76,6 +102,7 @@
     .check-in-button {
       display: flex;
       flex-direction: row;
+      align-items: center;
       justify-content: center;
       position: absolute;
       bottom: -2.25em;
@@ -88,6 +115,13 @@
         font-size: 2rem;
         padding: .5em 1em;
         font-weight: 600;
+      }
+
+      .im-not-me {
+        position: absolute;
+        bottom: -3em;
+        text-align: center;
+        width: 100%;
       }
     }
   }
