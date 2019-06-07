@@ -17,7 +17,10 @@
       </div>
     </div>
     <div class="bottom-half">
-      <img v-if="kiosk" class="qr-code" src="/images/Check in QR code.png">
+      <div class="qr-code">
+        <img v-if="kiosk" src="/images/Check in QR code.png">
+        &lt;---- Scan me with the camera app on your phone!
+      </div>
     </div>
   </div>
 </template>
@@ -133,7 +136,7 @@
       position: absolute;
       bottom: 2em;
       left: 2em;
-      width: 6em;
+      img { width: 6em; }
     }
   }
 </style>
