@@ -73,8 +73,8 @@ query CalendarMaster($id: Int, $slug: String) {
 }
 `,
   calendar_events: gql`
-query CalendarEvents {
-  calendar_events {
+query CalendarEvents($id: Int, $slug: String) {
+  calendar_events(id: $id, slug: $slug) {
     id
     master_id
     calendar_hide
@@ -89,7 +89,13 @@ query CalendarEvents {
     category
     price
     member_price
+    book_event_label
     ext_book_url
+    ext_member_discount_code
+    show_interested
+    sidebar_pre_text
+    sidebar_post_text
+    status
   }
 }
 `,

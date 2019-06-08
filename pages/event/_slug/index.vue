@@ -2,14 +2,14 @@
   <div class="container section">
     <b-row class="mt-2">
       <b-col md="7">
-        <b-img v-if="master.image_header" :src="master.image_header" fluid />
-        <h1 class="text-left">{{ master.title }}</h1>
+        <b-img v-if="event.image_header" :src="event.image_header" fluid />
+        <h1 class="text-left">{{ event.title }}</h1>
         <div class="event-description mt-4">
-          <vue-markdown :source="master.description" />
+          <vue-markdown :source="event.description" />
         </div>
       </b-col>
       <b-col md="5" class="border-left">
-        <div v-if="master.category && master.category === 'private'">
+        <div v-if="event.category && event.category === 'private'">
           <h3>Private event</h3>
           <p>
             <strong>{{ private_date }}</strong><br>
@@ -17,24 +17,24 @@
           </p>
         </div>
         <div v-else>
-          <h4 v-if="master.price === 0" class="price">Price: Free!</h4>
+          <h4 v-if="event.price === 0" class="price">Price: Free!</h4>
           <!-- null / otherwise falsy, hide price altogether -->
-          <h4 v-else-if="!master.price" class="price" />
+          <h4 v-else-if="!event.price" class="price" />
           <h4 v-else class="price">
-            Price: {{ formatPrice(master.price) }}
-            <span v-if="master.member_price">
-              &nbsp;(members: {{ formatPrice(master.member_price) }})
+            Price: {{ formatPrice(event.price) }}
+            <span v-if="event.member_price">
+              &nbsp;(members: {{ formatPrice(event.member_price) }})
             </span>
           </h4>
-          <vue-markdown v-if="master.sidebar_pre_text" :source="master.sidebar_pre_text" />
+          <vue-markdown v-if="event.sidebar_pre_text" :source="event.sidebar_pre_text" />
           <div v-if="event_opts.length">
             <b-form-select v-model="which_event" :options="event_opts" />
-            <div v-if="master.ext_book_url">
+            <div v-if="event.ext_book_url">
               <b-button
-                :href="master.ext_book_url"
+                :href="event.ext_book_url"
                 variant="primary">{{ ext_book_text }}</b-button>
               <div v-if="show_member_discount">
-                Member discount code: {{ master.ext_member_discount_code }}
+                Member discount code: {{ event.ext_member_discount_code }}
               </div>
             </div>
             <div v-else>
@@ -48,10 +48,10 @@
             </div>
           </div>
           <vue-markdown
-            v-if="master.sidebar_post_text"
-            :source="master.sidebar_post_text"
+            v-if="event.sidebar_post_text"
+            :source="event.sidebar_post_text"
             class="mt-3" />
-          <div v-if="master.show_interested">
+          <div v-if="event.show_interested">
             <div v-if="interested_success" class="mt-2">
               <p>
                 Thanks! We'll let you know when we schedule
@@ -84,14 +84,8 @@
                   type="email"
                   placeholder="email@example.com" />
                 <b-button
-                  v-if="master.events.length"
                   class="ml-1"
                   @click.prevent="interested()">Let me know</b-button>
-                <b-button
-                  v-else
-                  variant="primary"
-                  class="ml-1"
-                  @click.prevent="interested()">Submit</b-button>
               </b-form>
             </div>
           </div>
@@ -118,20 +112,10 @@
 
   export default {
     apollo: {
-      master: {
-        query: misc.query.calendar_master,
-        update(data) {
-          if (!this.which_event &&
-              data.calendar_master &&
-              data.calendar_master.next_event) {
-            this.which_event = data.calendar_master.next_event.id;
-          }
-          return data.calendar_master;
-        },
+      calendar_events: {
+        query: misc.query.calendar_events,
         variables() {
-          return {
-            slug: this.$route.params.slug,
-          };
+          return { slug: this.$route.params.slug }
         },
       },
       me: {
@@ -148,19 +132,9 @@
     components: {
       VueMarkdown,
     },
-    async asyncData({ app, route, store }) {
-      const { data } = await app.apolloProvider.defaultClient.query({
-        query: misc.query.calendar_master,
-        variables: {
-          slug: route.params.slug
-        },
-        update: data => data.calendar_master,
-      });
-      return { master: data.calendar_master };
-    },
     data() {
       return {
-        master: {},
+        calendar_events: [],
         me: '',
         how_many: 1,
         num_options: [
@@ -190,7 +164,7 @@
         return this.me && (this.me.is_member || this.me.is_free_member);
       },
       event_opts() {
-        return (this.master.events||[])
+        return (this.calendar_events||[])
           .filter(e => e.status !== 'closed')
           .map((e) => {
             // fixme: add all_day support
@@ -204,7 +178,7 @@
       },
       event() {
         const id = parseInt(this.which_event, 10);
-        const event = this.master.events.find(e => e.id === id);
+        const event = this.calendar_events.find(e => e.id === id);
         return event || {};
       },
       show_member_discount() {
@@ -215,7 +189,7 @@
         return false;
       },
       book_text() {
-        return this.master.book_event_label || 'Add to Cart';
+        return this.event.book_event_label || 'Add to Cart';
       },
     },
     mounted() {
@@ -236,19 +210,19 @@
 
         // is this a free event?
         // fixme: track user going to this free event (!)
-        if (!this.master.price) {
+        if (!this.event.price) {
           this.$fb.track('AddToCart', { value: 0, currency: 'USD' });
           this.success_modal = true;
           return;
         }
 
         // current user is a member, and there is a discount available
-        if (this.member && (this.master.price !== this.master.member_price)) {
-          discount = this.master.price - this.master.member_price;
+        if (this.member && (this.event.price !== this.event.member_price)) {
+          discount = this.event.price - this.event.member_price;
         }
 
         this.$fb.track('AddToCart', {
-          value: (this.master.price - discount) / 100,
+          value: (this.event.price - discount) / 100,
           currency: 'USD',
         });
 
@@ -257,9 +231,9 @@
           type: 'sku',
           sku: this.event.sku_id,
           quantity: qty,
-          title: this.master.title,
+          title: this.event.title,
           subtitle: moment.utc(this.event.start).format('dddd MMMM Do h:mm a'),
-          amount_each: this.master.price,
+          amount_each: this.event.price,
         }];
         if (discount) {
           items.push({
@@ -282,14 +256,14 @@
       async interested() {
         const { data: { class_interest: ret } } = await this.$apollo.mutate({
           mutation: misc.mutation.class_interest,
-          variables: { email: this.interested_email, master_id: this.master.id },
+          variables: { email: this.interested_email, master_id: this.event.master_id },
         });
         if (ret === 'OK') this.interested_success = true;
       },
     },
     head() {
       return {
-        title: this.master.title,
+        title: this.event.title,
       };
     },
   };
