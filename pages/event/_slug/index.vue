@@ -132,6 +132,14 @@
     components: {
       VueMarkdown,
     },
+    async asyncData({ app, route, store }) {
+      const { data } = await app.apolloProvider.defaultClient.query({
+        query: misc.query.calendar_events,
+        variables: { slug: route.params.slug },
+        update: data => data.calendar_events,
+      });
+      return { calendar_events: data.calendar_events };
+    },
     data() {
       return {
         calendar_events: [],
