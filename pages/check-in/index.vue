@@ -6,7 +6,7 @@
         <div class="check-in-button">
           <b-btn @click="goto3">Check in as {{ me.name }}</b-btn>
           <p class="im-not-me">
-            <b-link :to="{ name: 'check-in-2' }" class="ml-2 pb-1">I'm not Dan</b-link>
+            <b-link :to="{ name: 'check-in-2' }" class="ml-2 pb-1">I'm not {{ me.name }}</b-link>
           </p>
         </div>
       </div>
