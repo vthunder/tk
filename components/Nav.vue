@@ -17,7 +17,7 @@
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
-    <b-nav-item v-b-modal.auth-modal v-if="!me.name && show.signIn && !kiosk">
+    <b-nav-item v-b-modal.auth-modal v-if="!me.name && show.signIn && !kiosk" class="signin-li">
       <span class="signin-link">Sign in <i class="fas fa-sign-in-alt"/></span>
     </b-nav-item>
   </b-navbar>
@@ -107,8 +107,12 @@
       margin-left: 1em;
     }
 
-    .signin-link {
-      color: white;
+    .signin-li {
+      list-style: none;
+
+      .signin-link {
+        color: white;
+      }
     }
 
     #nav_collapse > ul > li > a {
