@@ -121,7 +121,11 @@
           if (!this.which_event &&
               data.calendar_events &&
               data.calendar_events.length) {
-            this.which_event = data.calendar_events[0].id; // fixme
+            if (this.$route.query.id)
+              this.which_event = this.$route.query.id;
+            else {
+              this.which_event = data.calendar_events[0].id; // fixme: pick first upcoming event
+            }
           }
           return data.calendar_events;
         },
