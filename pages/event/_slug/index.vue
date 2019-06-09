@@ -32,7 +32,7 @@
             <div v-if="event.ext_book_url">
               <b-button
                 :href="event.ext_book_url"
-                variant="primary">{{ ext_book_text }}</b-button>
+                variant="primary">{{ book_event_label }}</b-button>
               <div v-if="show_member_discount">
                 Member discount code: {{ event.ext_member_discount_code }}
               </div>
@@ -40,7 +40,7 @@
             <div v-else>
               <b-form v-if="event.status === 'open'" class="booking_form" inline>
                 <b-form-select v-model="how_many" :options="num_options" />
-                <b-button variant="primary" @click="book()">{{ book_text }}</b-button>
+                <b-button variant="primary" @click="book()">{{ book_event_label }}</b-button>
               </b-form>
               <div v-if="event.status === 'soldout'">
                 <h4 class="mt-3">Sorry, this date is sold out!</h4>
@@ -188,7 +188,7 @@
         }
         return false;
       },
-      book_text() {
+      book_event_label() {
         return this.event.book_event_label || 'Add to Cart';
       },
     },
