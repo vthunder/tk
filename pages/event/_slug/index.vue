@@ -124,10 +124,11 @@
             if (this.$route.query.id)
               this.which_event = this.$route.query.id;
             else {
-              const open_future = this.calendar_events
-                                      .filter(e => e.status === 'open')
-                                      .filter(e => moment(e.start).isAfter())
-              this.which_event = open_future[0] ? open_future[0].id : null;
+              const future = this.calendar_events.filter(e => moment(e.start).isAfter())
+              const open_future = future.filter(e => e.status === 'open');
+              if (open_future[0]) this.which_event = open_future[0].id;
+              else if (future[0]) this.which_event = future[0].id;
+              else this.which_event = null;
             }
           }
           return data.calendar_events;
