@@ -208,21 +208,14 @@
         return this.event.book_event_label || 'Add to Cart';
       },
     },
-    watch: {
-      '$route': 'updateSelected',
-    },
-    created() {
-      this.updateSelected();
+    mounted() {
+      this.which_event = this.$route.query.id;
     },
     destroyed() {
       this.$root.$off('tk::event::book', this.book);
     },
     methods: {
       ...mapMutations('cart', ['add']),
-
-      updateSelected() {
-        this.which_event = this.$route.query.id;
-      },
 
       formatPrice(p) {
         return format.priceWhole(p);
