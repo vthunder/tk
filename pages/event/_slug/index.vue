@@ -117,6 +117,14 @@
         variables() {
           return { slug: this.$route.params.slug }
         },
+        update(data) {
+          if (!this.which_event &&
+              data.calendar_events &&
+              data.calendar_events.length) {
+            this.which_event = data.calendar_events[0].id; // fixme
+          }
+          return data.calendar_events;
+        },
       },
       me: {
         query: auth.query.me,
