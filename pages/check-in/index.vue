@@ -50,7 +50,7 @@
     },
     methods: {
       ...mapMutations('layout', ['set_show', 'set_hide', 'set_load', 'set_noload']),
-      ...mapMutations('checkin', ['setName', 'setEmail', 'clearUserData']),
+      ...mapMutations('checkin', ['setName', 'setEmail', 'setUserType', 'clearUserData']),
 
       goto3() {
         this.setName(this.me.name);
