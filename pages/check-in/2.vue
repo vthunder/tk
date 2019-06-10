@@ -3,7 +3,7 @@
   <div v-else class="form">
     <div class="top-buttons">
       <b-btn :to="{ name: 'check-in' }">&lt;</b-btn>
-      <b-btn :disabled="readyNext" @click="next">&gt;</b-btn>
+      <b-btn :disabled="notReadyNext" @click="next">&gt;</b-btn>
     </div>
 
     <div class="center-form">
@@ -11,14 +11,12 @@
       <b-form-input v-model="name" />
       <h2 class="mt-4">Email address</h2>
       <b-form-input v-model="email" type="email" />
-      <!--
-      <h2 class="mt-4">I am a...</h2>
+      <h2 class="mt-4">I am... (select one)</h2>
       <b-select v-model="userType" :options="userTypeOpts" />
-       -->
     </div>
 
     <div class="next-button">
-      <b-btn :disabled="readyNext" @click="next">Next &gt;</b-btn>
+      <b-btn :disabled="notReadyNext" @click="next">Next &gt;</b-btn>
     </div>
   </div>
 </template>
@@ -36,7 +34,9 @@
         email: '',
         userType: '',
         userTypeOpts: [
-          { value: 'guest', text: 'Guest'},
+          { value: 'guest', text: 'A guest of a member'},
+          { value: 'daypass', text: 'Using a day pass / gift certificate'},
+          { value: 'class', text: 'Here for a class/event'},
           { value: 'member', text: 'Member'},
         ],
       };
@@ -45,8 +45,8 @@
       ...mapState('checkin', {
         userData: state => state.userData,
       }),
-      readyNext() {
-        if (this.name && this.email) return false;
+      notReadyNext() {
+        if (this.name && this.email && this.userType) return false;
         return true;
       },
     },
@@ -60,11 +60,12 @@
       this.loading = false;
     },
     methods: {
-      ...mapMutations('checkin', ['setName', 'setEmail', 'clearUserData']),
+      ...mapMutations('checkin', ['setName', 'setEmail', 'setUserType', 'clearUserData']),
 
       next() {
         this.setName(this.name);
         this.setEmail(this.email);
+        this.setUserType(this.userType);
         this.$router.push({ name: 'check-in-3' });
       },
     },

@@ -52,6 +52,7 @@
         if (ret.data.get_legal_terms) this.terms = ret.data.get_legal_terms;
       } catch (e) {}
       if (!this.terms.length) {
+        await this.checkin();
         this.$router.push({ name: 'check-in-done' });
       } else {
         this.loading = false;
@@ -66,20 +67,25 @@
           this.current = this.current + 1;
           window.scrollTo(0, 0);
         } else {
-          const ret = await this.$apollo.mutate({
-            mutation: misc.mutation.checkin,
-            variables: {
-              data: {
-                name: this.userData.name,
-                email: this.userData.email,
-                agreed_terms: Object.entries(this.userData.agreedToTerms)
-                                    .map(e => ({ terms_name: e[0], agreed_timestamp: e[1] })),
-              },
-            },
-          });
+          await this.checkin();
           this.$router.push({ name: 'check-in-done' });
         }
       },
+
+      async checkin() {
+        const ret = await this.$apollo.mutate({
+          mutation: misc.mutation.checkin,
+          variables: {
+            data: {
+              name: this.userData.name,
+              email: this.userData.email,
+              user_type: this.userData.userType,
+              agreed_terms: Object.entries(this.userData.agreedToTerms)
+                                  .map(e => ({ terms_name: e[0], agreed_timestamp: e[1] })),
+            },
+          },
+        });
+      }
     },
   };
 </script>

@@ -5,6 +5,7 @@ export const state = () => ({
   userData: {
     name: null,
     email: null,
+    userType: null,
     addToMailingList: null,
     agreedToTerms: {},
   },
@@ -23,6 +24,9 @@ export const mutations = {
   setEmail(state, email) {
     state.userData.email = email;
   },
+  setUserType(state, type) {
+    state.userData.userType = type;
+  },
   setAddToMailingList(state, bool) {
     state.userData.addToMailingList = bool;
   },
@@ -33,6 +37,7 @@ export const mutations = {
     state.userData = {
       name: null,
       email: null,
+      userType: null,
       addToMailingList: null,
       agreedToTerms: {},
     };
