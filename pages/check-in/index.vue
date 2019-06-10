@@ -55,6 +55,7 @@
       goto3() {
         this.setName(this.me.name);
         this.setEmail(this.me.email);
+        this.setUserType('member');
         this.$router.push({ name: 'check-in-3' });
       },
 
