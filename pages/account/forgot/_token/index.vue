@@ -24,9 +24,6 @@
   import * as auth from '@/graphql/auth';
 
   export default {
-    props: {
-      token: { type: String, default: '' }
-    },
     data() {
       return {
         new_password: null,
@@ -37,7 +34,7 @@
       async changePassword() {
         const { data: { update_password_by_token: result } } = await this.$apollo.mutate({
           mutation: auth.mutation.update_password_by_token,
-          variables: { token: this.token, password: this.new_password },
+          variables: { token: this.$route.params.token, password: this.new_password },
         });
         if (result === 'OK') {
           // eslint-disable-next-line
