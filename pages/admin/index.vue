@@ -16,6 +16,8 @@
             {{ admin_stats.num_event_bookings }}</li>
         </ul>
       </div>
+      <h3 class="mt-4">Checkins:</h3>
+      <b-table :items="checkin_items" :fields="checkin_table_fields" striped hover />
     </AdminPage>
   </div>
 </template>
@@ -33,6 +35,8 @@ export default {
     return {
       me: {},
       admin_stats: {},
+      admin_list_checkins: [],
+      checkin_table_fields: ['name', 'email', 'user_type', 'date'],
     };
   },
   apollo: {
@@ -49,6 +53,18 @@ export default {
         if (data.admin_stats) return data.admin_stats;
         return {};
       },
+    },
+    admin_list_checkins: {
+      query: admin.query.admin_list_checkins,
+      update(data) {
+        if (data.admin_list_checkins) return data.admin_list_checkins;
+        return [];
+      },
+    },
+  },
+  computed: {
+    checkin_items() {
+      return this.admin_list_checkins;
     },
   },
   methods: {

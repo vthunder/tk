@@ -12,6 +12,16 @@ query AdminStats {
   }
 }
 `,
+  admin_list_checkins: gql`
+query AdminListCheckins {
+  admin_list_checkins {
+    name
+    email
+    user_type
+    date
+  }
+}
+`,
 };
 
 export const mutation = {
