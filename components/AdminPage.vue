@@ -26,6 +26,10 @@ export default {
   components: {
     RequireSignIn,
   },
+  mounted() {
+    this.set_noload('drift');
+    this.set_hide('footer');
+  },
 };
 </script>
 
