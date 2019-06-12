@@ -295,7 +295,7 @@
         return format.priceWhole(this.privateEventEstimate);
       },
       tabCategory() {
-        if (!this.mounted) return null;
+        if (!this.$refs.bookModalTabs) return null;
         const tabs = this.$refs.bookModalTabs,
               tabName = tabs.tabs[this.tabIndex].title;
         console.log(tabName);
