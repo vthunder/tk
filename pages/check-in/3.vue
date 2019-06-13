@@ -82,6 +82,7 @@
           variables: {
             data: {
               name: this.userData.name,
+              child_name: this.userData.childName,
               email: this.userData.email,
               user_type: this.userData.userType,
               agreed_terms: Object.entries(this.userData.agreedToTerms)

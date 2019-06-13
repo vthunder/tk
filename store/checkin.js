@@ -4,6 +4,7 @@ export const state = () => ({
   qrData: {},
   userData: {
     name: null,
+    childName: null,
     email: null,
     userType: null,
     addToMailingList: null,
@@ -20,6 +21,9 @@ export const mutations = {
   },
   setName(state, name) {
     state.userData.name = name;
+  },
+  setChildName(state, name) {
+    state.userData.childName = name;
   },
   setEmail(state, email) {
     state.userData.email = email;
