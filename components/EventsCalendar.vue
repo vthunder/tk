@@ -31,7 +31,7 @@
       <b-card no-body>
         <b-tabs ref="bookModalTabs" v-model="tabIndex" card>
           <b-tab title="Private Event" active>
-            <b-form-group label="Date & Time" horizontal>
+            <b-form-group label="Date & Time" label-cols="3">
               <div class="mt-2">{{ bookingDateStr }}</div>
               <b-form-radio-group
                 v-model="selectedBookingTime"
@@ -42,22 +42,22 @@
             </b-form-group>
             <b-form-group
               label="Name:"
-              label-cols-sm="8"
-              label-align-sm="right"
-              class="mt-2" horizontal>
+              label-cols="3"
+              label-align="right"
+              class="mt-2">
               <b-input v-model="name" />
             </b-form-group>
             <b-form-group
               label="Email:"
-              label-cols-sm="8"
-              label-align-sm="right"
-              class="mt-2" horizontal>
+              label-cols="3"
+              label-align="right"
+              class="mt-2">
               <b-input v-model="email" />
             </b-form-group>
             <div v-if="privateEventEstimate">Price: {{ privateEventEstimateStr }}</div>
           </b-tab>
           <b-tab title="Teach a Class">
-            <b-form-group label="Date & Time" horizontal>
+            <b-form-group label="Date & Time" label-cols="3">
               <div class="mt-2">{{ bookingDateStr }}</div>
               <b-form-radio-group
                 v-model="selectedBookingTime"
@@ -68,23 +68,23 @@
             </b-form-group>
             <b-form-group
               label="Name:"
-              label-cols-sm="8"
-              label-align-sm="right"
-              class="mt-2" horizontal>
+              label-cols="3"
+              label-align="right"
+              class="mt-2">
               <b-input v-model="name" />
             </b-form-group>
             <b-form-group
               label="Email:"
-              label-cols-sm="8"
-              label-align-sm="right"
-              class="mt-2" horizontal>
+              label-cols="3"
+              label-align="right"
+              class="mt-2">
               <b-input v-model="email" />
             </b-form-group>
             <b-form-group
-              label="Class info:<br>(topic, price, etc)"
-              label-cols-sm="8"
-              label-align-sm="right"
-              class="mt-2" horizontal>
+              label="Class info (topic, price, etc):"
+              label-cols="3"
+              label-align="right"
+              class="mt-2">
               <b-form-textarea v-model="classInfo" rows="3" />
             </b-form-group>
             <p>
@@ -93,7 +93,7 @@
             </p>
           </b-tab>
           <b-tab title="Dinner Party">
-            <b-form-group label="Date & Time" horizontal>
+            <b-form-group label="Date & Time" label-cols="3">
               <div class="mt-2">{{ bookingDateStr }}</div>
               <b-form-radio-group
                 v-model="selectedBookingTime"
@@ -105,16 +105,16 @@
             <h5>Number of guests</h5>
             <b-form-group
               label="Dining ($10):"
-              label-cols-sm="8"
-              label-align-sm="right"
-              class="mt-2" horizontal>
+              label-cols="3"
+              label-align="right"
+              class="mt-2">
               <b-select v-model="diningGuests" :options="diningGuestOptions" />
             </b-form-group>
             <b-form-group
               label="Cooking/Dining ($25):"
-              label-cols-sm="8"
-              label-align-sm="right"
-              class="mt-2" horizontal>
+              label-cols="3"
+              label-align="right"
+              class="mt-2">
               <b-select v-model="kitchenGuests" :options="kitchenGuestOptions" />
             </b-form-group>
             <div class="mt-2 text-center">
@@ -160,7 +160,6 @@
     },
     data() {
       return {
-        mounted: false,
         calendar_events: [],
         config: {
           businessHours: {
@@ -295,13 +294,9 @@
         return format.priceWhole(this.privateEventEstimate);
       },
       tabCategory() {
-        if (!this.$refs.bookModalTabs) return null;
-        const tabs = this.$refs.bookModalTabs,
-              tabName = tabs.tabs[this.tabIndex].title;
-        console.log(tabName);
-        if (tabName === 'Teach a Class') return 'class';
-        if (tabName === 'Private Event') return 'private';
-        return 'dinnerparty';
+        if (this.tabIndex === 0) return 'private';
+        if (this.tabIndex === 1) return 'class';
+        if (this.tabIndex === 2) return 'dinnerparty';
       },
       modalOkDisabled() {
         if (this.bookingDate && this.bookingDate.isBefore(moment())) return true;
@@ -309,9 +304,6 @@
         if (this.selectedBookingTime && this.name && this.email) return false;
         return true;
       },
-    },
-    mounted() {
-      this.mounted = true;
     },
     methods: {
       dayClick(date, event) {
