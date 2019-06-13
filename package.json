@@ -36,7 +36,8 @@
     "vue-qrcode-reader": "^1.4.2",
     "vue-stripe-checkout": "^1.2.6",
     "vue2-filters": "^0.4.1",
-    "vuex-persist": "^2.0.1"
+    "vuex-persist": "^2.0.1",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
