@@ -30,6 +30,7 @@ export default {
     this.set_noload('drift');
     this.set_hide('footer');
   },
+  methods: mapMutations('layout', ['set_show', 'set_hide', 'set_load', 'set_noload']),
 };
 </script>
 
