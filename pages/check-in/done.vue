@@ -58,7 +58,14 @@
         },
       },
     },
+    mounted() {
+      this.set_noload('drift');
+      this.set_hide('footer');
+      this.set_hide('signIn');
+    },
     methods: {
+      ...mapMutations('layout', ['set_show', 'set_hide', 'set_load', 'set_noload']),
+
       subscribe() {
         this.subSuccess = null;
         this.subFailure = false;
@@ -90,7 +97,6 @@
 </script>
 
 <style lang="scss">
-  nav.navbar, .footer { display: none !important; }
   #router-view {
     height: 100vh;
     padding: 0 !important;

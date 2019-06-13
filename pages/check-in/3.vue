@@ -44,6 +44,9 @@
       }),
     },
     async mounted() {
+      this.set_noload('drift');
+      this.set_hide('footer');
+      this.set_hide('signIn');
       try {
         const ret = await this.$apollo.query({
           query: misc.query.get_legal_terms,
@@ -59,6 +62,7 @@
       }
     },
     methods: {
+      ...mapMutations('layout', ['set_show', 'set_hide', 'set_load', 'set_noload']),
       ...mapMutations('checkin', ['setAgreedToTerms']),
 
       async agree() {
@@ -91,7 +95,6 @@
 </script>
 
 <style lang="scss">
-  nav.navbar, .footer { display: none !important; }
   #router-view {
     height: 100vh;
     padding: 0 !important;

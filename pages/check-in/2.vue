@@ -1,6 +1,5 @@
 <template>
-  <div v-if="loading" />
-  <div v-else class="form">
+  <div class="form">
     <div class="top-buttons">
       <b-btn :to="{ name: 'check-in' }">&lt;</b-btn>
       <b-btn :disabled="notReadyNext" @click="next">&gt;</b-btn>
@@ -29,7 +28,6 @@
     layout: 'bare',
     data() {
       return {
-        loading: true,
         name: '',
         email: '',
         userType: '',
@@ -51,15 +49,13 @@
       },
     },
     async mounted() {
+      this.set_noload('drift');
+      this.set_hide('footer');
+      this.set_hide('signIn');
       this.clearUserData();
-      const ret = await this.$apollo.query({ query: auth.query.me })
-      if (ret && ret.data && ret.data.me) {
-        this.name = ret.data.me.name;
-        this.email = ret.data.me.email;
-      }
-      this.loading = false;
     },
     methods: {
+      ...mapMutations('layout', ['set_show', 'set_hide', 'set_load', 'set_noload']),
       ...mapMutations('checkin', ['setName', 'setEmail', 'setUserType', 'clearUserData']),
 
       next() {
@@ -78,7 +74,6 @@
 </script>
 
 <style lang="scss">
-  nav.navbar, .footer { display: none !important; }
   #router-view {
     height: 100vh;
     padding: 0 !important;
