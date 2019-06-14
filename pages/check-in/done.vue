@@ -17,7 +17,7 @@
 
 <script>
   import VueMarkdown from 'vue-markdown';
-  import { mapState } from 'vuex'
+  import { mapState, mapMutations } from 'vuex'
   import * as misc from '@/graphql/misc';
 
   export default {

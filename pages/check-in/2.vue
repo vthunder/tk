@@ -54,7 +54,7 @@
         return true;
       },
     },
-    async mounted() {
+    mounted() {
       this.set_noload('drift');
       this.set_hide('footer');
       this.set_hide('signIn');
