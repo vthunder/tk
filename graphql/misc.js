@@ -82,6 +82,7 @@ query CalendarEvents($id: Int, $slug: String) {
     slug
     image_header
     all_day
+    sku_id
     start
     end
     duration
