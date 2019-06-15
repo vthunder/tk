@@ -48,7 +48,7 @@
         userData: state => state.userData,
       }),
       notReadyNext() {
-        if (this.userType === 'child') {
+        if (this.userType && this.userType === 'child') {
           if (this.name && this.email && this.childName) return false;
         } else if (this.name && this.email && this.userType) return false;
         return true;
