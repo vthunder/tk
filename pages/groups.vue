@@ -191,20 +191,20 @@
           <h2 align="center">Rental Options</h2>
           <b-card-group deck>
             <b-card
-              title="Partial space rental"
-              sub-title="$75-140/hr + $50-100 cleaning" class="mt-2">
+              title="Shared use rental"
+              sub-title="$35/person" class="mt-2">
               <p>
                 Get access to our space for your team-building
                 activity, pop-up demo, class, or other
                 activity / gathering.</p>
               <p>
                 We'll reserve cooking workspaces and seating
-                space as needed, for groups from 10 to 20
+                space as needed, for groups up to 20
                 people.</p>
             </b-card>
             <b-card
               title="Full space rental"
-              sub-title="$200/hr + $150 cleaning" class="mt-2">
+              sub-title="$950/5h (10-3PM or 4-9PM)" class="mt-2">
               <p>
                 Exclusive use for your private party, product
                 launch, or other activity/celebration.</p>
