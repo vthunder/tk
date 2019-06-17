@@ -98,7 +98,6 @@ module.exports = {
   build: {
     parallel: true,
     cache: true,
-    transpile: ['flatted'],
     /*
     ** You can extend webpack config here
     */
