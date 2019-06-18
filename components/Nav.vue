@@ -34,7 +34,6 @@
     data() {
       return {
         me: '',
-        kiosk: this.$route.query.kiosk? true : false,
       };
     },
     apollo: {
@@ -46,7 +45,7 @@
         },
       },
     },
-    computed: mapState('layout', ['show']),
+    computed: mapState('layout', ['show', 'kiosk']),
     mounted() {
       this.$root.$on('tk::nav::subpage', this.updateSubpage);
     },

@@ -17,9 +17,9 @@
       </div>
     </div>
     <div class="bottom-half">
-      <div v-if="kiosk" class="qr-code">
+      <div v-show="$store.state.layout.kiosk" class="qr-code">
         <img src="/images/Check in QR code.png">
-        &lt;---- Scan me with the camera app on your phone!
+        <span>&lt;---- Scan me with the camera app on your phone!</span>
       </div>
     </div>
   </div>
@@ -33,24 +33,26 @@
     data() {
       return {
         me: null,
-        kiosk: this.$route.query.kiosk? true : false,
       };
     },
     apollo: {
       me: auth.query.me,
     },
+
     mounted() {
-      this.set_noload('drift');
-      this.set_hide('footer');
-      if (this.kiosk) {
-        this.set_hide('signIn');
-      } else {
-        this.set_show('signIn');
-      }
+      this.kioskSetup();
+      setTimeout(() => { this.kioskSetup(); }, 1000); // FIXME: uuuuuuggggghhhh
     },
+
     methods: {
-      ...mapMutations('layout', ['set_show', 'set_hide', 'set_load', 'set_noload']),
+      ...mapMutations('layout', ['setKiosk', 'setShow', 'setHide', 'setLoad', 'setNoload']),
       ...mapMutations('checkin', ['setName', 'setEmail', 'setUserType', 'clearUserData']),
+
+      kioskSetup() {
+        if (this.$route.query.kiosk) {
+          this.setKiosk(parseInt(this.$route.query.kiosk, 10));
+        }
+      },
 
       goto3() {
         this.setName(this.me.name);

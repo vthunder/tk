@@ -44,9 +44,9 @@
       }),
     },
     async mounted() {
-      this.set_noload('drift');
-      this.set_hide('footer');
-      this.set_hide('signIn');
+      this.setNoload('drift');
+      this.setHide('footer');
+      this.setHide('signIn');
       try {
         const ret = await this.$apollo.query({
           query: misc.query.get_legal_terms,
@@ -62,7 +62,7 @@
       }
     },
     methods: {
-      ...mapMutations('layout', ['set_show', 'set_hide', 'set_load', 'set_noload']),
+      ...mapMutations('layout', ['setShow', 'setHide', 'setLoad', 'setNoload']),
       ...mapMutations('checkin', ['setAgreedToTerms']),
 
       async agree() {

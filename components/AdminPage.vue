@@ -27,10 +27,10 @@ export default {
     RequireSignIn,
   },
   mounted() {
-    this.set_noload('drift');
-    this.set_hide('footer');
+    this.setNoload('drift');
+    this.setHide('footer');
   },
-  methods: mapMutations('layout', ['set_show', 'set_hide', 'set_load', 'set_noload']),
+  methods: mapMutations('layout', ['setHide', 'setNoload']),
 };
 </script>
 

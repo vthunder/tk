@@ -37,13 +37,13 @@
       }
     },
     methods: {
-      ...mapMutations('layout', ['set_show', 'set_hide', 'set_load', 'set_noload']),
+      ...mapMutations('layout', ['setShow', 'setHide', 'setLoad', 'setNoload']),
       resetDefaults() {
-        this.set_show('signIn');
+        this.setShow('signIn');
         if (process.client && process.env.NODE_ENV === 'production') {
-          this.set_load('drift');
+          this.setLoad('drift');
         } else {
-          this.set_noload('drift');
+          this.setNoload('drift');
         }
       },
     },

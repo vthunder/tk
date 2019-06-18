@@ -1,4 +1,5 @@
 export const state = () => ({
+  kiosk: false,
   show: {
     signIn: true,
     footer: true,
@@ -8,16 +9,19 @@ export const state = () => ({
   },
 })
 export const mutations = {
-  set_show(state, prop) {
+  setKiosk(state, newValue) {
+    state.kiosk = newValue;
+  },
+  setShow(state, prop) {
     state.show[prop] = true;
   },
-  set_hide(state, prop) {
+  setHide(state, prop) {
     state.show[prop] = false;
   },
-  set_load(state, prop) {
+  setLoad(state, prop) {
     state.load[prop] = true;
   },
-  set_noload(state, prop) {
+  setNoload(state, prop) {
     state.load[prop] = false;
   },
 }
