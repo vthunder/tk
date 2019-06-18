@@ -43,28 +43,31 @@
     },
     watch: {
       'userData.email': {
-        async handler(newVal) {
-          if (newVal) {
-            const ret = await this.$apollo.query({
-              query: misc.query.mailing_list_check,
-              variables: {
-                email: this.userData.email,
-              }
-            });
-            if (ret && ret.data) {
-              this.subscribed = ret.data.mailing_list_check;
-            }
-          }
-        },
+        handler(newVal) { this.checkSubscription(); },
       },
     },
     mounted() {
       this.setNoload('drift');
       this.setHide('footer');
       this.setHide('signIn');
+      this.checkSubscription();
     },
     methods: {
       ...mapMutations('layout', ['setShow', 'setHide', 'setLoad', 'setNoload']),
+
+      async checkSubscription() {
+        if (!this.userData || !this.userData.email) return;
+
+        const ret = await this.$apollo.query({
+          query: misc.query.mailing_list_check,
+          variables: {
+            email: this.userData.email,
+          }
+        });
+        if (ret && ret.data) {
+          this.subscribed = ret.data.mailing_list_check;
+        }
+      },
 
       subscribe() {
         this.subSuccess = null;
