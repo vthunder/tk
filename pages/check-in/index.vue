@@ -40,6 +40,7 @@
     },
 
     mounted() {
+      this.setNoLoad('drift');
       this.kioskSetup();
       setTimeout(() => { this.kioskSetup(); }, 1000); // FIXME: uuuuuuggggghhhh
     },

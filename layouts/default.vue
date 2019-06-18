@@ -22,7 +22,7 @@
       AuthModal,
       WelcomeModal,
     },
-    computed: mapState('layout', ['show', 'load']),
+    computed: mapState('layout', ['show', 'load', 'kiosk']),
     watch: {
       $route() {
         this.resetDefaults();
@@ -32,7 +32,7 @@
       this.resetDefaults();
     },
     mounted() {
-      if (this.load.drift) {
+      if (this.load.drift && !this.kiosk) {
         require('@/static/js/drift.js');
       }
     },
