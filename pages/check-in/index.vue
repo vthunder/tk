@@ -2,7 +2,7 @@
   <div>
     <div class="top-half">
       <no-ssr>
-        <qrcode-stream :camera="{ facingMode: 'environment' }" @decode="onDecode"/>
+        <qrcode-stream :camera="{ facingMode: 'front' }" @decode="onDecode"/>
       </no-ssr>
       <div class="logo"><img src="/images/Logo - orange - url.png"></div>
       <div v-if="me.name">
@@ -134,8 +134,8 @@
     }
 
     .qrcode-stream__camera {
-      height: 200px;
-      width: 200px;
+      height: 0px;
+      width: 0px;
     }
 
     .check-in-button {
