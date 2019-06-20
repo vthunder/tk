@@ -134,8 +134,8 @@
     }
 
     .qrcode-stream__camera {
-      height: 0px;
-      width: 0px;
+      height: 200px;
+      width: 200px;
     }
 
     .check-in-button {
