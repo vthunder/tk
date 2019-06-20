@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 import RequireSignIn from '@/components/RequireSignIn.vue';
 
 export default {
