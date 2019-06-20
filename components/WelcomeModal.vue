@@ -10,21 +10,11 @@
 
 <script>
   export default {
-    data() {
-      return {
-        next: { name: 'index' },
-      };
-    },
-    mounted() {
-      // XXX hack: this is checking whether nextRoute happens to be set
-      // when AuthModal calls us (true in the RequireSignIn path)
-      if (!localStorage.nextRoute) {
-        this.next = null;
-      }
-    },
     methods: {
       goToAccount() {
-        if (this.next) this.$router.push(this.next);
+        // if nextRoute is set do nothing, our caller will redirect
+        if (localStorage && localStorage.nextRoute) return;
+        this.$router.push({ name: 'index' });
       },
     },
   };
