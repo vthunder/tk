@@ -2,7 +2,7 @@
   <div>
     <div class="top-half">
       <no-ssr>
-        <qrcode-stream v-if="kiosk" :camera="{ facingMode: 'environment' }" @decode="onDecode"/>
+        <qrcode-stream :camera="{ facingMode: 'environment' }" @decode="onDecode"/>
       </no-ssr>
       <div class="logo"><img src="/images/Logo - orange - url.png"></div>
       <div v-if="me.name">
