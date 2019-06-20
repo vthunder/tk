@@ -251,7 +251,15 @@ mutation ClassInterest($email: String!, $master_id: Int!) {
 `,
   check_in_qr_scan: gql`
 mutation CheckInQrScan($qr_data: String!) {
-  check_in_qr_scan(qr_data: $qr_data)
+  check_in_qr_scan(qr_data: $qr_data) {
+    type
+    name
+    email
+    purchase_name
+    purchase_email
+    membership_status
+    consumable_status
+  }
 }
 `,
 };

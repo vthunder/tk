@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="top-half">
+      <no-ssr>
+        <qrcode-stream v-if="kiosk" :camera="{ facingMode: 'environment' }" @decode="onDecode"/>
+      </no-ssr>
       <div class="logo"><img src="/images/Logo - orange - url.png"></div>
       <div v-if="me.name">
         <div class="check-in-button">
@@ -17,9 +20,8 @@
       </div>
     </div>
     <div class="bottom-half">
-      <div v-show="$store.state.layout.kiosk" class="qr-code">
+      <div v-show="kiosk" class="qr-code">
         <img src="/images/Check in QR code.png">
-        <span>&lt;---- Scan me with the camera app on your phone!</span>
       </div>
     </div>
   </div>
@@ -28,8 +30,16 @@
 <script>
   import { mapState, mapMutations } from 'vuex'
   import * as auth from '@/graphql/auth';
+  import * as misc from '@/graphql/misc';
+
+  const QrcodeStream =
+    process.client ? require('vue-qrcode-reader').QrcodeStream : undefined;
 
   export default {
+    components: {
+      QrcodeStream,
+    },
+
     data() {
       return {
         me: null,
@@ -38,6 +48,8 @@
     apollo: {
       me: auth.query.me,
     },
+
+    computed: mapState('layout', ['kiosk']),
 
     mounted() {
       this.setNoload('drift');
@@ -52,6 +64,24 @@
       kioskSetup() {
         if (this.$route.query.kiosk) {
           this.setKiosk(parseInt(this.$route.query.kiosk, 10));
+        }
+      },
+
+      async onDecode(str) {
+        const { data } = await this.$apollo.mutate({
+          mutation: misc.mutation.check_in_qr_scan,
+          variables: { qr_data: str },
+        });
+
+        if (data.check_in_qr_scan) {
+          const ret = data.check_in_qr_scan;
+
+          if (ret.membership_status && ret.name && ret.email) {
+            this.setName(ret.name);
+            this.setEmail(ret.email);
+            this.setUserType('member');
+            this.$router.push({ name: 'check-in-3' });
+          }
         }
       },
 
@@ -104,7 +134,8 @@
     }
 
     .qrcode-stream__camera {
-      display: none;
+      height: 0px;
+      width: 0px;
     }
 
     .check-in-button {
