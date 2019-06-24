@@ -124,10 +124,13 @@
             if (this.$route.query.id)
               this.which_event = this.$route.query.id;
             else {
-              const future = this.calendar_events.filter(e => moment(e.start).isAfter())
+              const future = this.calendar_events
+                                 .filter(e => (e.start))
+                                 .filter(e => moment(e.start).isAfter())
               const open_future = future.filter(e => e.status === 'open');
               if (open_future[0]) this.which_event = open_future[0].id;
               else if (future[0]) this.which_event = future[0].id;
+              else if (this.calendar_events.length) this.which_event = this.calendar_events[0].id;
               else this.which_event = null;
             }
           }
@@ -190,6 +193,7 @@
       event_opts() {
         return (this.calendar_events||[])
           .filter(e => e.status !== 'closed')
+          .filter(e => e.start !== null)
           .map((e) => {
             // fixme: add all_day support
             const start = moment.utc(e.start).format('dddd MMMM Do h:mm a');
