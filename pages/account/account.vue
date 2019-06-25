@@ -2,6 +2,11 @@
   <div v-if="$apollo.loading" class="loading"><h3>Loading...</h3></div>
   <div v-else class="container section">
     <StorePage>
+      <div v-if="qrCode">
+        <p>Use this code to check in at Tinker Kitchen:</p>
+        <qrcode-vue :value="qrCode" class="mb-2" />
+        <hr>
+      </div>
       <p v-if="class_passes.length > 0">You have {{ class_passes.length }} class
         {{ class_passes.length | pluralize('pass', 'passes') }}. You
         can claim passes via <b-link :to="{ name: 'calendar' }">our
@@ -46,12 +51,14 @@
 </template>
 
 <script>
+  import QrcodeVue from 'qrcode.vue';
   import StorePage from '@/components/MemberPage.vue';
   import * as auth from '@/graphql/auth';
   import * as products from '@/graphql/products';
 
   export default {
     apollo: {
+      me: auth.query.me,
       class_passes: {
         query: products.query.user_passes,
         variables: { type: 'class' },
@@ -69,15 +76,20 @@
     },
     components: {
       StorePage,
+      QrcodeVue,
     },
     data() {
       return {
+        me: {},
         old_password: null,
         password: null,
         pwState: null,
       };
     },
     computed: {
+      qrCode() {
+        return 'https://tinkerkitchen.org/qr/token/' + this.me.qr_token;
+      },
     },
     mounted() {
       this.pwState = null;

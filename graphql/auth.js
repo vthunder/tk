@@ -14,6 +14,7 @@ query Me {
     has_stripe_customer
     has_previous_stripe_ids
     in_mailing_list
+    qr_token
   }
 }
 `,
