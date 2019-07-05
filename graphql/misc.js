@@ -81,6 +81,7 @@ query CalendarEvents($id: Int, $slug: String) {
     master_id
     calendar_hide
     title
+    page_title
     slug
     image_header
     all_day
@@ -109,6 +110,7 @@ query CalendarEventMasters {
     featured
     calendar_hide
     title
+    page_title
     slug
     image_header
     all_day
