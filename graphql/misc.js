@@ -12,6 +12,7 @@ query CalendarEvent($id: Int!) {
     id
     master_id
     title
+    page_title
     slug
     image_header
     all_day
@@ -38,6 +39,7 @@ query CalendarMaster($id: Int, $slug: String) {
     id
     featured
     title
+    page_title
     slug
     image_header
     all_day
