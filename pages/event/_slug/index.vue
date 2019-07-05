@@ -3,7 +3,7 @@
     <b-row class="mt-2">
       <b-col md="7">
         <b-img v-if="event.image_header" :src="event.image_header" fluid />
-        <h1 class="text-left">{{ event.title }}</h1>
+        <h1 v-if="event.page_title" class="text-left">{{ event.page_title }}</h1>
         <div class="event-description mt-4">
           <vue-markdown :source="event.description" />
         </div>
