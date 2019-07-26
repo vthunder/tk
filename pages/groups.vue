@@ -182,9 +182,8 @@
                 easily adapted to support different uses.
               </p>
               <ul>
-                <li>40 seated (for a talk)</li>
-                <li>20-25 seated with tables</li>
-                <li>20-35 in the kitchen (depending on the activity)</li>
+                <li>~35 comfortably seated with tables</li>
+                <li>~45-50 cocktail style</li>
               </ul>
             </b-col>
           </b-row>
