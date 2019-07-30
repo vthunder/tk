@@ -78,9 +78,9 @@
               problem! Just order something in (e.g., pizza)
               and eat in our dining area.</li>
             <li>
-              Events larger than 20 people are booked as private
-              events at no extra cost. Smaller events can be made
-              private for an additional buy-out cost.</li>
+              Our buy-out minimum for private events (where our whole
+              space is exclusive to you) is $1600. Smaller events can
+              add on extras, or pay the difference to make it private.</li>
           </ul>
 
           <h2 class="text-center">Ready to book?</h2>
