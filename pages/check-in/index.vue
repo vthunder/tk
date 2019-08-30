@@ -1,9 +1,6 @@
 <template>
   <div>
     <div class="top-half">
-      <no-ssr>
-        <qrcode-stream :camera="{ facingMode: 'front' }" @decode="onDecode"/>
-      </no-ssr>
       <div class="logo"><img src="/images/Logo - orange - url.png"></div>
       <div v-if="me.name">
         <div class="check-in-button">
@@ -32,12 +29,8 @@
   import * as auth from '@/graphql/auth';
   import * as misc from '@/graphql/misc';
 
-  const QrcodeStream =
-    process.client ? require('vue-qrcode-reader').QrcodeStream : undefined;
-
   export default {
     components: {
-      QrcodeStream,
     },
 
     data() {
@@ -64,24 +57,6 @@
       kioskSetup() {
         if (this.$route.query.kiosk) {
           this.setKiosk(parseInt(this.$route.query.kiosk, 10));
-        }
-      },
-
-      async onDecode(str) {
-        const { data } = await this.$apollo.mutate({
-          mutation: misc.mutation.check_in_qr_scan,
-          variables: { qr_data: str },
-        });
-
-        if (data.check_in_qr_scan) {
-          const ret = data.check_in_qr_scan;
-
-          if (ret.membership_status && ret.name && ret.email) {
-            this.setName(ret.name);
-            this.setEmail(ret.email);
-            this.setUserType('member');
-            this.$router.push({ name: 'check-in-3' });
-          }
         }
       },
 
@@ -131,11 +106,6 @@
         height: 40vh;
         object-fit: contain;
       }
-    }
-
-    .qrcode-stream__camera {
-      height: 0px;
-      width: 0px;
     }
 
     .check-in-button {
