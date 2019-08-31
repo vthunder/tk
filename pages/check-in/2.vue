@@ -10,10 +10,6 @@
       <b-form-input v-model="name" />
       <h2 class="mt-4">Email address</h2>
       <b-form-input v-model="email" type="email" />
-      <h2 class="mt-4">I am... (select one)</h2>
-      <b-select v-model="userType" :options="userTypeOpts" />
-      <h2 v-if="userType==='child'" class="mt-4">My child's name</h2>
-      <b-form-input v-if="userType==='child'" v-model="childName" />
     </div>
 
     <div class="next-button">
@@ -48,9 +44,7 @@
         userData: state => state.userData,
       }),
       notReadyNext() {
-        if (this.userType && this.userType === 'child') {
-          if (this.name && this.email && this.childName) return false;
-        } else if (this.name && this.email && this.userType) return false;
+        if (this.name && this.email) return false;
         return true;
       },
     },
@@ -69,7 +63,7 @@
         this.setName(this.name);
         this.setChildName(this.childName);
         this.setEmail(this.email);
-        this.setUserType(this.userType);
+        // this.setUserType(this.userType);
         this.$router.push({ name: 'check-in-3' });
       },
     },
