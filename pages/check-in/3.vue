@@ -8,7 +8,7 @@
     <b-row align-h="center">
       <b-col sm="10">
         <iframe
-          :src="'/vendor/pdfjs/web/viewer.html?file=/files/' + terms[current] + '#scrollTop=0'"
+          :src="'/vendor/pdfjs/web/viewer.html?file=/files/' + terms[current] + '.pdf#scrollTop=0'"
           class="tos-viewer" />
       </b-col>
     </b-row>
@@ -34,7 +34,7 @@
         loading: true,
         current: 0,
         terms: [
-          'Liability_Waiver_and_Media_Release_2018_11_10.pdf',
+          'Liability_Waiver_and_Media_Release_2018_11_10',
         ],
       };
     },
