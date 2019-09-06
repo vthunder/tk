@@ -54,7 +54,7 @@
                 </b-card>
               </b-card-group>
               <br>
-              <b-card-group>
+              <b-card-group v-if="!me.name">
                 <b-card header="Register to get started">
                   <AuthForm :next_route="next_route" :next_action="next_action" />
                   <b-button
