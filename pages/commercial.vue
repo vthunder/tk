@@ -9,7 +9,7 @@
           <strong>are</strong> a commercial kitchen
           facility. Whether you recently graduated from a
           culinary degree program and are looking for a
-          place to practice your skills and try our new
+          place to practice your skills and try out new
           ideas, or a serial entrepreneur looking to do
           focused R&D and get a new product to market,
           Tinker Kitchen is here for you.</p>

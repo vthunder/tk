@@ -69,16 +69,16 @@
 
         <h3>What is your cancellation policy?</h3>
         <p>
-	  We have a standard 30-day cancellation policy:
-	  <ul>
-	    <li>Cancellations 30+ days from the event time receive a
-	      full refund.</li>
-	    <li>Cancellations between 7 and 30 prior to the event
-	      receive a 50% refund.</li>
-	    <li>Cancellations less than 7 days before the event not
-	      refundable.</li>
-	  </ul>
-	</p>
+          We have a standard 30-day cancellation policy:
+          <ul>
+            <li>Cancellations 30+ days from the event time receive a
+            full refund.</li>
+            <li>Cancellations between 7 and 30 prior to the event
+            receive a 50% refund.</li>
+            <li>Cancellations less than 7 days before the event not
+            refundable.</li>
+          </ul>
+        </p>
       </b-col>
     </b-row>
   </b-container>
