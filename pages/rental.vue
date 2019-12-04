@@ -111,6 +111,8 @@
           We'll reserve cooking workspaces and seating
           space as needed, for groups up to 20
           people.</p>
+	<p>Tinker Kitchen remains open to the public, you
+	  will share the space with them.</p>
       </b-card>
       <b-card
         title="Full space rental"
