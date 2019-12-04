@@ -26,7 +26,7 @@
       <group-activity-card
         title="Pasta Extrusion"
         img="/images/Pasta.jpg"
-        price="$80">
+        price="$90">
         <p>
           Learn to make pasta from scratch using a commercial
           extruder! We’ll make different shapes, colors, and an
