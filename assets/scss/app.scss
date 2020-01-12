@@ -2,34 +2,29 @@
 //@import "debug";
 
 // Typography
-
-@mixin fface($path, $family, $type: '', $weight: 400, $svg: '', $style: normal) {
+@mixin load-otf($family, $weight: 300, $type: 'Regular', $style: normal) {
   @font-face {
     font-family: $family;
-    @if $svg == '' {
-      // with OTF without SVG and EOT
-      src: url('#{$path}#{$type}.otf') format('opentype'), url('#{$path}#{$type}.woff2') format('woff2'), url('#{$path}#{$type}.woff') format('woff'), url('#{$path}#{$type}.ttf') format('truetype');
-    } @else {
-      // traditional src inclusions
-      src: url('#{$path}#{$type}.eot');
-      src: url('#{$path}#{$type}.eot?#iefix') format('embedded-opentype'), url('#{$path}#{$type}.woff2') format('woff2'), url('#{$path}#{$type}.woff') format('woff'), url('#{$path}#{$type}.ttf') format('truetype'), url('#{$path}#{$type}.svg##{$svg}') format('svg');
-    }
+    src: url('/fonts/#{$family}#{$weight}-#{$type}.otf') format('opentype');
     font-weight: $weight;
     font-style: $style;
   }
 }
 
 // Local Fonts
-@include fface('/assets/fonts/Museo', Museo, '-Regular', 300);
-@include fface('/assets/fonts/Museo', Museo, '-Regular', 500);
-@include fface('/assets/fonts/Museo', Museo, '-Regular', 700);
-@include fface('/assets/fonts/Museo', Museo, '-Regular', 900);
+@include load-otf('Museo', 300);
+@include load-otf('Museo', 500);
+@include load-otf('Museo', 700);
+@include load-otf('Museo', 900);
 
 // Google Fonts
 @import url(http://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700);
 
+$font-museo: 'Museo', sans-serif;
+$font-quicksand: 'Quicksand', sans-serif;
+
 html {
-    font-family: Quicksand;
+    font-family: $font-quicksand;
     font-size: .875rem; // 14px
     font-weight: 300;
     @media (min-width: 576px) { font-size: 1rem; }
@@ -40,17 +35,17 @@ html {
 }
 
 p, span, div {
-    font-family: Museo;
+    font-family: $font-museo;
     font-weight: 300;
 }
 p strong, span strong, div strong {
     font-weight: 500;
 }
 input, button {
-    font-family: Quicksand;
+    font-family: $font-quicksand;
 }
 h1 {
-    font-family: Museo;
+    font-family: $font-museo;
     font-size: 2rem;
     font-weight: 900;
     line-height: 2.5rem;
@@ -61,25 +56,25 @@ h1 {
     }
 }
 h2 {
-    font-family: Quicksand;
+    font-family: $font-quicksand;
     font-size: 1.5rem;
     font-weight: 600;
     @media (min-width: 768px) { font-size: 1.75rem; }
 }
 h3 {
-    font-family: Museo;
+    font-family: $font-museo;
     font-size: 1.2rem;
     font-weight: 500;
     @media (min-width: 768px) { font-size: 1.4rem; }
 }
 h4 {
-    font-family: Quicksand;
+    font-family: $font-quicksand;
     font-size: 1.1rem;
     font-weight: 600;
     @media (min-width: 768px) { font-size: 1.2rem; }
 }
 h5 {
-    font-family: Quicksand;
+    font-family: $font-quicksand;
     font-size: 1rem;
     font-weight: 600;
 }
