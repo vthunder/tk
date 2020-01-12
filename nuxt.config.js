@@ -28,7 +28,6 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: '//use.typekit.net/uod5pmy.css' },
     ],
     script: [
       { src: `https://polyfill.io/v3/polyfill.min.js?features=${POLYFILL_FEATURES}`, body: true },
