@@ -30,6 +30,8 @@ query CalendarEvent($id: Int!) {
     sidebar_pre_text
     sidebar_post_text
     sku_id
+    max_size
+    unit_descriptor
   }
 }
 `,
@@ -49,6 +51,7 @@ query CalendarMaster($id: Int, $slug: String) {
     price
     member_price
     max_size
+    unit_descriptor
     book_event_label
     ext_book_url
     ext_member_discount_code
@@ -120,6 +123,7 @@ query CalendarEventMasters {
     price
     member_price
     max_size
+    unit_descriptor
     ext_book_url
     ext_member_discount_code
     events {

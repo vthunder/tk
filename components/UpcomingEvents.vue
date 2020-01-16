@@ -26,7 +26,7 @@
                 <p>{{ event.short_description }}</p>
                 <p class="price">
                   {{ event.disp_price }}<br>
-                  <span class="perperson">/person</span>
+                  <span class="perperson">/{{ event.unit_descriptor || 'person'  }}</span>
                 </p>
               </b-card>
             </nuxt-link>
@@ -48,7 +48,7 @@
                 <p>{{ event.short_description }}</p>
                 <p class="price">
                   {{ event.disp_price }}<br>
-                  <span class="perperson">/person</span>
+                  <span class="perperson">/{{ event.unit_descriptor || 'person' }}</span>
                 </p>
               </b-card>
             </nuxt-link>
