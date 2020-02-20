@@ -37,6 +37,7 @@
             <li><b-link href="https://instagram.com/tinkerkitch/">Instagram</b-link></li>
             <li><b-link href="https://twitter.com/tinkerkitch">Twitter</b-link></li>
             <li><b-link href="https://www.facebook.com/tinkerkitchen">Facebook</b-link></li>
+            <li><b-link href="https://join.slack.com/t/tinkerkitchen/shared_invite/enQtOTYwMDE1MDIxMzE2LWMwMjJjMzNiNmUyYWFjNDY5NjQ1OTRmZGNhOWE1NTRjZDgyYzI5YjVmN2Y1ZTdhOTc1MThjYzRjYTEyMDdkMjc">Join our Slack</b-link></li>
             <li><b-link href="https://spectrum.chat/tinker-kitchen">Community Forum</b-link></li>
           </ul>
         </b-col>
