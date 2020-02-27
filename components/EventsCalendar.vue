@@ -9,7 +9,7 @@
           <b-row align-v="center">
             <b-col sm="6">
               <h5>Click on a date to make a reservation.</h5>
-              <div>Open Hours: 10am-9pm Wed-Mon (closed Tue)</div>
+              <div>Open Hours: noon-6pm Wed-Mon (closed Tue)</div>
             </b-col>
             <b-col sm="6" class="text-right">
               Add to your calendar:

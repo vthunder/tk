@@ -26,7 +26,7 @@
 
         <p>
           <strong>Address:</strong>&nbsp;3233 22nd St<br>
-          <strong>Hours:</strong>&nbsp;10 a.m.-9 p.m. Monday,
+          <strong>Hours:</strong>&nbsp;noon-6 p.m. Monday,
           Wednesday-Sunday. Closed Tuesday (see also
           our <b-link :to="{ name: 'calendar' }">calendar</b-link>).</p>
 
