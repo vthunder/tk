@@ -8,7 +8,6 @@
           <p class="text-center">
             Get a day pass and join us at our gorgeous
             1700sqft space for a day!</p>
-          <p class="text-center">$35/day per person (members: only $25!)<br>
           </p>
         </b-col>
         <b-col md="8">

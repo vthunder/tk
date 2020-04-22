@@ -11,61 +11,6 @@
             kitchen! Join us at our gorgeous 1700sqft space
             for all your personal cooking projects.</p>
         </b-col>
-        <b-col md="6">
-          <div class="text-center">
-            <div v-if="me.is_member">
-              <b-card>
-                Thanks for being a member!
-              </b-card>
-            </div>
-            <div v-else>
-              <b-card-group v-if="me.is_free_member">
-                <b-card header="Pay Monthly">
-                  <p><strike class="text-muted">$150/month</strike>
-                    $125/month (Backer discount!)</p>
-                  <b-button
-                    v-if="me.name"
-                    variant="primary"
-                    @click="signup(monthly, 'KS_CONVERT')">Sign up</b-button>
-                </b-card>
-                <b-card header="Pay Yearly">
-                  <p><strike class="text-muted">$125/month</strike>
-                    $108/month (Backer discount!)</p>
-                  <b-button
-                    v-if="me.name"
-                    variant="primary"
-                    @click="signup(yearly, 'KS_CONVERT')">Sign up</b-button>
-                </b-card>
-              </b-card-group>
-              <b-card-group v-else>
-                <b-card header="Pay Monthly">
-                  <p>$150/month</p>
-                  <b-button
-                    v-if="me.name"
-                    variant="primary"
-                    @click="signup(monthly)">Sign up</b-button>
-                </b-card>
-                <b-card header="Pay Yearly">
-                  <p>$125/month</p>
-                  <b-button
-                    v-if="me.name"
-                    variant="primary"
-                    @click="signup(yearly)">Sign up</b-button>
-                </b-card>
-              </b-card-group>
-              <br>
-              <b-card-group v-if="!me.name">
-                <b-card header="Register to get started">
-                  <AuthForm :next_route="next_route" :next_action="next_action" />
-                  <b-button
-                    v-if="me.name"
-                    variant="primary"
-                    @click="signup(yearly)">Sign up</b-button>
-                </b-card>
-              </b-card-group>
-            </div>
-          </div>
-        </b-col>
       </b-row>
 
       <h5 class="mt-4 mb-4">Memberships include:</h5>
