@@ -22,7 +22,7 @@
     "core-js": "^2.6.9",
     "cross-env": "^5.2.0",
     "graphql-tag": "^2.10.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "json-logic-js": "^1.2.2",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
